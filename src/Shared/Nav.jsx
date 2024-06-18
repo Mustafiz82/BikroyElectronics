@@ -158,7 +158,7 @@ const Nav = () => {
 									{" "}
 									<VscAccount className="text-xl "></VscAccount>
 								</span>{" "}
-								<Link to="/myaccount">Manage My account</Link>{" "}
+								<Link to="/Dashboard/myaccount">Manage My account</Link>{" "}
                                 </div>
 							</li>
 							<li className=" ">
@@ -168,7 +168,7 @@ const Nav = () => {
 									<FiShoppingBag 
                                     className="text-xl "></FiShoppingBag>
 								</span>{" "}
-								<Link to="/myorders">My Order</Link>{" "}
+								<Link to="/Dashboard/myorders">My Order</Link>{" "}
                                 </div>
 							</li>
 							<li className=" ">
@@ -177,7 +177,7 @@ const Nav = () => {
 									{" "}
 									<TiDeleteOutline className="text-xl "></TiDeleteOutline>
 								</span>{" "}
-								<Link to="/mycancellation"> My Cancellation</Link>{" "}
+								<Link to="/Dashboard/mycancellation"> My Cancellation</Link>{" "}
                                 </div>
 							</li>
 							

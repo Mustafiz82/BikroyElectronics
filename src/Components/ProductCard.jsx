@@ -23,7 +23,7 @@ const ProductCard = () => {
 					alt=""
 				/>
                 </div>
-				<button className="flex rounded-b-md rounded-none w-full text-white  bg-black btn ">
+				<button className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
 					<IoCartOutline className="text-xl mr-2" />
 					<h1>Add to Cart </h1>
 				</button>
@@ -31,7 +31,7 @@ const ProductCard = () => {
                 <IoEyeOutline className="text-xl" />
 
                 </button>
-                <button className="bg-white p-2 top-16 right-3 rounded-full absolute">
+                <button className="bg-white p-2  text-black top-16 right-3 rounded-full absolute">
 				<GoHeart  className=" text-xl"/>
 
                 </button>

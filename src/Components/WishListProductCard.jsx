@@ -12,7 +12,7 @@ const WishListProductCard = () => {
 					className="bg-[#F5F5F5] mx-auto"
 					alt=""
 				/>
-				<button className="flex rounded-b-md rounded-none w-full text-white  bg-black btn ">
+				<button className="flex rounded-b-md rounded-none w-full text-white  bg-black hover:text-black btn ">
 					<IoCartOutline className="text-xl mr-2" />
 					<h1>Add to Cart </h1>
 				</button>
