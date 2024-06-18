@@ -144,13 +144,13 @@ const Nav = () => {
 						<IoCartOutline />
 					</NavLink>
 
-					<div className="dropdown dropdown-end">
+					<div className="dropdown  dropdown-end">
 						<div tabIndex={0} role="button" className="">
 							<VscAccount></VscAccount>
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu z-50  space-y-2 text-xl rounded backdrop-blur-[150px] bg-[rgba(0,0,0,0.5)] text-white bg-black menu-sm dropdown-content mt-3 z-[1] p-3 shadow   w-52"
+							className="menu z-10  space-y-2 text-xl rounded backdrop-blur-[150px] bg-[rgba(0,0,0,0.5)] text-white bg-black menu-sm dropdown-content mt-3  p-3 shadow   w-52"
 						>
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
@@ -158,7 +158,7 @@ const Nav = () => {
 									{" "}
 									<VscAccount className="text-xl "></VscAccount>
 								</span>{" "}
-								<Link to="/">Manage My account</Link>{" "}
+								<Link to="/myaccount">Manage My account</Link>{" "}
                                 </div>
 							</li>
 							<li className=" ">
@@ -168,7 +168,7 @@ const Nav = () => {
 									<FiShoppingBag 
                                     className="text-xl "></FiShoppingBag>
 								</span>{" "}
-								<Link to="/">My Order</Link>{" "}
+								<Link to="/myorders">My Order</Link>{" "}
                                 </div>
 							</li>
 							<li className=" ">
@@ -177,19 +177,10 @@ const Nav = () => {
 									{" "}
 									<TiDeleteOutline className="text-xl "></TiDeleteOutline>
 								</span>{" "}
-								<Link to="/"> My Cancellation</Link>{" "}
+								<Link to="/mycancellation"> My Cancellation</Link>{" "}
                                 </div>
 							</li>
-							<li className=" ">
-								<div className="flex gap-2 flex-row">
-                                <span>
-									{" "}
-									<CiStar 
-                                    className="text-xl "></CiStar>
-								</span>{" "}
-								<Link to="/"> My Reviews</Link>{" "}
-                                </div>
-							</li>
+							
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
                                 <span>

@@ -8,6 +8,9 @@ import Login from "../pages/Auth/Login";
 import Regestration from "../pages/Auth/Regestration";
 import Wishlist from "../pages/Wishlist/Wishlist";
 import Cart from "../pages/Cart/Cart";
+import MyAccount from "../pages/MyAccount/MyAccount";
+import MyOrder from "../pages/MyOrder/MyOrder";
+import MyCancellations from "../pages/MyCancellation/MyCancellations";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
         {
           path: "/cart",
           element: <Cart></Cart>
+        },
+        {
+          path: "/myaccount",
+          element: <MyAccount></MyAccount>
+        },
+        {
+          path: "/myorders",
+          element: <MyOrder></MyOrder>
+        },
+        {
+          path: "/mycancellation",
+          element: <MyCancellations></MyCancellations>
         },
       ],
     },
