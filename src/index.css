@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+    padding: 8px 40px;
+    background-color: rgb(219, 68, 68);
+    color: white;
+    /* border-radius: 0%; */
+}
+.btn-primary:hover {
+    background-color: white;
+    border: 1px solid rgb(219, 68, 68);
+    color: rgb(219, 68, 68);
+
+}
+
+.font-inter{
+    font-family: "Inter", sans-serif;
+}
+
+.font-poppins{
+    font-family: "Poppins", sans-serif;}
+
+
+    
