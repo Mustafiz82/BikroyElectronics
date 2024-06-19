@@ -22,6 +22,7 @@ import BestSelling from "../pages/Home/BestSelling";
 import UserList from "../AdminDashboard/UserManagement/UserList";
 import CreateFlashSale from "../AdminDashboard/ProductManagement/CreateFlashSale";
 import BestSellingProducts from "../AdminDashboard/ProductManagement/BestSellingProducts";
+import OrderList from "../AdminDashboard/OrderManagement/OrderList";
 
 
 const router = createBrowserRouter([
@@ -116,6 +117,14 @@ const router = createBrowserRouter([
 			{
 				path: "createflashsale",
 				element: <CreateFlashSale></CreateFlashSale>
+			},
+			{
+				path: "createflashsale",
+				element: <CreateFlashSale></CreateFlashSale>
+			},
+			{
+				path: "orders",
+				element: <OrderList></OrderList>
 			},
 		],
 	},

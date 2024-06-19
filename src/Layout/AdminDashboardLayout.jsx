@@ -96,7 +96,7 @@ const AdminDashboardLayout = () => {
 					
                     </div>
                 </div>
-                <div className="">
+                <div className="mb-5">
                     <h1>User Management</h1>
                     <div className="flex flex-col mt-3 gap-1 ml-8 font-normal">
                     <NavLink
@@ -109,6 +109,32 @@ const AdminDashboardLayout = () => {
 								: ""
 						}
 					>Site users List </NavLink>{" "}
+                    <NavLink
+						to="/admin/myaccount"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+								? "text-primary  "
+								: ""
+						}
+					>customers List </NavLink>{" "}
+					
+                    </div>
+                </div>
+                <div className="">
+                    <h1>Order Management</h1>
+                    <div className="flex flex-col mt-3 gap-1 ml-8 font-normal">
+                    <NavLink
+						to="/admin/orders"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+								? "text-primary  "
+								: ""
+						}
+					>Orders List </NavLink>{" "}
                     <NavLink
 						to="/admin/myaccount"
 						className={({ isActive, isPending }) =>

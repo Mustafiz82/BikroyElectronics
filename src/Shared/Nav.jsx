@@ -154,44 +154,48 @@ const Nav = () => {
 						>
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
-                                <span>
-									{" "}
-									<VscAccount className="text-xl "></VscAccount>
-								</span>{" "}
-								<Link to="/Dashboard/myaccount">Manage My account</Link>{" "}
-                                </div>
+									<span>
+										{" "}
+										<VscAccount className="text-xl "></VscAccount>
+									</span>{" "}
+									<Link to="/Dashboard/myaccount">
+										Manage My account
+									</Link>{" "}
+								</div>
 							</li>
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
-                                <span>
-									{" "}
-									<FiShoppingBag 
-                                    className="text-xl "></FiShoppingBag>
-								</span>{" "}
-								<Link to="/Dashboard/myorders">My Order</Link>{" "}
-                                </div>
+									<span>
+										{" "}
+										<FiShoppingBag className="text-xl "></FiShoppingBag>
+									</span>{" "}
+									<Link to="/Dashboard/myorders">
+										My Order
+									</Link>{" "}
+								</div>
 							</li>
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
-                                <span>
-									{" "}
-									<TiDeleteOutline className="text-xl "></TiDeleteOutline>
-								</span>{" "}
-								<Link to="/Dashboard/mycancellation"> My Cancellation</Link>{" "}
-                                </div>
+									<span>
+										{" "}
+										<TiDeleteOutline className="text-xl "></TiDeleteOutline>
+									</span>{" "}
+									<Link to="/Dashboard/mycancellation">
+										{" "}
+										My Cancellation
+									</Link>{" "}
+								</div>
 							</li>
-							
+
 							<li className=" ">
 								<div className="flex gap-2 flex-row">
-                                <span>
-									{" "}
-									<SlLogout 
-                                    className="text-xl "></SlLogout>
-								</span>{" "}
-								<Link to="/">Logout</Link>{" "}
-                                </div>
+									<span>
+										{" "}
+										<SlLogout className="text-xl "></SlLogout>
+									</span>{" "}
+									<Link to="/">Logout</Link>{" "}
+								</div>
 							</li>
-							
 						</ul>
 					</div>
 				</div>
