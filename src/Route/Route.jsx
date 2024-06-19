@@ -23,6 +23,8 @@ import UserList from "../AdminDashboard/UserManagement/UserList";
 import CreateFlashSale from "../AdminDashboard/ProductManagement/CreateFlashSale";
 import BestSellingProducts from "../AdminDashboard/ProductManagement/BestSellingProducts";
 import OrderList from "../AdminDashboard/OrderManagement/OrderList";
+import ProductDetail from "../pages/ProductDetail/ProductDetail";
+import AllProduct from "../pages/AllProduct/AllProduct";
 
 
 const router = createBrowserRouter([
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
 			{
 				path: "/cart",
 				element: <Cart></Cart>,
+			},
+			{
+				path: "/productdetail",
+				element: <ProductDetail></ProductDetail>
+			},
+			{
+				path: "/allproduct",
+				element: <AllProduct></AllProduct>
 			},
 
 			{

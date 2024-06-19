@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ProductCard from "../../Components/ProductCard";
+import { Link } from "react-router-dom";
 
 const ExploreProduct = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
@@ -79,8 +80,8 @@ const ExploreProduct = ({ categories }) => {
 							))}
 						</div>
 
-                        <div  className="flex justify-center">
-                        <button className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">view all Product</button>
+                        <div   className="flex justify-center">
+                        <Link to="/allproduct" ><button className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">view all Product</button></Link>
                         </div>
 					</div>
 				</div>

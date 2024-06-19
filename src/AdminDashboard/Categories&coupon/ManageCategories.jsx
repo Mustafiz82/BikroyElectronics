@@ -76,7 +76,7 @@ const ManageCategories = () => {
 						<div className="flex justify-center items-center p-2 border-2 min-w-44 text-center min-h-44  space-y-2">
 							<div>
 								<div className="flex  mb-4 justify-center items-center">
-									<PiPlusBold className="text-5xl" />
+									<PiPlusBold className="text-5xl text-primary" />
 								</div>{" "}
 								<h1>New Category</h1>
 							</div>
