@@ -11,7 +11,7 @@ const AdminDashboardLayout = () => {
 	return (
 		<div className="flex gap-5 max-w-screen-xl font-poppins mx-auto">
 			
-            <div className="w-1/5 font-medium  border-r p-10 pl-0  ">
+            <div className="w-1/5 font-medium  border-r p-10 pb-0 pl-0  ">
                 <div className="mb-5">
                 <NavLink
 						to="/admin/overview"

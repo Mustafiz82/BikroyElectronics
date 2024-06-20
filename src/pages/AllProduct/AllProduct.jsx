@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+
 import ProductCard from "../../Components/ProductCard";
 
 const AllProduct = () => {
+
+
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+
 	const categoryItems = [
 		{
 			title: "Laptop",
@@ -52,18 +63,18 @@ const AllProduct = () => {
 	];
 
 	return (
-		<div className="flex max-w-screen-xl mx-auto ">
+		<div id="start_of_all_product_page" className="flex max-w-screen-xl  mx-auto ">
 			{/* Category section */}
-			<div className="lg:pt-5  hidden border-r lg:block w-1/4 h-auto bg-transparent  lg:p-0  lg:pl-10 ">
-				<h1 className="text-2xl mt-10 md:mt-0   px-4 font-medium">
+			<div className="lg:pt-5  hidden border-r lg:block w-1/4 h-auto bg-transparent  lg:p-0  ">
+				<h1 className="text-2xl mt-10 md:mt-0    font-medium">
 					Filter From
 				</h1>
 
 				<form
 					// onSubmit={handleSubmitPrice}
-					className="lg:flex mt-5 px-4 items-center gap-4"
+					className="lg:flex mt-5 pr-4 items-center gap-4"
 				>
-					<div className="flex gap-2 items-center">
+					<div className="flex gap-2  items-center">
 						<input
 							// onChange={(e) => setLowestPrice(e.target.value)}
 							type="number"
@@ -84,26 +95,26 @@ const AllProduct = () => {
 					</div>
 					<button
 						type="submit"
-						className="btn btn-error bg-primary  px-4 rounded-sm text-white "
+						className="btn btn-error bg-primary   rounded-sm text-white "
 					>
 						{" "}
 						<MdOutlineArrowForwardIos />
 					</button>
 				</form>
-				<h1 className="text-2xl mt-8 px-4 font-medium">Filter Check</h1>
+				<h1 className="text-2xl mt-8  font-medium">Filter Check</h1>
 
 				<div className="text-base mt-5 font-normal text-black ">
 					{categoryItems?.map((item, index) => (
 						<label
 							key={index}
 							htmlFor={item}
-							className="py-2 px-4 flex justify-between items-center"
+							className="py-2  flex justify-between items-center"
 						>
 							<label className="flex gap-2">
 								<input
 									type="checkbox"
 									id={item}
-									className="checkbox rounded-none checkbox-sm checkbox-primary"
+									className="checkbox rounded-none checkbox-sm checkbox "
 									defaultChecked
 									// onChange={handleCheckboxChange}
 								/>
