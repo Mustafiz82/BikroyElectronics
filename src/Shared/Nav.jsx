@@ -8,8 +8,15 @@ import { FiShoppingBag } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
 import { CiStar } from "react-icons/ci";
 import { TiDeleteOutline } from "react-icons/ti";
+import auth from "../../firebase.config";
+import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/features/user/userSlice";
 
 const Nav = () => {
+
+	const dispatch  = useDispatch()
+
 	const handleSearch = (e) => {
 		e.preventDefault();
 		const searchText = e.target.search.value;
@@ -67,6 +74,18 @@ const Nav = () => {
 			</NavLink>
 		</>
 	);
+
+
+	const handleLogout = () => {
+		signOut(auth).then(() => {
+			dispatch(setUser({
+				name : "",
+				email : ""
+			}))
+		  }).catch((error) => {
+			// An error happened.
+		  });
+	}
 	return (
 		<div className="max-w-screen-xl border-b-2 mx-auto py-4 ">
 			<div className="navbar px-0 gap-28 bg-base-100">
@@ -187,13 +206,13 @@ const Nav = () => {
 								</div>
 							</li>
 
-							<li className=" ">
-								<div className="flex gap-2 flex-row">
+							<li  className=" ">
+								<div  onClick={handleLogout} className="flex gap-2 flex-row">
 									<span>
 										{" "}
 										<SlLogout className="text-xl "></SlLogout>
 									</span>{" "}
-									<Link to="/">Logout</Link>{" "}
+									Logout{" "}
 								</div>
 							</li>
 						</ul>

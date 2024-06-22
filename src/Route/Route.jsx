@@ -25,6 +25,7 @@ import BestSellingProducts from "../AdminDashboard/ProductManagement/BestSelling
 import OrderList from "../AdminDashboard/OrderManagement/OrderList";
 import ProductDetail from "../pages/ProductDetail/ProductDetail";
 import AllProduct from "../pages/AllProduct/AllProduct";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/contact",
-				element: <Contack></Contack>,
+				element: <PrivateRoute><Contack></Contack></PrivateRoute>
 			},
 			{
 				path: "/login",

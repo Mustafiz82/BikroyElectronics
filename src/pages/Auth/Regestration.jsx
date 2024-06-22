@@ -3,28 +3,39 @@ import signUpImage from "../../assets/Signup/Sign Up.jpeg";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { createUser } from "../../redux/features/user/userSlice";
+import { useDispatch ,useSelector} from "react-redux";
+import { createUser, signInWithGoogle } from "../../redux/features/user/userSlice";
 
 const Regestration = () => {
 	const { register, handleSubmit } = useForm();
     const dispatch = useDispatch()
+	const { isLoading } = useSelector((state) => state.userSlice);
 
-	// const onSubmit = (data) => {
-	// 	console.log( data );
-    //     dispatch(createUser({ email: data.email, password: data.password }));	};
-
+	
     const onSubmit = async (data) => {
         try {
+            await dispatch(createUser({name : data.userName, email: data.email, password: data.password }));
 
             console.log(data.userName);
-            await dispatch(createUser({name : data.userName, email: data.email, password: data.password }));
             // Handle success if needed
         } catch (error) {
             console.error('Registration error:', error);
             // Handle error (if createUser thunk rejects)
         }
     };
+    const handleGoogleSignin = async (data) => {
+        try {
+            await dispatch(signInWithGoogle({name : data.userName, email: data.email, password: data.password }));
+
+            console.log(data.userName);
+            // Handle success if needed
+        } catch (error) {
+            console.error('Registration error:', error);
+            // Handle error (if createUser thunk rejects)
+        }
+    };
+
+
     
 
 	return (
@@ -61,9 +72,16 @@ const Regestration = () => {
 						/>
 
 						<button className="btn mt-8 btn-primary border-none bg-primary text-white w-full rounded-md">
-							Create Account
+                        {isLoading ? (
+									<div className="flex gap-2 justify-center items-center">
+										<span className="loading loading-spinner loading-sm"></span>
+										<span>Creating Account...</span>
+									</div>
+								) : (
+									"Create Account"
+								)}{" "}
 						</button>
-						<button className="btn mt-2 btn-outline  w-full rounded-md">
+						<button onClick={handleGoogleSignin} className="btn mt-2 btn-outline  w-full rounded-md">
 							<FcGoogle className="mr-2 text-xl" />
 							Sign in with google
 						</button>
