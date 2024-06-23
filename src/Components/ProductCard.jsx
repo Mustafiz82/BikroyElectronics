@@ -5,8 +5,11 @@ import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png"
 import { GoHeart } from "react-icons/go";
 import { Rating , RoundedStar} from '@smastrom/react-rating'
 
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import '@smastrom/react-rating/style.css'
 import { Link } from "react-router-dom";
+import { useSetWishListProductMutation ,useGetSingleProductsQuery} from "../redux/api/baseApi";
 const ProductCard = ({item}) => {
 
     const myStyles = {
@@ -14,12 +17,25 @@ const ProductCard = ({item}) => {
         activeFillColor: '#ffb700',
         inactiveFillColor: '#fbf1a9'
       }
+
+	const { email, isInitializing } = useSelector((state) => state.userSlice);
+	const [setWishListProduct , {data : wishListdata , error}] = useSetWishListProductMutation()
+	console.log(wishListdata);
+
+	  
+	const addToWishList = () => {
+
+		const wishListProduct = {email , ...item}
+		setWishListProduct(wishListProduct);
+
+	}
+
 	return (
-		<Link to="productdetail"><div className="w-[250px]  overflow-hidden">
+		<Link to={`productdetail/${item?._id}`}><div className="w-[250px]  overflow-hidden">
 		<div className="rounded-md relative  bg-[#F5F5F5]">
 			<div className="p-6 h-[250px] flex items-center">
 			<img
-				src={item?.imageUrl || image}
+				src={item?.imageUrl }
 				className="mx-auto "
 				alt=""
 			/>
@@ -28,7 +44,7 @@ const ProductCard = ({item}) => {
 				<IoCartOutline className="text-xl mr-2" />
 				<h1 className="texg-">Add to Cart </h1>
 			</button>
-			<button className="bg-white p-2 top-3 right-3 rounded-full absolute">
+			<button onClick={addToWishList} className="bg-white p-2 top-3 right-3 rounded-full absolute">
 			<IoEyeOutline className="text-xl" />
 
 			</button>

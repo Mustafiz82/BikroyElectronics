@@ -3,12 +3,12 @@ import { IoCartOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png"
 
-const WishListProductCard = () => {
+const WishListProductCard = ({item}) => {
     return (
 		<div className="max-w-[280px]  overflow-hidden">
 			<div className="rounded-md bg-[#F5F5F5]  relative ">
 				<img
-					src={image}
+					src={item?.imageUrl }
 					className="bg-[#F5F5F5] mx-auto"
 					alt=""
 				/>
@@ -23,9 +23,9 @@ const WishListProductCard = () => {
 			</div>
 
 			<h1 className="my-4 font-medium">
-				Epson Perfection V39 II Photo and Document Flatbed Scanner
+			{item?.title}
 			</h1>
-			<h1 className="text-xl font-medium text-primary ">$960</h1>
+		<h1 className="text-xl font-medium text-primary ">{item?.price}</h1>
 		</div>
 	);
 };

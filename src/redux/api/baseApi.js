@@ -35,6 +35,16 @@ export const baseApi = createApi({
 				body: data,
 			}),
 		}),
+		setWishListProduct: builder.mutation({
+			query: (data) => ({
+				url: `/wishlist`,
+				method: "POST",
+				body: data,
+			}),
+		}),
+		getWishlistProduct: builder.query({
+			query: (email) => `/wishlist?email=${email}`
+		}),
 	}),
 });
 
@@ -44,5 +54,7 @@ export const {
 	useSetProductsMutation,
     useGetProductsQuery,
     useGetSingleProductsQuery,
-    useUpdateSingleProductMutation
+    useUpdateSingleProductMutation,
+	useSetWishListProductMutation,
+	useGetWishlistProductQuery
 } = baseApi;

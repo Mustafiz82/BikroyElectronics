@@ -11,6 +11,7 @@ import {
 import { useParams } from "react-router-dom";
 
 const EditProduct = () => {
+    
 	const { id } = useParams();
 
 	const { data: product } = useGetSingleProductsQuery(id);

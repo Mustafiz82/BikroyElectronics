@@ -1,8 +1,17 @@
 import React from "react";
 import WishListProductCard from "../../Components/WishListProductCard";
 import ProductCard from "../../Components/ProductCard";
+import { useGetProductsQuery, useGetWishlistProductQuery } from "../../redux/api/baseApi";
+import { useSelector } from "react-redux";
 
 const Wishlist = () => {
+
+	const {email} = useSelector((state) => state.userSlice)
+	const {data:wishlistProduct} = useGetWishlistProductQuery(email)
+	const {data:Products} = useGetProductsQuery()
+
+
+	console.log(wishlistProduct);
 	return (
 		<div className="max-w-screen-xl mx-auto">
 			<div className=" ">
@@ -14,10 +23,11 @@ const Wishlist = () => {
 				</div>
 
 				<div className="grid grid-cols-4 gap-16">
-					<WishListProductCard></WishListProductCard>
-					<WishListProductCard></WishListProductCard>
-					<WishListProductCard></WishListProductCard>
-					<WishListProductCard></WishListProductCard>
+
+					{
+						wishlistProduct?.map(item =><WishListProductCard item={item} ></WishListProductCard> )
+					}
+					
 				</div>
 			</div>
 
@@ -35,10 +45,11 @@ const Wishlist = () => {
 				</div>
 
                 <div className="grid grid-cols-4 gap-16">
-					<ProductCard></ProductCard>
-					<ProductCard></ProductCard>
-					<ProductCard></ProductCard>
-					<ProductCard></ProductCard>
+
+					{
+						Products && [...Products]?.sort(() => 0.5 - Math.random()).slice(0, 4).map(item => <ProductCard item={item}></ProductCard>)
+					}
+					
 				</div>
 			</div>
 		</div>
