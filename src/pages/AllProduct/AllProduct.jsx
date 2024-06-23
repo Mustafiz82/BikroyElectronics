@@ -3,15 +3,20 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
 import ProductCard from "../../Components/ProductCard";
+import { useGetProductsQuery } from "../../redux/api/baseApi";
 
 const AllProduct = () => {
 
 
     const { pathname } = useLocation();
+	const {data: products} = useGetProductsQuery()
 
     useEffect(() => {
       window.scrollTo(0, 0);
     }, [pathname]);
+
+
+
 
 
 	const categoryItems = [
@@ -155,8 +160,8 @@ const AllProduct = () => {
 				</div>
 				{
 					<div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
-						{categoryItems?.map((product) => (
-							<ProductCard></ProductCard>
+						{products?.map((item) => (
+							<ProductCard item ={item}></ProductCard>
 						))}
 					</div>
 				}

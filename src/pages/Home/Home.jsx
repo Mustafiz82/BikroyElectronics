@@ -11,6 +11,7 @@ import ExploreProduct from "./ExploreProduct";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { LuShieldCheck } from "react-icons/lu";
+import { useGetCategoryListQuery, useGetProductsQuery } from "../../redux/api/baseApi";
 
 const Home = () => {
 	const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -39,53 +40,12 @@ const Home = () => {
 		);
 	};
 
-	const categoryItems = [
-		{
-			title: "Laptop",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/laptop-48x48.png",
-		},
-		{
-			title: "Laptop Accessories",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/brand-logo/laptop-acc-icon-48x48.png",
-		},
-		{
-			title: "Mobile Phone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/mobile-phone-48x48.png",
-		},
-		{
-			title: "Mobile Accessories",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/mobile-phone-accessories-48x48.png",
-		},
-		{
-			title: "Drone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/drone-48x48.png",
-		},
-		{
-			title: "Smart Watch",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/smart-watch-48x48.png",
-		},
-		{
-			title: "Earbuds",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/earbuds-48x48.png",
-		},
-		{
-			title: "Bluetooth Speaker",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/bt-speaker-48x48.png",
-		},
-		{
-			title: "HeadPhone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/headphone-48x48.png",
-		},
-	];
+	const {data : categoryItems , isLoading , error} = useGetCategoryListQuery()
+	const {data : products , } = useGetProductsQuery()
+
+	console.log(products);
+	
+
 
 	return (
 		<div className="max-w-screen-xl mx-auto ">
@@ -101,10 +61,10 @@ const Home = () => {
 			</div>
 
 			<FlashSale></FlashSale>
-			<Categories categories={categoryItems}></Categories>
+			<Categories categories={categoryItems} ></Categories>
 			<BestSelling categories={categoryItems}></BestSelling>
 			<BannerAdd></BannerAdd>
-			<ExploreProduct categories={categoryItems}></ExploreProduct>
+			<ExploreProduct products={products}></ExploreProduct>
 
 			<div className="flex justify-around my-40">
 				

@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import imageUpload from "../../assets/Others/image-removebg-preview (14).png";
 import { categoryItems } from "../../../public/categoryObject";
-
+import { useSetProductsMutation } from "../../redux/api/baseApi";
+ 
 const AddProduct = () => {
 	const { register, handleSubmit } = useForm();
 	const [imageUrl, setImageUrl] = useState("");
@@ -11,17 +12,32 @@ const AddProduct = () => {
 	const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
 	const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
 
+	const [setProduct , {data}] = useSetProductsMutation()
+
+
 	const onSubmit = (data) => {
 	    
-            console.log({imageUrl ,...data});
-	
+        console.log({imageUrl ,...data});
+		setProduct({imageUrl ,...data})
+	 
 	};
+
+	
 
         
 
 	const handleImageUpload = (event) => {
 		setUploading(true);
+
+
+		
 		const file = event.target.files[0];
+
+	
+	  
+		
+		
+		// removeBG({file : file})
 		console.log(file);
 		if (file) {
 			const formData = new FormData();
@@ -42,7 +58,7 @@ const AddProduct = () => {
 					console.error("Error uploading image", err);
 					setUploading(false);
 				});
-		}
+		} 
 	};
 
 	return (
@@ -117,7 +133,7 @@ const AddProduct = () => {
 							</option>
 							px
 							{
-                                categoryItems.map((item , inx) => <option key={inx}> {item?.title}</option>
+                                categoryItems?.map((item , inx) => <option key={inx}> {item?.title}</option>
                                    )
                             }
 						</select>

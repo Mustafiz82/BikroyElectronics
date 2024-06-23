@@ -1,54 +1,38 @@
 import React from "react";
 import { PiPlusBold } from "react-icons/pi";
+import { useGetCategoryListQuery, useSetCategoryListMutation } from "../../redux/api/baseApi"; 
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const ManageCategories = () => {
-	const categoryItems = [
-		{
-			title: "Laptop",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/laptop-48x48.png",
-		},
-		{
-			title: "Laptop Accessories",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/brand-logo/laptop-acc-icon-48x48.png",
-		},
-		{
-			title: "Mobile Phone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/mobile-phone-48x48.png",
-		},
-		{
-			title: "Mobile Accessories",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/mobile-phone-accessories-48x48.png",
-		},
-		{
-			title: "Drone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/drone-48x48.png",
-		},
-		{
-			title: "Smart Watch",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/smart-watch-48x48.png",
-		},
-		{
-			title: "Earbuds",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/earbuds-48x48.png",
-		},
-		{
-			title: "Bluetooth Speaker",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/bt-speaker-48x48.png",
-		},
-		{
-			title: "HeadPhone",
-			imageurl:
-				"https://www.startech.com.bd/image/cache/catalog/category-thumb/headphone-48x48.png",
-		},
-	];
+
+	
+	const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
+	const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
+
+	const { register, handleSubmit } = useForm();
+
+	const {data : categoryItems , isLoading , error} = useGetCategoryListQuery()
+	const [setCategory , {data : categories}] = useSetCategoryListMutation()
+
+
+	const onSubmit = (data) => {
+		console.log(data);
+		const imageFile = {image : data?.CategoryImage[0]}
+
+		axios.post(imageBBUrl, imageFile ,{
+					headers: {
+						"content-type": "multipart/form-data",
+					},
+				})
+				.then((res) => {
+					// setImageUrl(res?.data.data.display_url);
+					console.log(res?.data.data.display_url	);
+					setCategory({title : data?.CategoryName , imageurl :res?.data.data.display_url  })
+					// setUploading(false);
+				})
+	}
+
 	return (
 		<div className="m-10">
 			<div className="flex flex-wrap gap-5">
@@ -90,17 +74,19 @@ const ManageCategories = () => {
 			<input type="checkbox" id="my_modal_7" className="modal-toggle" />
 			<div className="modal" role="dialog">
 				<div className="modal-box">
-					<input
+					<form onSubmit={handleSubmit(onSubmit)} >
+					<input {...register("CategoryName", { required: true })}
 						type="text"
 						placeholder="Category Name"
 						required
 						className=" input focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
 					/>
-					<input
+					<input {...register("CategoryImage", { required: true })}
 						type="file"
 						className="file-input my-5 file-input-bordered focus:border-none focus:outline-none w-full"
 					/>
-                    <button className="btn  w-full rounded-sm">Add New Category</button>
+                    <button type="submit" className="btn  w-full rounded-sm">Add New Category</button>
+					</form>
 				</div>
 				<label className="modal-backdrop" htmlFor="my_modal_7">
 					Close

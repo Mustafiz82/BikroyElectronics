@@ -26,7 +26,7 @@ const BestSelling = ({ categories }) => {
 
 			<div className="relative">
 				<div className=" overflow-hidden flex justify-between  mt-10 a z-50  ">
-					{categories.map((item, inx) => (
+					{categories?.map((item, inx) => (
 						<div
 							key={inx}
 							className={`mr-16 ${+-

@@ -5,16 +5,19 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import ProductCard from "../../Components/ProductCard";
 import { Link } from "react-router-dom";
 
-const ExploreProduct = ({ categories }) => {
+const ExploreProduct = ({ products }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
+	const slicedProducts = products?.slice(0,16)
+
+	console.log(slicedProducts);
 
 	const prevSlider = () =>
 		setCurrentSlider((currentSlider) =>
-			currentSlider === 0 ? categories.length - 1 : currentSlider - 1
+			currentSlider === 0 ? slicedProducts.length - 12 : currentSlider - 1
 		);
 	const nextSlider = () =>
 		setCurrentSlider((currentSlider) =>
-			currentSlider === categories.length - 1 ? 0 : currentSlider + 1
+			currentSlider === slicedProducts.length - 12 ? 0 : currentSlider + 1
 		);
 	const isSmallScreen = window.innerWidth <= 768;
 	return (
@@ -54,7 +57,7 @@ const ExploreProduct = ({ categories }) => {
 					{/* slider container */}
 					<div className=" overflow-hidden mt-10 a z-50  ">
 						<div
-							className="ease-linear duration-300 flex gap-4 items-center"
+							className="ease-linear  duration-300 grid grid-cols-8 w-[2750px] items-center"
 							style={{
 								transform: `translateX(-${
 									currentSlider * (isSmallScreen ? 98 : 350)
@@ -62,7 +65,7 @@ const ExploreProduct = ({ categories }) => {
 							}}
 						>
 							{/* sliders */}
-							{categories.map((item, inx) => (
+							{slicedProducts?.map((item, inx) => (
 								<div
 									key={inx}
 									className={`mr-20 ${
@@ -71,18 +74,23 @@ const ExploreProduct = ({ categories }) => {
 											: "scale-100 delay-500"
 									} duration-300 rounded-lg z-50`}
 								>
-									<ProductCard></ProductCard>
-									<div className="mt-10">
-										{" "}
-										<ProductCard></ProductCard>
-									</div>{" "}
+									
+
+									<div className="grid mt-10 ">
+									<ProductCard item={item}></ProductCard>
+
+									</div>
 								</div>
 							))}
 						</div>
 
-                        <div   className="flex justify-center">
-                        <Link to="/allproduct" ><button className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">view all Product</button></Link>
-                        </div>
+						<div className="flex justify-center">
+							<Link   to="/allproduct">
+								<button className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">
+									view all Product
+								</button>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

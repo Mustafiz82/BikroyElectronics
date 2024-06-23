@@ -26,6 +26,7 @@ import OrderList from "../AdminDashboard/OrderManagement/OrderList";
 import ProductDetail from "../pages/ProductDetail/ProductDetail";
 import AllProduct from "../pages/AllProduct/AllProduct";
 import PrivateRoute from "./PrivateRoute";
+import EditProduct from "../AdminDashboard/ProductManagement/EditProduct";
 
 
 const router = createBrowserRouter([
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
 			{
 				path: "addproduct",
 				element: <AddProduct></AddProduct>,
+			},
+			{
+				path: "editProducts/:id",
+				element: <EditProduct></EditProduct>
 			},
 			{
 				path: "productlist",

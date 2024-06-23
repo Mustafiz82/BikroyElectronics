@@ -2,9 +2,12 @@ import React, { useState } from "react";
 
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useGetCategoryListQuery } from "../../redux/api/baseApi";
 
-const Categories = ({ categories }) => {
+const Categories = ({categories}) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
+
+	console.log(categories );
 	
 	const prevSlider = () =>
 		setCurrentSlider((currentSlider) =>
@@ -60,7 +63,7 @@ const Categories = ({ categories }) => {
 							}}
 						>
 							{/* sliders */}
-							{categories.map((item, inx) => (
+							{categories?.map((item, inx) => (
 								<div
 									key={inx}
 									className={` ${
