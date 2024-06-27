@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "../../Components/Slider";
 import Countdown from "react-countdown";
 import ProductSlider from "../../Components/ProductSlider";
@@ -11,7 +11,13 @@ import ExploreProduct from "./ExploreProduct";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { LuShieldCheck } from "react-icons/lu";
-import { useGetCategoryListQuery, useGetProductsQuery } from "../../redux/api/baseApi";
+import {
+	useGetCategoryListQuery,
+	useGetProductsQuery,
+} from "../../redux/api/baseApi";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCategories } from "../../redux/features/filter/filterSlice";
 
 const Home = () => {
 	const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -40,19 +46,32 @@ const Home = () => {
 		);
 	};
 
-	const {data : categoryItems , isLoading , error} = useGetCategoryListQuery()
-	const {data : products , } = useGetProductsQuery()
+	const { data: categoryItems, isLoading, error } = useGetCategoryListQuery();
+	const { data: products } = useGetProductsQuery();
+	// const dispatch = useDispatch();
 
 	console.log(products);
-	
 
+	// useEffect(() => {
+	// 	const categoryTitle = categoryItems?.map((item) => item?.title);
+	// 	const categoryString = categoryTitle?.join(",");
+	// 	dispatch(
+	// 		setCategories({
+	// 			categories: categoryString,
+	// 		})
+	// 	);
+	// }, [categoryItems]);
 
 	return (
 		<div className="max-w-screen-xl mx-auto ">
 			<div className="flex ">
 				<ul className="border-r-2 font-poppins  w-1/5 space-y-5 pt-5">
 					{categoryItems?.map((item) => (
-						<li key={item.id}>{item.title}</li>
+						<li key={item.id}>
+							<Link to={`/allproduct?category=${item?.title}`}>
+								{item.title}
+							</Link>
+						</li>
 					))}
 				</ul>
 				<div className="w-4/5 pt-5 pl-5">
@@ -61,49 +80,59 @@ const Home = () => {
 			</div>
 
 			<FlashSale></FlashSale>
-			<Categories categories={categoryItems} ></Categories>
+			<Categories categories={categoryItems}></Categories>
 			<BestSelling categories={categoryItems}></BestSelling>
 			<BannerAdd></BannerAdd>
 			<ExploreProduct products={products}></ExploreProduct>
 
 			<div className="flex justify-around my-40">
-				
-
 				<div className="space-y-4 text-center ">
 					<div className="p-2	inline-block bg-slate-400 rounded-full">
 						<div className="flex ">
 							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-							<TbTruckDelivery className="text-5xl text-white " />
-						</div>
+								<TbTruckDelivery className="text-5xl text-white " />
+							</div>
 						</div>
 					</div>
 
-					<h1 className="font-bold text-2xl ">FREE AND FAST DELIVERY</h1>
-					<p className="text-base">Free delivery for all orders over $140</p>
+					<h1 className="font-bold text-2xl ">
+						FREE AND FAST DELIVERY
+					</h1>
+					<p className="text-base">
+						Free delivery for all orders over $140
+					</p>
 				</div>
 				<div className="space-y-4 text-center ">
 					<div className="p-2	inline-block bg-slate-400 rounded-full">
 						<div className="flex ">
 							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-							<TbTruckDelivery className="text-5xl text-white " />
-						</div>
+								<TbTruckDelivery className="text-5xl text-white " />
+							</div>
 						</div>
 					</div>
 
-					<h1 className="font-bold text-2xl ">FREE AND FAST DELIVERY</h1>
-					<p className="text-base">Free delivery for all orders over $140</p>
+					<h1 className="font-bold text-2xl ">
+						FREE AND FAST DELIVERY
+					</h1>
+					<p className="text-base">
+						Free delivery for all orders over $140
+					</p>
 				</div>
 				<div className="space-y-4 text-center ">
 					<div className="p-2	inline-block bg-slate-400 rounded-full">
 						<div className="flex ">
 							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-							<TbTruckDelivery className="text-5xl text-white " />
-						</div>
+								<TbTruckDelivery className="text-5xl text-white " />
+							</div>
 						</div>
 					</div>
 
-					<h1 className="font-bold text-2xl ">FREE AND FAST DELIVERY</h1>
-					<p className="text-base">Free delivery for all orders over $140</p>
+					<h1 className="font-bold text-2xl ">
+						FREE AND FAST DELIVERY
+					</h1>
+					<p className="text-base">
+						Free delivery for all orders over $140
+					</p>
 				</div>
 			</div>
 		</div>

@@ -13,7 +13,7 @@ export default function Pagination() {
     const dispatch = useDispatch()
     const page = Math.ceil(productCount?.count / limit) || 0 // Adjust the page numbers the way you want
 
-    console.log(productCount);
+    // console.log(productCount);
     
     const updatePageNumber = (num) => {
         if (num > page - 1 || 0 > num) {
