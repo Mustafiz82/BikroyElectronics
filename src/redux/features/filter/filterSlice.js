@@ -19,7 +19,7 @@ export const filterSlice = createSlice({
             state.page = payload.page;
           },
         setLimit :  (state, { payload }) => {
-            state.limit = payload.Limit;
+            state.limit = payload.limit;
           },
     }
 })

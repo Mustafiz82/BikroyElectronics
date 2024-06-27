@@ -12,46 +12,55 @@ import Categories from "../Home/Categories";
 import { useDispatch, useSelector } from "react-redux";
 import sortBy from "sort-by";
 import Pagination from "../../Components/Pagination";
-import { setLimit } from "../../redux/features/filter/filterSlice";
+import { setLimit, setPage } from "../../redux/features/filter/filterSlice";
 
 const AllProduct = () => {
 
-
-	
+	// Filter Hook is used to set to give params to filter products
 	const [filter, setFIlter] = useState({});
-	const { data: categoryItems } = useGetCategoryListQuery();
-	const { data: products } = useGetProductsQuery(filter);
-	const dispatch = useDispatch()
-	const {searchText} = useSelector(((state) => state.filterSearch))
 	const [selectedCategories, setSelectedCategories] = useState([]);
 
-	const [text , setText] = useState(`Showing ${products?.length} item `)
-
-	
-	const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const category = params.get('category');
-
-    console.log(category)
+	const dispatch = useDispatch();
 	const { handleSubmit, register } = useForm();
+
+
+	const { data: categoryItems } = useGetCategoryListQuery();
+	const { data: products } = useGetProductsQuery(filter);
+	const { searchText, page, limit } = useSelector(
+		(state) => state.filterSearch
+	);
+
+	const [text, setText] = useState(`Showing ${products?.length} item `);
+
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+	const category = params.get("category");
+	console.log(category);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
 
 	useEffect(() => {
-		setFIlter({
-			...filter , searchText
-		});
-		if(searchText !== ""){
-			setText(`Showing ${products?.length} item  for ${searchText}`)
+		setFIlter({	...filter,	searchText,	limit,page	});
 
+		if (searchText !== "") {
+			setText(`Showing ${products?.length} item  for ${searchText}`);
+		} else {
+			setText(`Showing ${products?.length} item `);
 		}
-		else{
-			setText(`Showing ${products?.length} item `)
 
+
+		if(products.length == 0){
+			dispatch(
+				setPage({
+					page: 0
+				})
+			);
 		}
-	}, [searchText , products])
+
+
+	}, [searchText, products , limit , page]);
 
 	useEffect(() => {
 		setSelectedCategories(categoryItems?.map((item) => item?.title));
@@ -60,8 +69,6 @@ const AllProduct = () => {
 	useEffect(() => {
 		setSelectedCategories(category);
 	}, [categoryItems]);
-
-	
 
 	const handleFilterPrice = (data) => {
 		console.log(data);
@@ -91,26 +98,29 @@ const AllProduct = () => {
 		});
 	};
 
-
 	const handleShowItemPerPage = (e) => {
-		const limit = e.target.value
-		setFIlter({
-			...filter,
-			limit: limit,
-		});
-		dispatch(setPage({
-            page: limit
-        }));
-	}
+		const limit = parseInt(e.target.value);
+		
+		dispatch(
+			setLimit({
+				limit: limit,
+			})
+		);
+
+		
+
+		
+		console.log(limit);
+	};
 
 	const handleSortBy = (e) => {
-		const sortOrder = e.target.value
+		const sortOrder = e.target.value;
 		setFIlter({
 			...filter,
 			sortOrder: sortOrder,
-			sortBy : "price"
+			sortBy: "price",
 		});
-	}
+	};
 
 	return (
 		<div
@@ -184,22 +194,26 @@ const AllProduct = () => {
 			{/* product viewing section */}
 			<div className="p-10 pb-2 pt-5 pr-0 w-full lg:w-3/4 ">
 				<div className="flex mb-5 items-center justify-between gap-5 ">
-					<p className="flex-1">
-						{text}
-					</p>
+					<p className="flex-1">{text}</p>
 					<div className="flex  items-center flex-1 gap-2 ">
 						<h1>Items per Page : </h1>
-						<select onChange={handleShowItemPerPage} className="select  select-bordered w-full max-w-[150px]">
-							<option value={15}  selected>
+						<select
+							onChange={handleShowItemPerPage}
+							className="select  select-bordered w-full max-w-[150px]"
+						>
+							<option value={15} >
 								15
 							</option>
-							<option value={30}>30</option>
+							<option selected value={30}>30</option>
 							<option value={50}>50</option>
 						</select>
 					</div>
 					<div className="flex justify-end items-center flex-1 gap-2 ">
 						<h1>Sort By : </h1>
-						<select onChange={handleSortBy} className="select select-bordered w-full max-w-[150px]">
+						<select
+							onChange={handleSortBy}
+							className="select select-bordered w-full max-w-[150px]"
+						>
 							<option value="" selected>
 								Default
 							</option>
@@ -216,9 +230,8 @@ const AllProduct = () => {
 					</div>
 				}
 				<div className="flex justify-center mt-20">
-				<Pagination></Pagination>
+					<Pagination></Pagination>
 				</div>
-
 			</div>
 		</div>
 	);
