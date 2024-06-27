@@ -2,8 +2,13 @@ import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png"
+import { useDeleteWishlistProductMutation } from "../redux/api/baseApi";
 
 const WishListProductCard = ({item}) => {
+
+	const [deleteItem , {data  , error}] = useDeleteWishlistProductMutation()
+	console.log(error , data);
+	
     return (
 		<div className="max-w-[280px]  overflow-hidden">
 			<div className="rounded-md bg-[#F5F5F5]  relative ">
@@ -16,7 +21,7 @@ const WishListProductCard = ({item}) => {
 					<IoCartOutline className="text-xl mr-2" />
 					<h1>Add to Cart </h1>
 				</button>
-                <button className="bg-white p-2 top-3 right-3 rounded-full absolute">
+                <button onClick={() => {deleteItem(item?._id).unwrap()}} className="bg-white p-2 top-3 right-3 rounded-full absolute">
                 <RiDeleteBin6Line />
 
                 </button>

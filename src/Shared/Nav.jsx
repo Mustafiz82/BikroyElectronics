@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
 import { GoHeart } from "react-icons/go";
@@ -12,15 +12,21 @@ import auth from "../../firebase.config";
 import { signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
+import { setSearchText } from "../redux/features/filter/filterSlice";
 
 const Nav = () => {
 
 	const dispatch  = useDispatch()
+	const navigate = useNavigate()
+	 
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		const searchText = e.target.search.value;
-		console.log(searchText);
+		dispatch(setSearchText({
+			searchText : searchText
+		}))
+		navigate("/allproduct")
 	};
 	const ul = (
 		<>

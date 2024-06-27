@@ -23,8 +23,18 @@ const ProductDetail = () => {
 
 	const addToWishList = () => {
 
-		const wishListProduct = {email , ...product}
-		setWishListProduct(wishListProduct);
+		// const wishListProduct = {email , ...product}
+		// setWishListProduct(wishListProduct);
+
+		const wishListObject = {
+			productId : wishListdata?._id,
+			email : email,
+			// ...rest	
+		}
+		// const wishListProduct = { email, ...item };
+		// setWishListProduct(wishListProduct);
+ 
+		console.log(wishListObject);
 
 	}
 

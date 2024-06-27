@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import ProductCard from "../../Components/ProductCard";
+import { useGetProductsQuery } from "../../redux/api/baseApi";
 
 const BestSelling = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
+	const {data:bestSellingProduct } = useGetProductsQuery({limit : 4 , sortBy : "sellCount" , sortOrder : "desc"})
+
+	console.log(bestSellingProduct);
 
 	return (
 		<div className="my-20">
@@ -26,16 +30,16 @@ const BestSelling = ({ categories }) => {
 
 			<div className="relative">
 				<div className=" overflow-hidden flex justify-between  mt-10 a z-50  ">
-					{categories?.map((item, inx) => (
+					{bestSellingProduct?.map((item, inx) => (
 						<div
 							key={inx}
-							className={`mr-16 ${+-
+							className={`flex justify-between ${+-	
 								currentSlider - 1 === inx
 									? "scale-0"
 									: "scale-100 delay-500"
 							} duration-300 rounded-lg z-50`}
 						>
-							<ProductCard></ProductCard>
+							<ProductCard item ={item}></ProductCard>
 						</div>
 					))}
 				</div>

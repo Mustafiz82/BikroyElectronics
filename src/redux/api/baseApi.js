@@ -16,8 +16,23 @@ export const baseApi = createApi({
 			}),
 		}),
 		getProducts: builder.query({
-			query: () => "/products",
-		}),
+			query: ({
+				limit,page, sortBy, sortOrder, category, minPrice, maxPrice, searchText
+			  } = {}) => {  // Provide a default empty object here
+				const params = new URLSearchParams();
+		
+			  if (limit) params.append('limit', limit);
+			  if (page) params.append('page', page);
+			  if (sortBy) params.append('sortBy', sortBy);
+			  if (sortOrder) params.append('sortOrder', sortOrder);
+			  if (category) params.append('categories', category);
+			  if (minPrice) params.append('minPrice', minPrice);
+			  if (maxPrice) params.append('maxPrice', maxPrice);
+			  if (searchText) params.append('searchText', searchText);
+	  
+			  return `/products?${params.toString()}`;
+			},
+		  }),
 		setProducts: builder.mutation({
 			query: (data) => ({
 				url: "/products",
@@ -25,10 +40,13 @@ export const baseApi = createApi({
 				body: data,
 			}),
 		}),
-        getSingleProducts: builder.query({
+		getSingleProducts: builder.query({
 			query: (id) => `/products/${id}`,
 		}),
-        updateSingleProduct: builder.mutation({
+		getProductsCount: builder.query({
+			query: () => `/productCount`,
+		}),
+		updateSingleProduct: builder.mutation({
 			query: ({ id, ...data }) => ({
 				url: `/products/update/${id}`,
 				method: "PUT",
@@ -43,7 +61,15 @@ export const baseApi = createApi({
 			}),
 		}),
 		getWishlistProduct: builder.query({
-			query: (email) => `/wishlist?email=${email}`
+			query: (email) => `/wishlist?email=${email}`,
+		}),
+		deleteWishlistProduct: builder.mutation({
+			query(id) {
+				return {
+					url: `wishlist/${id}`,
+					method: "DELETE",
+				};
+			},
 		}),
 	}),
 });
@@ -52,9 +78,11 @@ export const {
 	useGetCategoryListQuery,
 	useSetCategoryListMutation,
 	useSetProductsMutation,
-    useGetProductsQuery,
-    useGetSingleProductsQuery,
-    useUpdateSingleProductMutation,
+	useGetProductsQuery,
+	useGetSingleProductsQuery,
+	useUpdateSingleProductMutation,
 	useSetWishListProductMutation,
-	useGetWishlistProductQuery
+	useGetWishlistProductQuery,
+	useDeleteWishlistProductMutation,
+	useGetProductsCountQuery
 } = baseApi;

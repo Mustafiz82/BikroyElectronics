@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useGetCategoryListQuery } from "../../redux/api/baseApi";
+import { Link } from "react-router-dom";
 
 const Categories = ({categories}) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
@@ -64,7 +65,8 @@ const Categories = ({categories}) => {
 						>
 							{/* sliders */}
 							{categories?.map((item, inx) => (
-								<div
+								<Link to={`/allproduct?category=${item?.title}`}>
+									<div 
 									key={inx}
 									className={` ${
 										currentSlider - 1 === inx
@@ -82,6 +84,7 @@ const Categories = ({categories}) => {
                                         </div>
 									</div>
 								</div>
+								</Link>
 							))}
 						</div>
 					</div>
