@@ -1,6 +1,7 @@
 import React from 'react';
 import Countdown from 'react-countdown';
 import drone from "../../assets/banner/bannerAdd.png"
+import { Link } from 'react-router-dom';
 
 const BannerAdd = () => {
 
@@ -40,7 +41,7 @@ const BannerAdd = () => {
 							renderer={renderer}
 						/>
 
-                        <button className='btn btn-success bg-green-400 rounded-sm px-8 text-white'>Buy Now</button>
+                        <Link  to="allproduct/productdetail/667e8c0ac9276c54fd4cd172" className='btn btn-success bg-green-400 rounded-sm px-8 text-white'>Buy Now</Link>
                 </div>
                 <div>
                     <img style={{filter:"drop-shadow(0px 5px 25px rgba(255, 255, 255, 0.5))" }} src={drone} className="  m-10 shadow-slate-200  "srcset="" />

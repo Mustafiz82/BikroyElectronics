@@ -12,42 +12,44 @@ import Categories from "../Home/Categories";
 import { useDispatch, useSelector } from "react-redux";
 import sortBy from "sort-by";
 import Pagination from "../../Components/Pagination";
-import { setCategories, setLimit, setPage } from "../../redux/features/filter/filterSlice";
+import {
+	setCategories,
+	setLimit,
+	setPage,
+} from "../../redux/features/filter/filterSlice";
 
 const AllProduct = () => {
 	// Filter Hook is used to set to give params to filter products
 	const [filter, setFilter] = useState({});
-
 
 	const dispatch = useDispatch();
 	const { handleSubmit, register } = useForm();
 
 	const { data: categoryItems } = useGetCategoryListQuery();
 	const { data: products } = useGetProductsQuery(filter);
-	const { searchText, page, limit , categories } = useSelector(
+	const { searchText, page, limit, categories } = useSelector(
 		(state) => state.filterSearch
 	);
-	
+
 	const [selectedCategories, setSelectedCategories] = useState([]);
 
-
-
-	console.log(categories , "theese are selectecdc ate");
+	console.log(categories, "theese are selectecdc ate");
 
 	const [text, setText] = useState(`Showing ${products?.length} item `);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
+
+
 	useEffect(() => {
-		if(typeof categories === 'string'){
-			setSelectedCategories(categories?.split(","))
+		if (typeof categories === "string") {
+			setSelectedCategories(categories?.split(","));
 		}
 	}, [categories]);
 
-
 	useEffect(() => {
-		setFilter({ ...filter, searchText, limit, page , categories});
+		setFilter({ ...filter, searchText, limit, page, category : categories });
 
 		if (searchText !== "") {
 			setText(`Showing ${products?.length} item for ${searchText}`);
@@ -58,22 +60,28 @@ const AllProduct = () => {
 		if (products?.length === 0) {
 			dispatch(setPage({ page: 0 }));
 		}
+	}, [searchText, products, limit, page, selectedCategories , categories]);
 
-	}, [searchText, products, limit, page]);
-
-
-
+	// setting default data to category reducer as string
 	useEffect(() => {
 		const categoryTitle = categoryItems?.map((item) => item?.title);
 		const categoryString = categoryTitle?.join(",");
 
 		
-		dispatch(
+
+		console.log(categories?.length);
+		if(categories?.length < 1 ){
+dispatch(
 			setCategories({
 				categories: categoryString,
 			})
 		);
+
+
+		}
 	}, [categoryItems]);
+
+
 
 	const handleFilterPrice = (data) => {
 		console.log("Price Filter Data:", data);
@@ -94,17 +102,20 @@ const AllProduct = () => {
 			updatedCategories = selectedCategories.filter(
 				(category) => category !== id
 			);
-
-
-		
 		}
 
-		setSelectedCategories(updatedCategories);
+		// setSelectedCategories(updatedCategories);
 		const categories = updatedCategories.join(",");
-		setFilter({git 
-			...filter,
-			category: categories,
-		});
+		// setFilter({
+		// 	...filter,
+		// 	category: categories,
+		// });
+
+		dispatch(
+			setCategories({
+				categories: categories,
+			})
+		);
 		console.log("Updated Filter:", filter);
 	};
 
@@ -126,12 +137,20 @@ const AllProduct = () => {
 	};
 
 	return (
-		<div id="start_of_all_product_page" className="flex max-w-screen-xl mx-auto">
+		<div
+			id="start_of_all_product_page"
+			className="flex max-w-screen-xl mx-auto"
+		>
 			{/* Category section */}
 			<div className="lg:pt-5 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
-				<h1 className="text-2xl mt-10 md:mt-0 font-medium">Filter From</h1>
+				<h1 className="text-2xl mt-10 md:mt-0 font-medium">
+					Filter From
+				</h1>
 
-				<form onSubmit={handleSubmit(handleFilterPrice)} className="lg:flex mt-5 pr-4 items-center gap-4">
+				<form
+					onSubmit={handleSubmit(handleFilterPrice)}
+					className="lg:flex mt-5 pr-4 items-center gap-4"
+				>
 					<div className="flex gap-2 items-center">
 						<input
 							type="number"
@@ -150,7 +169,10 @@ const AllProduct = () => {
 							{...register("maxPrice", { required: true })}
 						/>
 					</div>
-					<button type="submit" className="btn btn-error bg-primary rounded-sm text-white">
+					<button
+						type="submit"
+						className="btn btn-error bg-primary rounded-sm text-white"
+					>
 						<MdOutlineArrowForwardIos />
 					</button>
 				</form>
@@ -159,13 +181,19 @@ const AllProduct = () => {
 
 				<div className="text-base mt-5 font-normal text-black">
 					{categoryItems?.map((item, index) => (
-						<label key={index} htmlFor={item.title} className="py-2 flex justify-between items-center">
+						<label
+							key={index}
+							htmlFor={item.title}
+							className="py-2 flex justify-between items-center"
+						>
 							<label className="flex gap-2">
 								<input
 									type="checkbox"
 									id={item.title}
 									className="checkbox rounded-none checkbox-sm checkbox"
-									checked={selectedCategories?.includes(item?.title)}
+									checked={selectedCategories?.includes(
+										item?.title
+									)}
 									onChange={handleFilterCategory}
 								/>
 								<h2 className="">{item.title}</h2>
@@ -181,7 +209,10 @@ const AllProduct = () => {
 					<p className="flex-1">{text}</p>
 					<div className="flex items-center flex-1 gap-2">
 						<h1>Items per Page:</h1>
-						<select onChange={handleShowItemPerPage} className="select select-bordered w-full max-w-[150px]">
+						<select
+							onChange={handleShowItemPerPage}
+							className="select select-bordered w-full max-w-[150px]"
+						>
 							<option value={15}>15</option>
 							<option selected value={30}>
 								30
@@ -191,7 +222,10 @@ const AllProduct = () => {
 					</div>
 					<div className="flex justify-end items-center flex-1 gap-2">
 						<h1>Sort By:</h1>
-						<select onChange={handleSortBy} className="select select-bordered w-full max-w-[150px]">
+						<select
+							onChange={handleSortBy}
+							className="select select-bordered w-full max-w-[150px]"
+						>
 							<option value="" selected>
 								Default
 							</option>

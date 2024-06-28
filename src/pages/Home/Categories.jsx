@@ -4,12 +4,21 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useGetCategoryListQuery } from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCategories } from "../../redux/features/filter/filterSlice";
 
-const Categories = ({categories}) => {
+const Categories = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
+	const dispatch = useDispatch()
 
-	console.log(categories );
-	
+	const handleSelectCategory = (category) => {
+		dispatch(setCategories({
+			categories : category
+		}))
+		console.log(category);
+	}
+
+
 	const prevSlider = () =>
 		setCurrentSlider((currentSlider) =>
 			currentSlider === 0 ? categories.length - 6 : currentSlider - 1
@@ -65,25 +74,28 @@ const Categories = ({categories}) => {
 						>
 							{/* sliders */}
 							{categories?.map((item, inx) => (
-								<Link to={`/allproduct?category=${item?.title}`}>
-									<div 
-									key={inx}
-									className={` ${
-										currentSlider - 1 === inx
-											? "scale-0"
-											: "scale-100 delay-500"
-									} duration-300 rounded-lg z-50`}
-								>
-									<div className="flex mr-7 justify-center items-center p-2 border-2 min-w-44 text-center min-h-44  space-y-2">
-										<div>
-                                        <div className="flex  mb-4 justify-center items-center">
-											{" "}
-											<img src={item?.imageurl} alt="" />
-										</div>{" "}
-										<h1>{item?.title}</h1>
-                                        </div>
+								<Link to={`/allproduct`} >
+									<div onClick={() => handleSelectCategory(item?.title)}
+										key={inx}
+										className={` ${
+											currentSlider - 1 === inx
+												? "scale-0"
+												: "scale-100 delay-500"
+										} duration-300 rounded-lg z-50`}
+									>
+										<div className="flex mr-7 justify-center items-center p-2 border-2 min-w-44 text-center min-h-44  space-y-2">
+											<div>
+												<div className="flex  mb-4 justify-center items-center">
+													{" "}
+													<img
+														src={item?.imageurl}
+														alt=""
+													/>
+												</div>{" "}
+												<h1>{item?.title}</h1>
+											</div>
+										</div>
 									</div>
-								</div>
 								</Link>
 							))}
 						</div>
@@ -95,3 +107,4 @@ const Categories = ({categories}) => {
 };
 
 export default Categories;
+//to={`/allproduct`}	

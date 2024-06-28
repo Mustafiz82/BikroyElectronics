@@ -50,6 +50,15 @@ const Home = () => {
 	const { data: products } = useGetProductsQuery();
 	// const dispatch = useDispatch();
 
+	const dispatch = useDispatch()
+
+	const handleSelectCategory = (category) => {
+		dispatch(setCategories({
+			categories : category
+		}))
+		console.log(category);
+	}
+
 	console.log(products);
 
 	// useEffect(() => {
@@ -67,8 +76,8 @@ const Home = () => {
 			<div className="flex ">
 				<ul className="border-r-2 font-poppins  w-1/5 space-y-5 pt-5">
 					{categoryItems?.map((item) => (
-						<li key={item.id}>
-							<Link to={`/allproduct?category=${item?.title}`}>
+						<li onClick={() => handleSelectCategory(item?.title)}  key={item.id}>
+							<Link  to={`/allproduct`}>
 								{item.title}
 							</Link>
 						</li>
