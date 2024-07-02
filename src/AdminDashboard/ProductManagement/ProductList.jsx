@@ -4,7 +4,9 @@ import { useGetProductsQuery } from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
 const ProductList = () => {
 
-	const {data:products} = useGetProductsQuery()
+	const {data:products} = useGetProductsQuery(undefined , {
+		refetchOnMountOrArgChange : true
+	})
 	console.log(products)
 	return (
 		<div>

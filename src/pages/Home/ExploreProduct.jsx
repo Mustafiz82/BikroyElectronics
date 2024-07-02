@@ -4,10 +4,21 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ProductCard from "../../Components/ProductCard";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCategories } from "../../redux/features/filter/filterSlice";
 
 const ExploreProduct = ({ products }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
 	const slicedProducts = products?.slice(0,16)
+	const dispatch = useDispatch()
+
+	const handleSelectCategory = () => {
+		dispatch(setCategories({
+			categories : ""
+		}))
+	}
+
+ 
 
 	console.log(slicedProducts);
 
@@ -86,7 +97,7 @@ const ExploreProduct = ({ products }) => {
 
 						<div className="flex justify-center">
 							<Link   to="/allproduct">
-								<button className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">
+								<button onClick={() => handleSelectCategory()} className="btn mt-12 btn-error px-8 rounded-sm text-white bg-primary ">
 									view all Product
 								</button>
 							</Link>

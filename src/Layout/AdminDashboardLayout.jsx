@@ -11,7 +11,7 @@ const AdminDashboardLayout = () => {
 	return (
 		<div className="flex gap-5 max-w-screen-xl font-poppins mx-auto">
 			
-            <div className="w-1/5 font-medium  border-r p-10 pb-0 pl-0  ">
+            <div className="hidden lg:block lg:w-1/5  font-medium  border-r p-10 pb-0 pl-0  ">
                 <div className="mb-5">
                 <NavLink
 						to="/admin/overview"
@@ -149,7 +149,7 @@ const AdminDashboardLayout = () => {
                     </div>
                 </div>
             </div>
-			<div className="w-3/4">
+			<div className="w-full p-4 lg:w-3/4">
 				<Outlet></Outlet>
 			</div>
 		</div>

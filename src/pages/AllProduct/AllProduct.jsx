@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 import ProductCard from "../../Components/ProductCard";
 import {
@@ -26,7 +27,10 @@ const AllProduct = () => {
 	const { handleSubmit, register } = useForm();
 
 	const { data: categoryItems } = useGetCategoryListQuery();
-	const { data: products } = useGetProductsQuery(filter);
+	const { data: products } = useGetProductsQuery(filter, {
+		pollingInterval: 30000,
+		// refetchOnMountOrArgChange: true,
+	});
 	const { searchText, page, limit, categories } = useSelector(
 		(state) => state.filterSearch
 	);
@@ -41,7 +45,6 @@ const AllProduct = () => {
 		window.scrollTo(0, 0);
 	}, [location.pathname]);
 
-
 	useEffect(() => {
 		if (typeof categories === "string") {
 			setSelectedCategories(categories?.split(","));
@@ -49,7 +52,7 @@ const AllProduct = () => {
 	}, [categories]);
 
 	useEffect(() => {
-		setFilter({ ...filter, searchText, limit, page, category : categories });
+		setFilter({ ...filter, searchText, limit, page, category: categories });
 
 		if (searchText !== "") {
 			setText(`Showing ${products?.length} item for ${searchText}`);
@@ -60,28 +63,17 @@ const AllProduct = () => {
 		if (products?.length === 0) {
 			dispatch(setPage({ page: 0 }));
 		}
-	}, [searchText, products, limit, page, selectedCategories , categories]);
+	}, [searchText, products, limit, page, selectedCategories, categories]);
 
 	// setting default data to category reducer as string
 	useEffect(() => {
-		const categoryTitle = categoryItems?.map((item) => item?.title);
-		const categoryString = categoryTitle?.join(",");
+		if (categories?.length < 1 && categoryItems?.length > 0) {
+			const categoryTitle = categoryItems.map((item) => item?.title);
+			const categoryString = categoryTitle.join(",");
 
-		
-
-		console.log(categories?.length);
-		if(categories?.length < 1 ){
-dispatch(
-			setCategories({
-				categories: categoryString,
-			})
-		);
-
-
+			dispatch(setCategories({ categories: categoryString }));
 		}
-	}, [categoryItems]);
-
-
+	}, [categoryItems, categories, dispatch]);
 
 	const handleFilterPrice = (data) => {
 		console.log("Price Filter Data:", data);
@@ -152,14 +144,19 @@ dispatch(
 					className="lg:flex mt-5 pr-4 items-center gap-4"
 				>
 					<div className="flex gap-2 items-center">
-						<input
-							type="number"
-							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
-							name="lowest_price"
-							placeholder="$ Min"
-							min={0}
-							{...register("minPrice", { required: true })}
-						/>
+						<div className="relative w-full">
+							<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+								<FaBangladeshiTakaSign />
+							</span>
+							<input
+								type="number"
+								className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5] pl-8"
+								name="lowest_price"
+								placeholder="Min"
+								min={0}
+								{...register("minPrice", { required: true })}
+							/>
+						</div>
 						<span className="font-bold">-</span>
 						<input
 							type="number"

@@ -6,7 +6,7 @@ const initialState = {
     searchText : "",
     page : 0,
     limit : 30,
-    categories : {}
+    categories : ""
   }
 
 export const filterSlice = createSlice({

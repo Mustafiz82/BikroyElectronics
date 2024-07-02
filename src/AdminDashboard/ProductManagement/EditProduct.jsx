@@ -6,42 +6,42 @@ import { categoryItems } from "../../../public/categoryObject";
 import {
 	useGetSingleProductsQuery,
 	useSetProductsMutation,
-    useUpdateSingleProductMutation,
+	useUpdateSingleProductMutation,
 } from "../../redux/api/baseApi";
 import { useParams } from "react-router-dom";
 
 const EditProduct = () => {
-    
 	const { id } = useParams();
 
 	const { data: product } = useGetSingleProductsQuery(id);
-    const  [updateProduct , { isSuccess}] = useUpdateSingleProductMutation()
+	const [updateProduct, { isSuccess }] = useUpdateSingleProductMutation();
 
 	const { register, handleSubmit } = useForm();
-	const [imageUrl, setImageUrl] = useState("")
+	const [imageUrl, setImageUrl] = useState("");
 	const [uploading, setUploading] = useState(false);
 	const [updateText, setUpdateText] = useState("Update Product");
 	const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
 	const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
 
-
 	const onSubmit = (data) => {
-        setUpdateText("Updating Product...")
+		setUpdateText("Updating Product...");
 		console.log({ imageUrl, ...data });
-		updateProduct({ id, data: { imageUrl, ...data } })
+		updateProduct({
+			id,
+			data: {
+				imageUrl : imageUrl || product.imageUrl,
+				...data,
+			},
+		});
 	};
 
-    console.log(product?.imageUrl);
+	console.log(product?.imageUrl);
 
-    useEffect(() => {
-
-        if(isSuccess){
-            setUpdateText("Product Updated")
-        }
-          
-    } , [isSuccess])
-
-
+	useEffect(() => {
+		if (isSuccess) {
+			setUpdateText("Product Updated");
+		}
+	}, [isSuccess]);
 
 	const handleImageUpload = (event) => {
 		setUploading(true);
@@ -72,9 +72,6 @@ const EditProduct = () => {
 		}
 	};
 
-
-    
-
 	return (
 		<div className="my-10">
 			<h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
@@ -88,15 +85,14 @@ const EditProduct = () => {
 						<input
 							type="text"
 							defaultValue={product?.title}
-							
-							{...register("title",  { required: true } )}
+							{...register("title", { required: true })}
 							className=" input focus:border-none focus:outline-none  rounded-sm w-full mb-8  bg-[#F5F5F5]"
 						/>
 
 						<textarea
 							defaultValue={product?.description}
 							required
-							{...register("description", { required: true } )}
+							{...register("description", { required: true })}
 							className="textarea resize-none focus:border-none focus:outline-none rounded-sm mb-8 outline-none w-full h-64  bg-[#F5F5F5]"
 							id=""
 						></textarea>
@@ -104,7 +100,7 @@ const EditProduct = () => {
 							type="text"
 							defaultValue={product?.price}
 							required
-							{...register("price", { required: true } )}
+							{...register("price", { required: true })}
 							className=" input focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
 						/>
 					</div>
@@ -121,7 +117,7 @@ const EditProduct = () => {
 								<img
 									src={imageUrl || product?.imageUrl}
 									alt=""
-									className=" h-full "
+									className=" "
 								/>
 							</div>
 
@@ -141,7 +137,7 @@ const EditProduct = () => {
 						</div>
 						<select
 							required
-							{...register("category", { required: true } )}
+							{...register("category", { required: true })}
 							className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered  w-[250px]"
 						>
 							<option disabled>Category</option>
@@ -175,4 +171,4 @@ const EditProduct = () => {
 	);
 };
 
-export default EditProduct; 
+export default EditProduct;
