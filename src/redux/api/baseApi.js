@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app/"  }),
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
 	tagTypes:[ 'user' , 'products'],
 	endpoints: (builder) => ({
 		getCategoryList: builder.query({

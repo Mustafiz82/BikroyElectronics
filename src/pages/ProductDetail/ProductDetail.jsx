@@ -19,7 +19,8 @@ const ProductDetail = () => {
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
 	const [setWishListProduct , {data : wishListdata , error}] = useSetWishListProductMutation()
 	console.log(wishListdata)
-	console.log(error)
+	console.log(product?.
+		description)
 
 	const addToWishList = () => {
 
@@ -61,7 +62,7 @@ const ProductDetail = () => {
 
 				<h1 className="text-3xl font-medium  ">BDT {product?.price}</h1>
 
-				<p className="inline-block">{product?.description}</p>
+				<p className="inline-block"  dangerouslySetInnerHTML={{ __html: product?.description }}></p>
 				
 				<div className="flex gap-4">
 					<button className="bg-[#F5F5F5] p-2 px-3 flex items-center b  text-black rounded-none ">

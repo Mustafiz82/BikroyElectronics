@@ -29,7 +29,8 @@ const AllProduct = () => {
 	const { data: categoryItems } = useGetCategoryListQuery();
 	const { data: products } = useGetProductsQuery(filter, {
 		pollingInterval: 30000,
-		// refetchOnMountOrArgChange: true,
+		refetchOnMountOrArgChange: true,
+		
 	});
 	const { searchText, page, limit, categories } = useSelector(
 		(state) => state.filterSearch

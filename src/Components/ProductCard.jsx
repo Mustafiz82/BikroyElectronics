@@ -65,7 +65,7 @@ const ProductCard = ({ item }) => {
 
 				<h1 className="my-4 min-h-12 font-medium">{item?.title}</h1>
 				<h1 className="text-xl   font-medium text-primary ">
-					BDT {item?.price} <span  className="text-black font-base font-normal textt-base">({item?.sellCount} sold)</span>
+					BDT {item?.price} <span  className="text-black font-base font-normal textt-base">({item?.sellCount || 0} sold)</span>
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
 			</div></Link>

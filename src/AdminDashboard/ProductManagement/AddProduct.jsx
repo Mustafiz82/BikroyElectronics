@@ -1,24 +1,40 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import imageUpload from "../../assets/Others/image-removebg-preview (14).png";
 import { categoryItems } from "../../../public/categoryObject";
 import { useSetProductsMutation } from "../../redux/api/baseApi";
+import toast, { Toaster } from 'react-hot-toast';
+import RichTextEditor from "../../Components/RichTextEditor";
+
 
 const AddProduct = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit , reset } = useForm();
   const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
   const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
+	const [buttonText, setButtonText] = useState("Add product Product");
 
-  const [setProduct, { data }] = useSetProductsMutation();
+  const [setProduct, { data  , isSuccess}] = useSetProductsMutation();
+  const [description, setDescription] = useState('');
 
-  console.log(data);
+   console.log(description);
+ useEffect(() =>  {
+	if(isSuccess){
+    setButtonText("Product Added");
+    reset()
+    setDescription("")
+    setImageUrl("")
+	}
+ },[isSuccess])
 
-  const onSubmit = (data) => {
+  const onSubmit = (data ) => {
+    setButtonText("Adding Product...");
+
     console.log({ imageUrl, ...data });
-    setProduct({ imageUrl, ...data });
+    setProduct({ imageUrl, description ,...data });
+    
   };
 
   const handleImageUpload = async (event) => {
@@ -75,6 +91,7 @@ const AddProduct = () => {
       <h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
         Add Product
       </h1>
+      <Toaster />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="lg:flex gap-5 ">
@@ -87,19 +104,14 @@ const AddProduct = () => {
               className="input focus:border-none focus:outline-none rounded-sm w-full mb-8 bg-[#F5F5F5]"
             />
 
-            <textarea
-              placeholder="Product Description"
-              required
-              {...register("description", { required: true })}
-              className="textarea resize-none focus:border-none focus:outline-none rounded-sm mb-8 outline-none w-full h-64 bg-[#F5F5F5]"
-              id=""
-            ></textarea>
+<RichTextEditor   value={description} onChange={setDescription} />
+
             <input
               type="text"
               placeholder=" $ Price "
               required
               {...register("price", { required: true })}
-              className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+              className="input mt-24 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
             />
           </div>
           <div className="mt-8">
@@ -152,7 +164,7 @@ const AddProduct = () => {
           type="submit"
           className="w-full btn mt-6 btn-error bg-primary text-white rounded-sm"
         >
-          Add Product
+          {buttonText}
         </button>
       </form>
     </div>

@@ -111,6 +111,7 @@ const EditProduct = () => {
 								id="file-upload"
 								className="hidden input-file"
 								onChange={handleImageUpload}
+								required
 							/>
 
 							<div className="w-[250px] p-6 justify-center flex items-center h-[250px] bg-base-200">
