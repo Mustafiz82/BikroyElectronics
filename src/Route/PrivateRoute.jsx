@@ -11,6 +11,9 @@ const PrivateRoute = ({ children }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+
+
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
@@ -36,15 +39,11 @@ const PrivateRoute = ({ children }) => {
 		return unsubscribe; // Cleanup on unmount
 	}, [dispatch]);
 
-	useEffect(() => {
-		if (!email) {
-			navigate("/login");
-		}
-	}, [email]);
+	
 
 	if (isInitializing) {
 		return (
-			<div className="h-[500px] w-screen flex justify-center items-center">
+			<div className="h-[500px] w-full flex justify-center items-center">
 				<div className="loader">
 					<div className="loader-square"></div>
 					<div className="loader-square"></div>

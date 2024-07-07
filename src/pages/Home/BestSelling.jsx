@@ -6,7 +6,7 @@ const BestSelling = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
 	const {data:bestSellingProduct } = useGetProductsQuery({limit : 4 , sortBy : "sellCount" , sortOrder : "desc"})
 
-	console.log(bestSellingProduct);
+	// console.log(bestSellingProduct);
 
 	return (
 		<div className="my-20">

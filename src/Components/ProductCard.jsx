@@ -5,7 +5,7 @@ import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png";
 import { GoHeart } from "react-icons/go";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "@smastrom/react-rating/style.css";
 import { Link } from "react-router-dom";
@@ -22,19 +22,31 @@ const ProductCard = ({ item }) => {
 
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
 	const [setWishListProduct, { data: wishListdata}] =	useSetWishListProductMutation();
+	const navigate = useNavigate()
 	// console.log(wishListdata);
 
-	const addToWishList = () => {
+	const addToWishList = (e) => {
 
-		const wishListObject = {
+		e.stopPropagation();
+
+
+		
+		if(!email){
+			navigate("/login")
+		}
+		else{
+const wishListObject = {
 			productId : wishListdata?._id,
 			email : email,
 			...rest
 		}
-		// const wishListProduct = { email, ...item };
-		// setWishListProduct(wishListProduct);
+		const wishListProduct = { email, ...item };
+		setWishListProduct(wishListProduct);
 
 		console.log(wishListObject);
+		}
+
+		
 
 		
 	};
@@ -57,10 +69,10 @@ const ProductCard = ({ item }) => {
 					>
 						<IoEyeOutline className="text-xl" />
 					</button>
+					
 					<button onClick={addToWishList} className="bg-white hover:bg-primary hover:text-white duration-200 p-2  text-black top-16 right-3 rounded-full absolute">
-						<GoHeart className=" text-xl" />
-					</button>
-				
+<GoHeart className=" text-xl" />
+</button>
 				</div>
 
 				<h1 className="my-4 min-h-12 font-medium">{item?.title}</h1>
@@ -69,6 +81,8 @@ const ProductCard = ({ item }) => {
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
 			</div></Link>
+
+
 
 			
 	</div>

@@ -38,7 +38,7 @@ const AllProduct = () => {
 
 	const [selectedCategories, setSelectedCategories] = useState([]);
 
-	console.log(categories, "theese are selectecdc ate");
+	// console.log(categories, "theese are selectecdc ate");
 
 	const [text, setText] = useState(`Showing ${products?.length} item `);
 

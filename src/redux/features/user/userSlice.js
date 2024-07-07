@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  updateProfile 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile
 } from "firebase/auth";
 import auth from "../../../../firebase.config";
 
@@ -25,8 +25,9 @@ export const createUser = createAsyncThunk(
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName: name });
       const user = userCredential.user;
-      console.log(userCredential);
-      return { name: user.displayName, email: user.email };
+      const userData = { name: user.displayName, email: user.email };
+      
+      return userData;
     } catch (error) {
       console.error("Error creating user:", error.response ? error.response.data : error.message);
       return thunkAPI.rejectWithValue(error.message);
@@ -41,8 +42,9 @@ export const loginUser = createAsyncThunk(
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log(user);
-      return { name: user.displayName, email: user.email };
+      const userData = { name: user.displayName, email: user.email };
+      
+      return userData;
     } catch (error) {
       console.error("Error logging in:", error.response ? error.response.data : error.message);
       return thunkAPI.rejectWithValue(error.message);
@@ -51,21 +53,25 @@ export const loginUser = createAsyncThunk(
 );
 
 // Thunk for Google sign-in
-export const signInWithGoogle = createAsyncThunk(
-  "user/signInWithGoogle",
-  async (_, thunkAPI) => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user);
-      return { name: user.displayName, email: user.email };
-    } catch (error) {
-      console.error("Error signing in with Google:", error.response ? error.response.data : error.message);
-      return thunkAPI.rejectWithValue(error.message);
+  export const signInWithGoogle = createAsyncThunk(
+    "user/signInWithGoogle",
+    async (_, thunkAPI) => {
+      try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const userData = { name: user.displayName, email: user.email };
+        
+        return userData;
+      } catch (error) {
+        console.error("Error signing in with Google:", error.response ? error.response.data : error.message);
+        return thunkAPI.rejectWithValue(error.message);
+      }
     }
-  }
-);
+  );
+
+
+
 
 export const userSlice = createSlice({
   name: "user",
@@ -79,9 +85,9 @@ export const userSlice = createSlice({
       state.isLoading = payload.isLoading;
     },
     setInitializing: (state, { payload }) => {
-        state.isInitializing = payload.isInitializing;
-      },
-    
+      state.isInitializing = payload.isInitializing;
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -151,7 +157,8 @@ export const userSlice = createSlice({
   },
 });
 
+
 // Action creators are generated for each case reducer function
-export const { setUser, setLoading , setInitializing } = userSlice.actions;
+export const { setUser, setLoading, setInitializing } = userSlice.actions;
 
 export default userSlice.reducer;

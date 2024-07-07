@@ -45,7 +45,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/contact",
-				element: <PrivateRoute><Contack></Contack></PrivateRoute>
+				element: <Contack></Contack>
 			},
 			{
 				path: "/login",
@@ -57,11 +57,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/wishlist",
-				element: <Wishlist></Wishlist>,
+				element: <PrivateRoute><Wishlist></Wishlist></PrivateRoute>,
 			},
 			{
 				path: "/cart",
-				element: <Cart></Cart>,
+				element: <PrivateRoute><Cart></Cart></PrivateRoute>  ,
 			},
 			{
 				path: "/productdetail/:id",
@@ -83,15 +83,15 @@ const router = createBrowserRouter([
 				children: [
 					{
 						path: "myaccount",
-						element: <MyAccount></MyAccount>,
+						element: <PrivateRoute><MyAccount></MyAccount></PrivateRoute>  ,
 					},
 					{
 						path: "myorders",
-						element: <MyOrder></MyOrder>,
+						element: <PrivateRoute> <MyOrder></MyOrder></PrivateRoute> ,
 					},
 					{
 						path: "mycancellation",
-						element: <MyCancellations></MyCancellations>,
+						element: <PrivateRoute> <MyCancellations></MyCancellations></PrivateRoute> ,
 					},
 				],
 			},
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/admin",
-		element: <AdminDashboardLayout></AdminDashboardLayout> ,
+		element: <AdminDashboardLayout></AdminDashboardLayout>,
 		errorElement: <ErrorPages></ErrorPages>,
 		children: [
 			{

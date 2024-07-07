@@ -18,6 +18,9 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCategories } from "../../redux/features/filter/filterSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import auth from "../../../firebase.config";
+import { setUser } from "../../redux/features/user/userSlice";
 
 const Home = () => {
 	const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -48,36 +51,26 @@ const Home = () => {
 
 	const { data: categoryItems, isLoading, error } = useGetCategoryListQuery();
 	const { data: products } = useGetProductsQuery();
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-	const dispatch = useDispatch()
 
 	const handleSelectCategory = (category) => {
 		dispatch(setCategories({
-			categories : category
+			categories: category
 		}))
 		console.log(category);
 	}
 
-	console.log(products);
+	// console.log(products);
 
-	// useEffect(() => {
-	// 	const categoryTitle = categoryItems?.map((item) => item?.title);
-	// 	const categoryString = categoryTitle?.join(",");
-	// 	dispatch(
-	// 		setCategories({
-	// 			categories: categoryString,
-	// 		})
-	// 	);
-	// }, [categoryItems]);
-
+	
 	return (
 		<div className="max-w-screen-xl mx-auto ">
 			<div className="flex ">
 				<ul className="border-r-2 font-poppins  w-1/5 space-y-5 pt-5">
 					{categoryItems?.map((item) => (
-						<li onClick={() => handleSelectCategory(item?.title)}  key={item.id}>
-							<Link  to={`/allproduct`}>
+						<li onClick={() => handleSelectCategory(item?.title)} key={item.id}>
+							<Link to={`/allproduct`}>
 								{item.title}
 							</Link>
 						</li>
@@ -90,9 +83,9 @@ const Home = () => {
 
 			<FlashSale></FlashSale>
 			<Categories categories={categoryItems}></Categories>
-			<BestSelling categories={categoryItems}></BestSelling>
+			<BestSelling ></BestSelling>
 			<BannerAdd></BannerAdd>
-			<ExploreProduct products={products}></ExploreProduct>
+			<ExploreProduct explore="explore" products={products}></ExploreProduct>
 
 			<div className="flex justify-around my-40">
 				<div className="space-y-4 text-center ">

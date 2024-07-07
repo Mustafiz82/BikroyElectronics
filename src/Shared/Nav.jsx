@@ -10,7 +10,7 @@ import { CiStar } from "react-icons/ci";
 import { TiDeleteOutline } from "react-icons/ti";
 import auth from "../../firebase.config";
 import { signOut } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
 import { setSearchText } from "../redux/features/filter/filterSlice";
 
@@ -18,6 +18,10 @@ const Nav = () => {
 
 	const dispatch  = useDispatch()
 	const navigate = useNavigate()
+	
+	const { email } = useSelector((state) => state.userSlice);
+	console.log({userEmail : email})
+
 	 
 
 	const handleSearch = (e) => {
@@ -28,6 +32,25 @@ const Nav = () => {
 		}))
 		navigate("/allproduct")
 	};
+
+
+
+
+
+	
+
+	const handleLogout = () => {
+		signOut(auth).then(() => {
+			dispatch(setUser({
+				name : "",
+				email : ""
+			}))
+		  }).catch((error) => {
+			// An error happened.
+		  });
+	}
+
+
 	const ul = (
 		<>
 			<NavLink
@@ -82,16 +105,7 @@ const Nav = () => {
 	);
 
 
-	const handleLogout = () => {
-		signOut(auth).then(() => {
-			dispatch(setUser({
-				name : "",
-				email : ""
-			}))
-		  }).catch((error) => {
-			// An error happened.
-		  });
-	}
+
 	return (
 		<div className="max-w-screen-xl border-b-2 mx-auto py-4 ">
 			<div className="navbar px-0 gap-28 bg-base-100">

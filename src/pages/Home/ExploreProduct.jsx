@@ -18,9 +18,7 @@ const ExploreProduct = ({ products }) => {
 		}))
 	}
 
- 
-
-	console.log(slicedProducts);
+	// console.log(slicedProducts);
 
 	const prevSlider = () =>
 		setCurrentSlider((currentSlider) =>
@@ -87,10 +85,8 @@ const ExploreProduct = ({ products }) => {
 								>
 									
 
-									<div className="grid mt-10 ">
+									
 									<ProductCard item={item}></ProductCard>
-
-									</div>
 								</div>
 							))}
 						</div>
