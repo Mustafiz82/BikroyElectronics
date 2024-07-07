@@ -67,6 +67,9 @@ export const baseApi = createApi({
 		getWishlistProduct: builder.query({
 			query: (email) => `/wishlist?email=${email}`,
 		}),
+		getWishlistedStutus: builder.query({
+			query: (email , id) => `/wishlistStatus?email=${email}&id=${id}`,
+		}),
 		deleteWishlistProduct: builder.mutation({
 			query(id) {
 				return {
@@ -74,7 +77,7 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
-		}),
+		}),	
 	}),
 });
 
@@ -88,5 +91,7 @@ export const {
 	useSetWishListProductMutation,
 	useGetWishlistProductQuery,
 	useDeleteWishlistProductMutation,
-	useGetProductsCountQuery
+	useGetProductsCountQuery,
+	useGetWishlistedStutusQuery,
+	
 } = baseApi;
