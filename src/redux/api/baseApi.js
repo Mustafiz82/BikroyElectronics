@@ -111,6 +111,15 @@ export const baseApi = createApi({
 			},
 			invalidatesTags : ["cart"]
 		}),	
+		deleteAllCartProduct: builder.mutation({
+			query() {
+				return {
+					url: `allCartItem`,
+					method: "DELETE",
+				};
+			},
+			invalidatesTags : ["cart"]
+		}),	
 	}),
 });
 
@@ -129,6 +138,8 @@ export const {
 	useSetCartProductMutation,
 	useGetCartProductQuery,
 	useUpdateCartMutation,
+	useDeleteCartProductMutation,
+	useDeleteAllCartProductMutation
 
 	
 } = baseApi;

@@ -62,7 +62,7 @@ const ProductDetail = () => {
     const cartObject = {
       productId: _id,
       email: email,
-      quantity : 0,
+      quantity : 1,
       ...rest
     };
 

@@ -10,6 +10,7 @@ const Wishlist = () => {
 	const { email } = useSelector((state) => state.userSlice)
 	const { data: wishlistProduct } = useGetWishlistProductQuery(email)
 	const { data: Products } = useGetProductsQuery()
+	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
 
 
 	console.log(wishlistProduct);
@@ -32,7 +33,7 @@ const Wishlist = () => {
 			  });
 			}
 		  });
-		// deleteProduct(id)
+		deleteProduct(id)
 	}
 	return (
 		<div className="max-w-screen-xl mx-auto">

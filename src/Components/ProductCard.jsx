@@ -13,6 +13,7 @@ import {
 	useSetWishListProductMutation,
 	useGetSingleProductsQuery,
 } from "../redux/api/baseApi";
+import toast from "react-hot-toast";
 const ProductCard = ({ item }) => {
 	const myStyles = {
 		itemShapes: RoundedStar,
@@ -21,39 +22,37 @@ const ProductCard = ({ item }) => {
 	};
 
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
-	const [setWishListProduct, { data: wishListdata}] =	useSetWishListProductMutation();
+	const [setWishListProduct, { data: wishListdata }] = useSetWishListProductMutation();
 	const navigate = useNavigate()
+	
 	// console.log(wishListdata);
 
-	const addToWishList = (e) => {
-
-		e.stopPropagation();
-
-
-		
-		if(!email){
-			navigate("/login")
+	const addToWishList = async () => {
+		if (!item || !email) {
+		  return navigate("/login")
 		}
-		else{
-const wishListObject = {
-			productId : wishListdata?._id,
-			email : email,
-			...rest
+	
+		const { _id, ...rest } = item;
+	
+		const wishListObject = {
+		  productId: _id,
+		  email: email,
+		  ...rest
+		};
+	
+		try {
+		  await setWishListProduct(wishListObject);
+		  toast.success('product Added to WishList')
+
+		} catch (error) {
+		  console.error('Error adding to wishlist:', error);
+		  toast.error('Something went wrong')
 		}
-		const wishListProduct = { email, ...item };
-		setWishListProduct(wishListProduct);
+	  };
 
-		console.log(wishListObject);
-		}
+	return (<div>
+		<div>
 
-		
-
-		
-	};
-
-	return ( <div>
-		<Link to={`productdetail/${item?._id}`}>
-		
 			<div className="w-[250px]  overflow-hidden">
 				<div className="rounded-md relative  bg-[#F5F5F5]">
 					<div className="p-6 h-[250px] flex items-center">
@@ -63,28 +62,28 @@ const wishListObject = {
 						<IoCartOutline className="text-xl mr-2" />
 						<h1 className="texg-">Add to Cart </h1>
 					</button>
-					<button
-						
+					<Link to={`productdetail/${item?._id}`}
+
 						className="bg-white hover:bg-primary hover:text-white duration-200 p-2 top-3 right-3 rounded-full absolute"
 					>
 						<IoEyeOutline className="text-xl" />
-					</button>
-					
+					</Link>
+
 					<button onClick={addToWishList} className="bg-white hover:bg-primary hover:text-white duration-200 p-2  text-black top-16 right-3 rounded-full absolute">
-<GoHeart className=" text-xl" />
-</button>
+						<GoHeart className=" text-xl" />
+					</button>
 				</div>
 
 				<h1 className="my-4 min-h-12 font-medium">{item?.title}</h1>
 				<h1 className="text-xl   font-medium text-primary ">
-					BDT {item?.price} <span  className="text-black font-base font-normal textt-base">({item?.sellCount || 0} sold)</span>
+					BDT {item?.price} <span className="text-black font-base font-normal textt-base">({item?.sellCount || 0} sold)</span>
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
-			</div></Link>
+			</div></div>
 
 
 
-			
+
 	</div>
 	);
 };

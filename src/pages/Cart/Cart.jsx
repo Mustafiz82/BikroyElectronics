@@ -1,17 +1,24 @@
 import React from "react";
-import image from "../../assets/Signup/imou-ranger-2-200x200-removebg-preview.png";
-import { useGetCartProductQuery, useUpdateCartMutation } from "../../redux/api/baseApi";
+import { useDeleteAllCartProductMutation, useGetCartProductQuery, useUpdateCartMutation } from "../../redux/api/baseApi";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
+import image from "../../assets/Others/empty-cart-7359557-6024626.webp"
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Cart = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
 
 	const { data: cartData, error } = useGetCartProductQuery(email)
+	const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
+	
+	const cartTotal = cartData?.reduce((accumulator, product) => {
+		return accumulator + (product?.price * product?.quantity);
+	  }, 0);
 
 
-	console.log(cartData)
+	console.log(cartTotal)
 
 	// const handleUpdateCart = (e, data) => {
 
@@ -37,6 +44,33 @@ const Cart = () => {
 	// };
 
 
+	const handleDeleteAllCartProduct = () => {
+
+		Swal.fire({
+			title: "Remove This Product from cart?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, remove it!"
+		}).then((result) => {
+
+
+
+			if (result.isConfirmed) {
+				deleteProducts()
+				Swal.fire({
+					title: "Removed!",
+					text: "This product has been removed.",
+					icon: "success"
+				});
+			}
+		});
+
+	}
+
+
 	return (
 		<div className="max-w-screen-xl mx-auto">
 			<div className="px-16">
@@ -49,15 +83,14 @@ const Cart = () => {
 
 
 				{
-					cartData?.length < 1 ? <div className="w-2/3 mx-auto text-center">
+					cartData?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
+						<img src={image} className="w-32" alt="" srcset="" />
+
 						<h1 className="text-xl font-semibold mb-2 font-inter">
 							Your Cart is Empty
 
 						</h1>
-						<p>
 
-							It looks like you haven't added any products to your cart yet. Start exploring our wide range of products and click the Add to cart button to save your favorites here. Happy shopping!
-						</p>
 					</div> : <div >
 
 						{
@@ -71,11 +104,11 @@ const Cart = () => {
 			</div>
 
 			<div className="flex justify-between ">
-				<button className="btn btn-outline rounded-none ">
+				<Link to="/allProduct" className="btn btn-outline rounded-none ">
 					Return To Shop{" "}
-				</button>
-				<button disabled={cartData?.length < 1} className="btn btn-outline rounded-none ">
-					Update Cart{" "}
+				</Link>
+				<button onClick={handleDeleteAllCartProduct} disabled={cartData?.length < 1} className="btn btn-outline rounded-none ">
+					Remove all product
 				</button>
 			</div>
 
@@ -96,7 +129,7 @@ const Cart = () => {
 						<h1 className="text-xl font-medium mb-8 ">cart total</h1>
 						<div className="flex justify-between border-b-2 pb-4 border-b-black">
 							<span>subtotal:</span>
-							<span>$1750</span>
+							<span>{cartTotal}</span>
 						</div>
 						<div className="flex justify-between border-b-2 pb-4 border-b-black">
 							<span>Shipping:</span>
@@ -104,7 +137,7 @@ const Cart = () => {
 						</div>
 						<div className="flex justify-between ">
 							<span>Total:</span>
-							<span>$1750</span>
+							<span>{cartTotal}</span>
 						</div>
 						<div className="flex justify-center items-center">
 							<button className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">

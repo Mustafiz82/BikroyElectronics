@@ -21,6 +21,7 @@ import { setCategories } from "../../redux/features/filter/filterSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "../../../firebase.config";
 import { setUser } from "../../redux/features/user/userSlice";
+import { Toaster } from "react-hot-toast";
 
 const Home = () => {
 	const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -137,6 +138,11 @@ const Home = () => {
 					</p>
 				</div>
 			</div>
+
+			<Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
 		</div>
 	);
 };

@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from 'react-redux';
-import { useUpdateCartMutation } from '../../redux/api/baseApi';
+import { useDeleteCartProductMutation, useUpdateCartMutation } from '../../redux/api/baseApi';
+import Swal from 'sweetalert2';
 
 const CartItem = ({ item }) => {
 
     const [updateCart, { data: updateStatus }] = useUpdateCartMutation()
-    const [deleteCart, { }]
 
     // console.log(cartData)
+
+    
+	const [deleteItem , {data  , error}] = useDeleteCartProductMutation()
+	console.log(error , data);
+
+	
+	const handleDelete = (id) => {
+
+		console.log(id)
+		Swal.fire({
+			title: "Remove This Product from cart?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, remove it!"
+		  }).then((result) => {
+		
+
+
+			if (result.isConfirmed) {
+                deleteItem(id)
+			  Swal.fire({
+				title: "Removed!",
+				text: "This product has been removed.",
+				icon: "success"
+			  });
+			}
+		  });
+	}
 
 
 
@@ -25,6 +56,8 @@ const CartItem = ({ item }) => {
     };
 
 
+
+
     
 
 
@@ -38,13 +71,13 @@ const CartItem = ({ item }) => {
                     {" "}
                     {item?.title}
                 </h1>
-                <h1 className="text-red-500 text-xl   -top-1 absolute"><TiDelete />
-                </h1>
+                <button onClick={() => {handleDelete(item?._id)}}  className="text-red-500 text-xl   -top-1 absolute"><TiDelete />
+                </button>
 
             </div>
             <h1 className="col-span-2">BDT {item?.price}</h1>
             <div className="col-span-2">
-                <input
+                <input min={1}
                     onChange={(e) => handleUpdateCart(e, item)}
                     type="number"
                     defaultValue={item?.quantity}
