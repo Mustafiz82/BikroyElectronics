@@ -3,11 +3,38 @@ import { IoCartOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png"
 import { useDeleteWishlistProductMutation } from "../redux/api/baseApi";
+import Swal from "sweetalert2";
 
 const WishListProductCard = ({item}) => {
 
 	const [deleteItem , {data  , error}] = useDeleteWishlistProductMutation()
 	console.log(error , data);
+
+	
+	const handleDelete = (id) => {
+
+		console.log(id)
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		  }).then((result) => {
+			deleteItem(id)
+
+
+			if (result.isConfirmed) {
+			  Swal.fire({
+				title: "Deleted!",
+				text: "Your file has been deleted.",
+				icon: "success"
+			  });
+			}
+		  });
+	}
 	
     return (
 		<div className="max-w-[280px]  overflow-hidden">
@@ -21,7 +48,7 @@ const WishListProductCard = ({item}) => {
 					<IoCartOutline className="text-xl mr-2" />
 					<h1>Add to Cart </h1>
 				</button>
-                <button onClick={() => {deleteItem(item?._id).unwrap()}} className="bg-white p-2 top-3 right-3 rounded-full absolute">
+                <button onClick={() => handleDelete(item?._id)} className="bg-white p-2 top-3 right-3 rounded-full absolute">
                 <RiDeleteBin6Line />
 
                 </button>

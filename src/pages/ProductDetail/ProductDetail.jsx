@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { GoHeart, GoHeartFill } from "react-icons/go";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   useGetSingleProductsQuery,
   useGetWishlistedStutusQuery,
+  useSetCartProductMutation,
   useSetWishListProductMutation
 } from "../../redux/api/baseApi";
 
@@ -14,27 +15,17 @@ const ProductDetail = () => {
   const { email } = useSelector((state) => state.userSlice);
   const [wishListStatus, setWishListStatus] = useState(null); // State to hold wish list status
   const [setWishListProduct, { data: wishListData, error, isLoading }] = useSetWishListProductMutation();
+  const [setCart , {data:cartData , error:cartError}] = useSetCartProductMutation()
   const [actionStatus, setActionStatus] = useState(null); // null for no action, 'success', 'error'
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (email) {
-      const fetchData = async () => {
-        try {
-          const { data } = await useGetWishlistedStutusQuery(email, id);
-          setWishListStatus(data); // Set wish list status once fetched
-        } catch (error) {
-          console.error("Error fetching wish list status:", error);
-        }
-      };
 
-      fetchData();
-    }
-  }, [email, id]);
+  //  wishlist ---------------------------------------
 
   const addToWishList = async () => {
     if (!product || !email) {
       console.error('Product or email is undefined', { product, email });
-      return;
+      return navigate("/login")
     }
 
     const { _id, ...rest } = product;
@@ -54,6 +45,36 @@ const ProductDetail = () => {
     }
   };
 
+
+
+  // add ot cart ============================================
+
+
+
+  const addToCart = async () => {
+    if (!product || !email) {
+      console.error('Product or email is undefined', { product, email });
+      return navigate("/login")
+    }
+
+    const { _id, ...rest } = product;
+
+    const cartObject = {
+      productId: _id,
+      email: email,
+      quantity : 0,
+      ...rest
+    };
+
+    try {
+      await setCart(cartObject)
+      setActionStatus('success');
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      setActionStatus('error');
+    }
+  };
+
   useEffect(() => {
     if (actionStatus === 'success') {
       console.log('Product added to wishlist successfully!');
@@ -61,8 +82,7 @@ const ProductDetail = () => {
       console.log('Error: Failed to add product to wishlist');
     }
   }, [actionStatus]);
-
-  if (productLoading || !email) return <p>Loading...</p>; // Return loading state if product or email is not loaded
+  if (productLoading ) return <p>Loading...</p>;
 
   return (
     <div className="mx-28 flex gap-12 my-10">
@@ -88,7 +108,7 @@ const ProductDetail = () => {
           </button>
 
           <div>
-            <button className="flex hover:text-black rounded-none w-full text-white bg-black btn">
+            <button onClick={addToCart} className="flex hover:text-black rounded-none w-full text-white bg-black btn">
               <h1>Add to Cart</h1>
             </button>
           </div>
@@ -100,7 +120,7 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p>Loading...</p> }
         {actionStatus === 'success' && <p>Product added to wishlist successfully!</p>}
         {actionStatus === 'error' && <p>Error: Failed to add product to wishlist</p>}
       </div>

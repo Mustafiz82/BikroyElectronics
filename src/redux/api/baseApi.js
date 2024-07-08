@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
 	reducerPath: "api",
 	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
-	tagTypes:[ 'user' , 'products'],
+	tagTypes:[ 'user' , 'products' , 'wishlist' , 'cart'],
 	endpoints: (builder) => ({
 		getCategoryList: builder.query({
 			query: () => "/categories",
@@ -66,6 +66,8 @@ export const baseApi = createApi({
 		}),
 		getWishlistProduct: builder.query({
 			query: (email) => `/wishlist?email=${email}`,
+			providesTags : ['wishlist']
+
 		}),
 		getWishlistedStutus: builder.query({
 			query: (email , id) => `/wishlistStatus?email=${email}&id=${id}`,
@@ -77,6 +79,37 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
+			invalidatesTags : ["wishlist"]
+		}),	
+		setCartProduct: builder.mutation({
+			query: (data) => ({
+				url: `/cart`,
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags : ["cart"]
+		}),
+		getCartProduct: builder.query({
+			query: (email) => `/cart?email=${email}`,
+			providesTags : ['cart']
+
+		}),
+		updateCart: builder.mutation({
+			query: ({ id, data }) => ({
+				url: `/cart/${id}`,
+				method: "PUT",
+				body: data,
+			}),
+			invalidatesTags : ["cart"]
+		}),
+		deleteCartProduct: builder.mutation({
+			query(id) {
+				return {
+					url: `cart/${id}`,
+					method: "DELETE",
+				};
+			},
+			invalidatesTags : ["cart"]
 		}),	
 	}),
 });
@@ -93,5 +126,9 @@ export const {
 	useDeleteWishlistProductMutation,
 	useGetProductsCountQuery,
 	useGetWishlistedStutusQuery,
+	useSetCartProductMutation,
+	useGetCartProductQuery,
+	useUpdateCartMutation,
+
 	
 } = baseApi;
