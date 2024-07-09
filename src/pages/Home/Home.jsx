@@ -139,10 +139,7 @@ const Home = () => {
 				</div>
 			</div>
 
-			<Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+			
 		</div>
 	);
 };

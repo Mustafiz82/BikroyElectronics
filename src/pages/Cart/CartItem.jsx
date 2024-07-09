@@ -10,41 +10,37 @@ const CartItem = ({ item }) => {
 
     // console.log(cartData)
 
+
+    const [deleteItem, { data, error }] = useDeleteCartProductMutation()
     
-	const [deleteItem , {data  , error}] = useDeleteCartProductMutation()
-	console.log(error , data);
-
-	
-	const handleDelete = (id) => {
-
-		console.log(id)
-		Swal.fire({
-			title: "Remove This Product from cart?",
-			text: "You won't be able to revert this!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Yes, remove it!"
-		  }).then((result) => {
-		
+    console.log(error, data);
 
 
-			if (result.isConfirmed) {
+    const handleDelete = (id) => {
+        console.log(id)
+        Swal.fire({
+            title: "Remove This Product from cart?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, remove it!"
+        }).then((result) => {
+
+            if (result.isConfirmed) {
                 deleteItem(id)
-			  Swal.fire({
-				title: "Removed!",
-				text: "This product has been removed.",
-				icon: "success"
-			  });
-			}
-		  });
-	}
-
+                Swal.fire({
+                    title: "Removed!",
+                    text: "This product has been removed.",
+                    icon: "success"
+                });
+            }
+        });
+    }
 
 
     const handleUpdateCart = (e, data) => {
-
         const id = data?._id
         console.log(id, data)
 
@@ -54,11 +50,6 @@ const CartItem = ({ item }) => {
         updateCart({ id, data: updatedItem })
 
     };
-
-
-
-
-    
 
 
     return (
@@ -71,7 +62,7 @@ const CartItem = ({ item }) => {
                     {" "}
                     {item?.title}
                 </h1>
-                <button onClick={() => {handleDelete(item?._id)}}  className="text-red-500 text-xl   -top-1 absolute"><TiDelete />
+                <button onClick={() => { handleDelete(item?._id) }} className="text-red-500 text-xl   -top-1 absolute"><TiDelete />
                 </button>
 
             </div>

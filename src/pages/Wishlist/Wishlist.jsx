@@ -1,9 +1,11 @@
 import React from "react";
 import WishListProductCard from "../../Components/WishListProductCard";
 import ProductCard from "../../Components/ProductCard";
-import { useDeleteWishlistProductMutation, useGetProductsQuery, useGetWishlistProductQuery } from "../../redux/api/baseApi";
+import { useDeleteWishlistProductMutation, useGetProductsQuery, useGetWishlistProductQuery, useSetAllCartProductMutation } from "../../redux/api/baseApi";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import image from "../../assets/Others/emptywishlist.png"
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
 
@@ -11,52 +13,39 @@ const Wishlist = () => {
 	const { data: wishlistProduct } = useGetWishlistProductQuery(email)
 	const { data: Products } = useGetProductsQuery()
 	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
+	const [moveToCart , {data : moveStatus , isLoading}] = useSetAllCartProductMutation() 
+console.log(data)
 
 
-	console.log(wishlistProduct);
-
-	const handleDelete = (id) => {
-		Swal.fire({
-			title: "Are you sure?",
-			text: "You won't be able to revert this!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Yes, delete it!"
-		  }).then((result) => {
-			if (result.isConfirmed) {
-			  Swal.fire({
-				title: "Deleted!",
-				text: "Your file has been deleted.",
-				icon: "success"
-			  });
-			}
-		  });
-		deleteProduct(id)
+const handleMoveToCart = () => {
+	if(wishlistProduct){
+		return moveToCart(wishlistProduct)
 	}
+	console.log("no wishlist product found")
+}
+	
 	return (
 		<div className="max-w-screen-xl mx-auto">
 			<div className=" ">
 				<div className="flex my-14 justify-between items-center">
 					<h1 className="text-xl">Wishlist (4)</h1>
-					<button className="btn btn-outline rounded-none ">
-						Move all to Cart
+					<button disabled={isLoading || wishlistProduct?.length < 1 } onClick={handleMoveToCart} className="btn btn-outline rounded-none ">
+						{isLoading ? "Moving to cart..." : "Move all to Cart"}
 					</button>
 				</div>
 
 				<div>
+					
 					{
-						wishlistProduct?.length < 1 ? <div className="w-1/2 mx-auto text-center">
-							<h1 className="text-xl font-semibold mb-2 font-inter">
-								Your Wishlist is Empty
+						wishlistProduct?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
+						<img src={image} className="w-32" alt="" srcset="" />
 
-							</h1>
-							<p>
+						<h1 className="text-xl font-semibold mb-2 font-inter">
+							Your wishlist is Empty
 
-								It looks like you haven't added any products to your wishlist yet. Start exploring our wide range of products and click the heart icon to save your favorites here. Happy shopping!
-							</p>
-						</div> : <div className="grid grid-cols-4 gap-16">
+						</h1>
+
+					</div> : <div className="grid grid-cols-4 gap-16">
 
 							{
 								wishlistProduct?.map(item => <WishListProductCard item={item} ></WishListProductCard>)
@@ -77,9 +66,9 @@ const Wishlist = () => {
 							Just for you
 						</h1>
 					</div>
-					<button className="btn btn-outline px-8 rounded-none ">
+					<Link to="/allProduct"  className="btn btn-outline px-8 rounded-none ">
 						See all
-					</button>
+					</Link>
 				</div>
 
 				<div className="grid grid-cols-4 gap-16">

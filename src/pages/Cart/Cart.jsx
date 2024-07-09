@@ -3,8 +3,9 @@ import { useDeleteAllCartProductMutation, useGetCartProductQuery, useUpdateCartM
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import image from "../../assets/Others/empty-cart-7359557-6024626.webp"
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Cart = () => {
 
@@ -71,6 +72,24 @@ const Cart = () => {
 	}
 
 
+	const handleSubmitCoupon = (e) => {
+		e.preventDefault()
+		const coupon = e.target.coupon.value
+		console.log(coupon)
+		toast.error('Invalid coupon code', {
+			style: {
+				padding: '16px',
+				color: '#ffffff',
+				background: '#DB4444',
+			},
+			iconTheme: {
+				primary: '#ffffff',
+				secondary: '#DB4444',
+			},
+		});
+	}
+
+
 	return (
 		<div className="max-w-screen-xl mx-auto">
 			<div className="px-16">
@@ -113,16 +132,17 @@ const Cart = () => {
 			</div>
 
 			<div className="    mt-20 ">
-				<div className="flex gap-4 ">
+				<form onSubmit={handleSubmitCoupon}  className="flex gap-4 ">
 					<input
 						type="text"
 						placeholder="Coupon code "
 						className="input  border-black  rounded-sm  input-bordered "
+						name="coupon"
 					/>
-					<button className="btn btn-error bg-primary text-white rounded-sm ">
+					<button type="submit"  className="btn btn-error bg-primary text-white rounded-sm ">
 						Apply coupon
 					</button>
-				</div>
+				</form>
 
 				<div className="flex justify-end -mt-10">
 					<div className=" p-8 space-y-4 border-2 border-black w-1/3">

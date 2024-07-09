@@ -63,6 +63,7 @@ export const baseApi = createApi({
 				method: "POST",
 				body: data,
 			}),
+			invalidatesTags : ['wishlist']
 		}),
 		getWishlistProduct: builder.query({
 			query: (email) => `/wishlist?email=${email}`,
@@ -120,6 +121,14 @@ export const baseApi = createApi({
 			},
 			invalidatesTags : ["cart"]
 		}),	
+		setAllCartProduct: builder.mutation({
+			query: (data) => ({
+				url: `/moveToCart`,
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags : ["cart" , "wishlist"]
+		}),
 	}),
 });
 
@@ -139,7 +148,8 @@ export const {
 	useGetCartProductQuery,
 	useUpdateCartMutation,
 	useDeleteCartProductMutation,
-	useDeleteAllCartProductMutation
+	useDeleteAllCartProductMutation,
+	useSetAllCartProductMutation
 
 	
 } = baseApi;

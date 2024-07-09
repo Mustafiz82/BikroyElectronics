@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import auth from '../../firebase.config';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/features/user/userSlice';
+import { Toaster } from 'react-hot-toast';
 
 const MainLayout = () => {
 
@@ -33,6 +34,10 @@ const MainLayout = () => {
             <Nav></Nav>
             <Outlet></Outlet>
             <Footer></Footer>
+            <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
         </div>
     );
 };

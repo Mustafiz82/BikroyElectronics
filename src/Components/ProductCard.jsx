@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import {
 	useSetWishListProductMutation,
 	useGetSingleProductsQuery,
+	useSetCartProductMutation,
 } from "../redux/api/baseApi";
 import toast from "react-hot-toast";
 const ProductCard = ({ item }) => {
@@ -24,29 +25,80 @@ const ProductCard = ({ item }) => {
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
 	const [setWishListProduct, { data: wishListdata }] = useSetWishListProductMutation();
 	const navigate = useNavigate()
-	
+	const [setCart , {data:cartData , error:cartError}] = useSetCartProductMutation()
+
+
 	// console.log(wishListdata);
 
 	const addToWishList = async () => {
 		if (!item || !email) {
+			return navigate("/login")
+		}
+
+		const { _id, ...rest } = item;
+
+		const wishListObject = {
+			productId: _id,
+			email: email,
+			...rest
+		};
+
+		try {
+			await setWishListProduct(wishListObject);
+			toast.success('product Added to WishList', {
+				style: {
+					padding: '16px',
+					color: '#ffffff',
+					background: '#DB4444',
+				},
+				iconTheme: {
+					primary: '#ffffff',
+					secondary: '#DB4444',
+				},
+			});
+
+		} catch (error) {
+			console.error('Error adding to wishlist:', error);
+			toast.error('Something went wrong')
+		}
+	};
+
+
+
+
+
+
+	const addToCart = async () => {
+		if (!item || !email) {
+		  console.error('Product or email is undefined', { product, email });
 		  return navigate("/login")
 		}
 	
 		const { _id, ...rest } = item;
 	
-		const wishListObject = {
+		const cartObject = {
 		  productId: _id,
 		  email: email,
+		  quantity : 1,
 		  ...rest
 		};
 	
 		try {
-		  await setWishListProduct(wishListObject);
-		  toast.success('product Added to WishList')
-
+		  await setCart(cartObject)
+		  toast.success('product Added to Cart', {
+			style: {
+				padding: '16px',
+				color: '#ffffff',
+				background: '#DB4444',
+			},
+			iconTheme: {
+				primary: '#ffffff',
+				secondary: '#DB4444',
+			},
+		});
 		} catch (error) {
-		  console.error('Error adding to wishlist:', error);
-		  toast.error('Something went wrong')
+		  console.error('Error adding to cart:', error);
+		  
 		}
 	  };
 
@@ -58,7 +110,7 @@ const ProductCard = ({ item }) => {
 					<div className="p-6 h-[250px] flex items-center">
 						<img src={item?.imageUrl} className="mx-auto " alt="" />
 					</div>
-					<button className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
+					<button  onClick={addToCart} className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
 						<IoCartOutline className="text-xl mr-2" />
 						<h1 className="texg-">Add to Cart </h1>
 					</button>
