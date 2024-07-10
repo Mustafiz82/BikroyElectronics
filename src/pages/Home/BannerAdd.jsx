@@ -41,7 +41,7 @@ const BannerAdd = () => {
 							renderer={renderer}
 						/>
 
-                        <Link  to="allproduct/productdetail/667e8c0ac9276c54fd4cd172" className='btn btn-success bg-green-400 rounded-sm px-8 text-white'>Buy Now</Link>
+                        <Link  to="/allproduct/productdetail/66868dcfa2b06ff3e542c63f" className='btn btn-success bg-green-400 rounded-sm px-8 text-white'>Buy Now</Link>
                 </div>
                 <div>
                     <img style={{filter:"drop-shadow(0px 5px 25px rgba(255, 255, 255, 0.5))" }} src={drone} className="  m-10 shadow-slate-200  "srcset="" />

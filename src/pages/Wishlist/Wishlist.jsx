@@ -19,7 +19,23 @@ console.log(data)
 
 const handleMoveToCart = () => {
 	if(wishlistProduct){
-		return moveToCart(wishlistProduct)
+
+
+		
+
+		// const object = 
+		const updateProduct = wishlistProduct?.map(item => { 
+
+			const {_id , productId , email , quantity , imageUrl , title , price , category } = item
+
+			const newObject = {
+				productId , email , quantity , imageUrl , title , price , category , quantity : 1
+			}
+
+			console.log(newObject)
+			return newObject
+		})
+		return moveToCart(updateProduct)
 	}
 	console.log("no wishlist product found")
 }

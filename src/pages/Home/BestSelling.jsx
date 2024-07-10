@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProductCard from "../../Components/ProductCard";
 import { useGetProductsQuery } from "../../redux/api/baseApi";
+import { Link } from "react-router-dom";
 
 const BestSelling = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
@@ -23,9 +24,9 @@ const BestSelling = ({ categories }) => {
 			</h1>
 
             </div>
-            <button className="btn btn-error px-8 text-white  bg-primary rounded-sm ">
+            <Link to="/allProduct" className="btn btn-error px-8 text-white  bg-primary rounded-sm ">
 				view All
-			</button>
+			</Link>
             </div>``
 
 			<div className="relative">

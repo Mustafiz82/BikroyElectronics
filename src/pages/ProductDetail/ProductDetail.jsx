@@ -8,6 +8,7 @@ import {
   useSetCartProductMutation,
   useSetWishListProductMutation
 } from "../../redux/api/baseApi";
+import toast from "react-hot-toast";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,17 @@ const ProductDetail = () => {
 
     try {
       await setWishListProduct(wishListObject);
-      setActionStatus('success');
+      toast.success('product Added to WishList', {
+				style: {
+					padding: '16px',
+					color: '#ffffff',
+					background: '#DB4444',
+				},
+				iconTheme: {
+					primary: '#ffffff',
+					secondary: '#DB4444',
+				},
+			});
     } catch (error) {
       console.error('Error adding to wishlist:', error);
       setActionStatus('error');
@@ -68,7 +79,17 @@ const ProductDetail = () => {
 
     try {
       await setCart(cartObject)
-      setActionStatus('success');
+      toast.success('product Added to Cart', {
+				style: {
+					padding: '16px',
+					color: '#ffffff',
+					background: '#DB4444',
+				},
+				iconTheme: {
+					primary: '#ffffff',
+					secondary: '#DB4444',
+				},
+			});;
     } catch (error) {
       console.error('Error adding to cart:', error);
       setActionStatus('error');
@@ -121,8 +142,7 @@ const ProductDetail = () => {
         </div>
 
         {isLoading && <p>Loading...</p> }
-        {actionStatus === 'success' && <p>Product added to wishlist successfully!</p>}
-        {actionStatus === 'error' && <p>Error: Failed to add product to wishlist</p>}
+    
       </div>
     </div>
   );

@@ -160,10 +160,10 @@ const Cart = () => {
 							<span>{cartTotal}</span>
 						</div>
 						<div className="flex justify-center items-center">
-							<button className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">
+							<Link to="/checkout" className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">
 								Proceed to checkout{" "}
-							</button>
-						</div>{" "}
+							</Link>
+						</div>{" "} 
 					</div>
 				</div>
 			</div>
