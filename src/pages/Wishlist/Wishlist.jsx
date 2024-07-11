@@ -32,7 +32,6 @@ const handleMoveToCart = () => {
 				productId , email , quantity , imageUrl , title , price , category , quantity : 1
 			}
 
-			console.log(newObject)
 			return newObject
 		})
 		return moveToCart(updateProduct)

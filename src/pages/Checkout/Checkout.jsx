@@ -1,24 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useGetCartProductQuery } from '../../redux/api/baseApi';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDeleteAllCartProductMutation, useGetCartProductQuery, useSetOrdersMutation } from '../../redux/api/baseApi';
+import toast from 'react-hot-toast';
 
 const Checkout = () => {
 
     const { email } = useSelector((state) => state.userSlice)
     const { data: cartData, error } = useGetCartProductQuery(email)
+    const [setOrder , {data:orderStatus , isLoading , isSuccess}] = useSetOrdersMutation()
     const { register, handleSubmit, reset } = useForm();
+    const [orderButtonText , setOrderButtonText] = useState("Proceed Order")
+    const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
 
-    const onSubmit = (data) => {
-        console.log(data)
 
-    }
-    console.log(cartData)
 
     const cartTotal = cartData?.reduce((accumulator, product) => {
 		return accumulator + (product?.price * product?.quantity);
 	  }, 0);
+
+      const navigate = useNavigate()
+
+     
+
+    const onSubmit = async (data) => {
+        setOrderButtonText("proceeding...")
+        // setOrder(data)
+
+        const ordersData = {
+            customerDetail : {
+                email : email ,
+                ...data
+            } ,
+            OrderDetails : cartData,
+            totalPrice : cartTotal,
+            paymentMethod : "COD",
+            date: new Date(),
+            status : "pending"
+
+            
+        }
+
+        console.log(ordersData)
+
+       const result = await  setOrder(ordersData)
+       if(result?.data){
+        setOrderButtonText("Order proceed")
+        deleteProducts()
+        navigate("/Dashboard/myorders")
+       }
+        
+        
+
+
+    }
+    // console.log(cartData)
+
+    
 
 
 
@@ -53,9 +92,9 @@ const Checkout = () => {
                     </div>
                     <div  >
                         <label htmlFor="streetAddress" className='text-[#00000090]'>
-                            Street Address<sup className='text-primary'>*</sup>
+                            Address<sup className='text-primary'>*</sup>
                         </label>
-                        <input  {...register("streetAddress")}
+                        <input  {...register("address")}
                             type="text"
                             required
                             className=" input mt-2 focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
@@ -88,10 +127,11 @@ const Checkout = () => {
                         </label>
                         <input
                             type="email"
+                            defaultValue={email ? email : ""}
                             id='email'
-                            required
+                            disabled
                             className=" input mt-2 focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
-                            {...register("email")}
+                           
                         />
                     </div>
 
@@ -134,14 +174,14 @@ const Checkout = () => {
                         <div className='flex items-center gap-2 my-4'>
                             <input type="radio" name="radio-8" className="radio radio-error" defaultChecked /> <span> Cash On Delivery</span>
                         </div>
-                        <div className='flex items-center gap-2 my-4'>
-                            <input type="radio" disabled name="radio-8" className="radio radio-error" /> <span> Pay with SSLCOMMERZ (Upcoming)</span>
+                        <div className='flex  items-center gap-2 my-4'>
+                            <input  type="radio" disabled name="radio-8" className="radio radio-error " /> <span className='text-[#00000070]'> Pay with SSLCOMMERZ (Upcoming)</span>
                         </div>
 
                     </div>
                     <div className="flex items-center">
-                        <button type='submit' className="btn btn-error text-white bg-primary rounded-sm px-8 mt-6">
-                            Proceed Order{" "}
+                        <button id='submitButton' type='submit' className="btn btn-error text-white bg-primary rounded-sm px-8 mt-6">
+                            {orderButtonText}
                         </button>
                     </div>{" "}
                 </div>
