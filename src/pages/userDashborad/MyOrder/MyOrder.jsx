@@ -1,13 +1,15 @@
 import React from "react";
-import image from "../../../assets/Signup/imou-ranger-2-200x200-removebg-preview.png";
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from "react-redux";
-import { useGetOrdersQuery } from "../../../redux/api/baseApi";
+import { useGetOrdersQuery, useUpdateOrderStatusMutation } from "../../../redux/api/baseApi";
+import image from "../../../assets/Others/no-orders.png"
+import { Link } from "react-router-dom";
 
 const MyOrder = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
 	const { data: orders } = useGetOrdersQuery(email)
+	const [updateOrder, { data: updateStatus }] = useUpdateOrderStatusMutation()
 
 
 	const formatDateString = (dateString) => {
@@ -16,32 +18,45 @@ const MyOrder = () => {
 		return date.toLocaleDateString('en-GB', options);
 	};
 
-	return (
-		<div className=" mt-10">
+	const handleCancelOrder = (id) => {
+		console.log(id)
+		updateOrder({ id, status :   "cancelled" })
+}
+	
+return (
+	<div className=" mt-10">
 
-			{
-				orders?.map(item => <div className="mb-16 border-2  ">
-					<div className="border-b-2 ">
-						<div className="flex p-10  items-center justify-between">
-							<div>
-								<h1>
-									{" "}
-									Order ID :{" "}
-									<span className="text-primary">
-										{item?._id}
-									</span>
-								</h1>
-								<p> Placed on {formatDateString(item?.date)}</p>
-							</div>
-							<div>
-								<h1> Total : {item?.totalPrice}</h1>{" "}
-								<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.status}</p>
-							</div>
+		{
+			orders?.length == 0 ? <div>
+				<div class="flex justify-center gap-2 h-[500px] items-center flex-col text-center">
+					<img src={image} className="w-20 h-20" alt="" />
+
+					<h2 className=" text-3xl">No Orders Yet</h2>
+					<p>It looks like you haven't placed any orders yet.</p>
+					<Link to="/allproduct" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Start Shopping</Link>
+				</div>
+			</div> : orders?.map(item => <div className="mb-16 border-2  ">
+				<div className="border-b-2 ">
+					<div className="flex p-10  items-center justify-between">
+						<div>
+							<h1>
+								{" "}
+								Order ID :{" "}
+								<span className="text-primary">
+									{item?._id}
+								</span>
+							</h1>
+							<p> Placed on {formatDateString(item?.date)}</p>
 						</div>
-
+						<div>
+							<h1> Total : {item?.totalPrice}</h1>{" "}
+							<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.status}</p>
+						</div>
 					</div>
 
-					<div className="p-10 pt-0">
+				</div>
+
+				<div className="p-10 pt-0">
 					{
 						item?.OrderDetails.map(OrderedItem => <div className="grid grid-cols-8   font-medium  mt-16">
 							<div className="flex relative items-center col-span-4  gap-2">
@@ -58,13 +73,17 @@ const MyOrder = () => {
 							<h1 className="">{OrderedItem?.price * OrderedItem?.quantity}</h1>
 						</div>)
 					}
-					</div>
+				</div>
+				<button onClick={() => handleCancelOrder(item?._id)} className="btn w-full rounded-sm">	cancel Order</button>
 
-				</div>)
-			}
+			</div>)
+		}
 
-		</div>
-	);
+
+
+
+	</div>
+);
 };
 
 export default MyOrder;

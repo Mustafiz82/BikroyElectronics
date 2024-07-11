@@ -142,6 +142,19 @@ export const baseApi = createApi({
 			providesTags : ['order']
 
 		}),
+		getCancelledOrders: builder.query({
+			query: (email) => `/cancelledOrder?email=${email}`,
+			providesTags : ['order']
+
+		}),
+		updateOrderStatus: builder.mutation({
+			query: ({ id, ...data }) => ({
+				url: `/order/update/${id}`,
+				method: "PUT",
+				body: data,
+			}),
+			invalidatesTags : ["order"]
+		}),
 	}),
 });
 
@@ -164,7 +177,9 @@ export const {
 	useDeleteAllCartProductMutation,
 	useSetAllCartProductMutation,
 	useSetOrdersMutation,
-	useGetOrdersQuery
+	useGetOrdersQuery,
+	useGetCancelledOrdersQuery,
+	useUpdateOrderStatusMutation
 
 	
 } = baseApi;
