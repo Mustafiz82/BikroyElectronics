@@ -7,6 +7,7 @@ import {
   updateProfile
 } from "firebase/auth";
 import auth from "../../../../firebase.config";
+import { useSetUsersMutation } from "../../api/baseApi";
 
 const initialState = {
   name: "",
@@ -17,7 +18,8 @@ const initialState = {
   error: "",
 };
 
-// Thunk to create a new user
+
+
 export const createUser = createAsyncThunk(
   "user/createUser",
   async ({ name, email, password }, thunkAPI) => {
@@ -26,10 +28,24 @@ export const createUser = createAsyncThunk(
       await updateProfile(auth.currentUser, { displayName: name });
       const user = userCredential.user;
       const userData = { name: user.displayName, email: user.email };
-      
+
+      const apiUrl = "http://localhost:5144/users";
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create user');
+      }
+
       return userData;
     } catch (error) {
-      console.error("Error creating user:", error.response ? error.response.data : error.message);
+      console.error("Error creating user:", error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -61,6 +77,20 @@ export const loginUser = createAsyncThunk(
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
         const userData = { name: user.displayName, email: user.email };
+        
+        const apiUrl = "http://localhost:5144/users";
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create user');
+      }
         
         return userData;
       } catch (error) {

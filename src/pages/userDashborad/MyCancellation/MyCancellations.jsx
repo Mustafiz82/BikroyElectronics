@@ -27,9 +27,9 @@ const MyCancellations = () => {
                     <div class="flex justify-center gap-2 h-[500px] items-center flex-col text-center">
                         <img src={image} className="w-20 h-20" alt="" />
 
-                        <h2 className=" text-3xl">No Orders Yet</h2>
-                        <p>It looks like you haven't placed any orders yet.</p>
-                        <Link to="/allproduct" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Start Shopping</Link>
+                        <h2 className=" text-3xl">No Cancellation Yet</h2>
+                        <p>If you want to cancel any order go to Order page.</p>
+                        <Link to="/Dashboard/myorders" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Manage Orders</Link>
                     </div>
                 </div> : orders?.map(item => <div className="mb-16 border-2  ">
                     <div className="border-b-2 ">

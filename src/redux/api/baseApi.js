@@ -6,6 +6,28 @@ export const baseApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
 	tagTypes:[ 'user' , 'products' , 'wishlist' , 'cart' , 'orders'],
 	endpoints: (builder) => ({
+
+
+		getusers: builder.query({
+			query: () => "/users",
+			providesTags : ['user']
+		}),
+		setUsers: builder.mutation({
+			query: (data) => ({
+				url: "users",
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags: ["user"]
+		}),
+		updateUser: builder.mutation({
+			query: (data) => ({
+				url: `/users/update`,
+				method: "PUT",
+				body: data,
+			}),
+			invalidatesTags : ["user"]
+		}),
 		getCategoryList: builder.query({
 			query: () => "/categories",
 		}),
@@ -159,6 +181,9 @@ export const baseApi = createApi({
 });
 
 export const {
+	useGetusersQuery,
+	useSetUsersMutation,
+	useUpdateUserMutation,
 	useGetCategoryListQuery,
 	useSetCategoryListMutation,
 	useSetProductsMutation,
@@ -180,6 +205,7 @@ export const {
 	useGetOrdersQuery,
 	useGetCancelledOrdersQuery,
 	useUpdateOrderStatusMutation
+
 
 	
 } = baseApi;
