@@ -15,7 +15,7 @@ const Cart = () => {
 	const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
 	
 	const cartTotal = cartData?.reduce((accumulator, product) => {
-		return accumulator + (product?.price * product?.quantity);
+		return accumulator + ((product?.discountedPrice || product?.price) * product?.quantity);
 	  }, 0);
 
 

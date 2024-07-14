@@ -19,12 +19,7 @@ import toast from "react-hot-toast";
 
 
 const ProductCard = ({ item, discount }) => {
-	const myStyles = {
-		itemShapes: RoundedStar,
-		activeFillColor: "#ffb700",
-		inactiveFillColor: "#fbf1a9",
-	};
-
+	
 	console.log(discount)
 
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
@@ -138,7 +133,7 @@ const ProductCard = ({ item, discount }) => {
 
 				<h1 className="my-4 min-h-12 font-medium">{item?.title}</h1>
 				<h1 className="text-xl   font-medium text-primary ">
-					BDT {discount ? item?.discountedPrice : item?.price} <span >{discount ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>
+					BDT {item?.discountedPrice ? item?.discountedPrice : item?.price} <span >{item?.discountedPrice ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
 			</div></div>

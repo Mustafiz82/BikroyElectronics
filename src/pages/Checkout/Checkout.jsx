@@ -17,7 +17,7 @@ const Checkout = () => {
 
 
     const cartTotal = cartData?.reduce((accumulator, product) => {
-		return accumulator + (product?.price * product?.quantity);
+		return accumulator + ((product?.discountedPrice || product?.price) * product?.quantity);
 	  }, 0);
 
       const navigate = useNavigate()
@@ -151,7 +151,7 @@ const Checkout = () => {
                             </h1>
                         </div>
     
-                        <h1 className='font-semibold'>BDT {item?.price * item?.quantity  }</h1>
+                        <h1 className='font-semibold'>BDT {(item?.discountedPrice || item?.price) * item?.quantity  }</h1>
                     </div>
     )
                 }

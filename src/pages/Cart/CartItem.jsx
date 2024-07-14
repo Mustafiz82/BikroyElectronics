@@ -66,7 +66,7 @@ const CartItem = ({ item }) => {
                 </button>
 
             </div>
-            <h1 className="col-span-2">BDT {item?.price}</h1>
+            <h1 className="col-span-2">BDT {item?.discountedPrice ? item?.discountedPrice : item?.price }</h1>
             <div className="col-span-2">
                 <input min={1}
                     onChange={(e) => handleUpdateCart(e, item)}
@@ -75,7 +75,7 @@ const CartItem = ({ item }) => {
                     className="input w-16 input-bordered"
                 />
             </div>
-            <h1 className="">BDT {parseInt(item?.price) * (item?.quantity)}</h1>
+            <h1 className="">BDT {parseInt( item?.discountedPrice || item?.price) * (item?.quantity)}</h1>
 
         </div>
     );

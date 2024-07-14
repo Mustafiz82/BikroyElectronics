@@ -22,7 +22,7 @@ const MyOrder = () => {
 		console.log(id)
 		updateOrder({ id, status :   "cancelled" })
 }
-	
+
 return (
 	<div className=" mt-10">
 
@@ -70,7 +70,7 @@ return (
 							</div>
 							<h1 className="col-span-3">x {OrderedItem?.quantity}</h1>
 
-							<h1 className="">{OrderedItem?.price * OrderedItem?.quantity}</h1>
+							<h1 className="">{item?.discountedPrice || OrderedItem?.price * OrderedItem?.quantity}</h1>
 						</div>)
 					}
 				</div>

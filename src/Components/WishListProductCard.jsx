@@ -57,8 +57,9 @@ const WishListProductCard = ({item}) => {
 			<h1 className="my-4 font-medium">
 			{item?.title}
 			</h1>
-		<h1 className="text-xl font-medium text-primary ">{item?.price}</h1>
-		</div>
+			<h1 className="text-xl   font-medium text-primary ">
+					BDT {item?.discountedPrice ? item?.discountedPrice : item?.price} <span >{item?.discountedPrice ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>
+				</h1>		</div>
 	);
 };
 
