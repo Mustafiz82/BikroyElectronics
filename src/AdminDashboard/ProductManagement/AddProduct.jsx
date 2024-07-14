@@ -9,32 +9,32 @@ import RichTextEditor from "../../Components/RichTextEditor";
 
 
 const AddProduct = () => {
-  const { register, handleSubmit , reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
   const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
-	const [buttonText, setButtonText] = useState("Add product Product");
+  const [buttonText, setButtonText] = useState("Add product");
 
-  const [setProduct, { data  , isSuccess}] = useSetProductsMutation();
+  const [setProduct, { data, isSuccess }] = useSetProductsMutation();
   const [description, setDescription] = useState('');
 
-   console.log(description);
- useEffect(() =>  {
-	if(isSuccess){
-    setButtonText("Product Added");
-    reset()
-    setDescription("")
-    setImageUrl("")
-	}
- },[isSuccess])
+  console.log(description);
+  useEffect(() => {
+    if (isSuccess) {
+      setButtonText("Product Added");
+      reset()
+      setDescription("")
+      setImageUrl("")
+    }
+  }, [isSuccess])
 
-  const onSubmit = (data ) => {
+  const onSubmit = (data) => {
     setButtonText("Adding Product...");
 
     console.log({ imageUrl, ...data });
-    setProduct({ imageUrl, description ,...data });
-    
+    setProduct({ imageUrl, description, ...data });
+
   };
 
   const handleImageUpload = async (event) => {
@@ -104,7 +104,7 @@ const AddProduct = () => {
               className="input focus:border-none focus:outline-none rounded-sm w-full mb-8 bg-[#F5F5F5]"
             />
 
-<RichTextEditor   value={description} onChange={setDescription} />
+            <RichTextEditor value={description} onChange={setDescription} />
 
             <input
               type="text"

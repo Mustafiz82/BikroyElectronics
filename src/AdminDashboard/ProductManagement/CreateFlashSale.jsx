@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useGetProductsQuery } from '../../redux/api/baseApi';
+import { useGetProductsQuery, useSetFlashSaleMutation } from '../../redux/api/baseApi';
 
 const CreateFlashSale = () => {
     //   const [products, setProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [errorText, setErrorText] = useState('');
-    const [endTime, setEndTime] = useState('');
+    const [buttonText, setButtonText] = useState('Create Flash Sale');
 
     const { data: products } = useGetProductsQuery()
+    const [setFlashSale, { data: status }] = useSetFlashSaleMutation()
+
+    console.log(status)
 
 
     const handleProductSelection = (productId) => {
@@ -18,42 +21,31 @@ const CreateFlashSale = () => {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setButtonText("creating Flash Sale...")
 
         const products = selectedProducts
         const startTime = e.target.startTime.value
         const endTime = e.target.endTime.value
         const discount = e.target.discount.value
 
-        if(products?.length == 0 ){
+        if (products?.length == 0) {
             return setErrorText("No product has been chosen . please select products to create flashSale")
         }
         setErrorText("")
 
-        const object = {    
+        const object = {
             products, startTime, endTime, discount
         }
 
         console.log(object)
+         await setFlashSale(object)
+         setButtonText("Flash Sale Created ")
+         e.target.reset()
 
 
-        //     const flashSaleData = {
-        //       products: selectedProducts,
-        //       startTime,
-        //       endTime,
-        //     };
-        //     // Send data to the backend
-        //     fetch('/api/flashsales', {
-        //       method: 'POST',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify(flashSaleData),
-        //     })
-        //       .then(response => response.json())
-        //       .then(data => console.log('Flash sale created:', data))
-        //       .catch(error => console.error('Error creating flash sale:', error));
+
     };
 
     console.log(selectedProducts)
@@ -89,13 +81,14 @@ const CreateFlashSale = () => {
                             <input
                                 type="number" min="01" max="100"
                                 className="block w-full mt-2 p-2 border border-gray-300 rounded-md"
+                                placeholder='%'
                                 name='discount' required />
                         </label>
                         <button type="submit" className="btn w-full  btn-primary bg-primary my-4 rounded-sm border-none">
-                    Create Flash Sale
-                </button>
+                            {buttonText}
+                        </button>
                     </div>
-                    <div className="mt-4">
+                    <div className="mt-4 flex-1 ">
                         <h2 className="text-normal  mb-2">Select Products</h2>
                         <div className="max-h-80 overflow-y-auto border border-gray-300 p-2 rounded-md">
                             {products?.map((product) => (
@@ -116,12 +109,12 @@ const CreateFlashSale = () => {
                     </div>
                 </div>
 
-               <div className='text-primary mt-2' >
-               {
-                    errorText
-                }
-               </div>
-               
+                <div className='text-primary mt-2' >
+                    {
+                        errorText
+                    }
+                </div>
+
             </form>
         </div>
     );

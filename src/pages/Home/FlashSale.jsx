@@ -4,7 +4,16 @@ import Countdown from "react-countdown";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ProductCard from '../../Components/ProductCard';
+import { useGetFlashSaleQuery } from '../../redux/api/baseApi';
 const FlashSale = () => {
+
+
+	const {data:flashSale} = useGetFlashSaleQuery()
+
+	console.log(flashSale?.endTime)
+	
+
+
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
 		return (
 			<div className="flex items-center font-bold gap-5">
@@ -33,52 +42,18 @@ const FlashSale = () => {
 
 
     const [currentSlider, setCurrentSlider] = useState(0)
-	const sliders = [
-		{
-			img: "https://source.unsplash.com/1200x540/?nature",
-			title: "Escape 1",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?hill",
-			title: "Escape 2",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?mountain",
-			title: "Escape 3",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?river",
-			title: "Escape 4",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?sea",
-			title: "Escape 5",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?sea",
-			title: "Escape 5",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-		{
-			img: "https://source.unsplash.com/1200x540/?sea",
-			title: "Escape 5",
-			des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement.",
-		},
-	];
+
 	const prevSlider = () =>
 		setCurrentSlider((currentSlider) =>
-			currentSlider === 0 ? sliders.length - 1 : currentSlider - 1
+			currentSlider === 0 ? flashSale?.products.length - 1 : currentSlider - 1
 		);
 	const nextSlider = () =>
 		setCurrentSlider((currentSlider) =>
-			currentSlider === sliders.length - 1 ? 0 : currentSlider + 1
+			currentSlider === flashSale?.products.length - 1 ? 0 : currentSlider + 1
 		);
 	const isSmallScreen = window.innerWidth <= 768;
+
+
     return (
         <div>
             <div className="mt-20 mb-8">
@@ -95,7 +70,7 @@ const FlashSale = () => {
 					<div className="text-xl">
 						<Countdown
 							className="tet-xl "
-							date={Date.now() + 458895000}
+							date={new Date(flashSale?.endTime).getTime() || Date.now() + 458895000}
 							renderer={renderer}
 						/>
 					</div>
@@ -134,17 +109,16 @@ const FlashSale = () => {
 						}}
 					>
 						{/* sliders */}
-						{sliders.map((slide, inx) => (
+						{flashSale?.products?.map((item, inx) => (
 							<div
 								key={inx}
-								src={slide.img}
 								className={`mr-20  ${
 									currentSlider - 1 === inx
 										? "scale-0"
 										: "scale-100 delay-500"
 								} duration-300 rounded-lg z-50`}
 							>
-								<ProductCard></ProductCard>
+								<ProductCard discount={flashSale?.discount} item={item} ></ProductCard>
 							</div>
 						))}
 					</div>

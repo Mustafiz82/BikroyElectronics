@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
 	reducerPath: "api",
 	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
-	tagTypes:[ 'user' , 'products' , 'wishlist' , 'cart' , 'orders'],
+	tagTypes:[ 'user' , 'products' , 'wishlist' , 'cart' , 'orders' , 'flashSale'],
 	endpoints: (builder) => ({
 
 
@@ -177,6 +177,17 @@ export const baseApi = createApi({
 			}),
 			invalidatesTags : ["order"]
 		}),
+		setFlashSale: builder.mutation({
+			query: (data) => ({
+				url: `/flashSale`,
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags : ['flashSale']
+		}),
+		getFlashSale: builder.query({
+			query: () => `/flashSale`,
+		}),
 	}),
 });
 
@@ -204,7 +215,12 @@ export const {
 	useSetOrdersMutation,
 	useGetOrdersQuery,
 	useGetCancelledOrdersQuery,
-	useUpdateOrderStatusMutation
+	useUpdateOrderStatusMutation,
+	useSetFlashSaleMutation,
+	useGetFlashSaleQuery
+	
+	
+	
 
 
 	

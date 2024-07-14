@@ -37,6 +37,9 @@ const ProductDetail = () => {
       ...rest
     };
 
+    // Lenovo IdeaPad Flex 5 14ALC7
+// BDT 93500 (0 sold)
+
     try {
       await setWishListProduct(wishListObject);
       toast.success('product Added to WishList', {
@@ -117,7 +120,7 @@ const ProductDetail = () => {
           <span className="text-green-400 pl-2 border-l-2">In stock</span>
         </div>
 
-        <h1 className="text-3xl font-medium">BDT {product?.price}</h1>
+        <h1 className="text-3xl font-medium">BDT {product?.discountedPrice ? product?.discountedPrice : product?.price}<span className={`${product?.discountedPrice ? "" : "hidden"} text-[#00000090] line-through ml-4`}>{ product?.price}</span></h1> 
 
         <p className="inline-block" dangerouslySetInnerHTML={{ __html: product?.description }}></p>
 
