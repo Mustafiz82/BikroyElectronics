@@ -7,6 +7,8 @@ import auth from '../../firebase.config';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/features/user/userSlice';
 import { Toaster } from 'react-hot-toast';
+import TopNav from '../Shared/NavForMobile/TopNav';
+import BottomNav from '../Shared/NavForMobile/BottomNav';
 
 const MainLayout = () => {
 
@@ -31,13 +33,17 @@ const MainLayout = () => {
 
     return (
         <div>
-            <Nav></Nav>
-            <Outlet></Outlet>
+            <div className='hidden lg:block'> <Nav  ></Nav></div>
+            <div className='sticky lg:hidden bg-white top-0 p-2'> <TopNav></TopNav></div>
+            {/* <Outlet></Outlet> */}
             <Footer></Footer>
+            <div className='fixed lg:hidden  bottom-0 z-[999] bg-white'>
+                <BottomNav></BottomNav>
+            </div>
             <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+                position="top-center"
+                reverseOrder={false}
+            />
         </div>
     );
 };

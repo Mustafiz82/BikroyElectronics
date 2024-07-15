@@ -22,8 +22,6 @@ const Checkout = () => {
 
       const navigate = useNavigate()
 
-     
-
     const onSubmit = async (data) => {
         setOrderButtonText("proceeding...")
         // setOrder(data)
@@ -51,21 +49,12 @@ const Checkout = () => {
         navigate("/Dashboard/myorders")
        }
         
-        
-
-
     }
-    // console.log(cartData)
-
-    
-
-
-
 
 
     return (<div className='max-w-screen-xl my-10  mx-auto  '>
         <h1 className='text-2xl font-semibold font-inter  '>Billing Details</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex justify-between gap-32  '>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex justify-between gap-24  '>
             <div className='flex-1'>
 
 

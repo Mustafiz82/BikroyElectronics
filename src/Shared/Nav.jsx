@@ -164,7 +164,7 @@ const Nav = () => {
 							isPending
 								? "pending"
 								: isActive
-								? "text-primary border-b-2 pb-1  border-primary"
+								? "text-primary hidden  border-b-2 pb-1  border-primary"
 								: ""
 						}
 					>

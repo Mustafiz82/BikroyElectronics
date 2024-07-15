@@ -82,11 +82,11 @@ const Home = () => {
 				</div>
 			</div>
 
-			<FlashSale></FlashSale>
+			{/* <FlashSale></FlashSale>
 			<Categories categories={categoryItems}></Categories>
 			<BestSelling ></BestSelling>
 			<BannerAdd></BannerAdd>
-			<ExploreProduct explore="explore" products={products}></ExploreProduct>
+			<ExploreProduct explore="explore" products={products}></ExploreProduct> */}
 
 			<div className="flex justify-around my-40">
 				<div className="space-y-4 text-center ">
