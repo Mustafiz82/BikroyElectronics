@@ -53,12 +53,12 @@ const CartItem = ({ item }) => {
 
 
     return (
-        <div className="grid grid-cols-9  font-medium my-16">
-            <div className="flex relative items-center col-span-4  gap-2">
+        <div className="grid grid-cols-9  font-medium mb-8 mt-16">
+            <div className="flex mr-5 relative items-center col-span-4  gap-2">
                 <div>
                     <img src={item?.imageUrl} className="w-10  p-0" alt="" />
                 </div>
-                <h1 className="max-w-72 col-span-2">
+                <h1 className="lg:max-w-72  col-span-2">
                     {" "}
                     {item?.title}
                 </h1>

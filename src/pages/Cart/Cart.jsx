@@ -91,8 +91,9 @@ const Cart = () => {
 
 
 	return (
-		<div className="max-w-screen-xl mx-auto">
-			<div className="px-16">
+		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
+			<div className="w-full overflow-x-scroll">
+			<div className="px-5 min-w-[600px]  lg:px-16">
 				<div className="grid  grid-cols-9 font-medium my-16">
 					<h1 className="col-span-4">Product</h1>
 					<h1 className="col-span-2">Price</h1>
@@ -110,7 +111,7 @@ const Cart = () => {
 
 						</h1>
 
-					</div> : <div >
+					</div> : <div className="" >
 
 						{
 							cartData?.map(item => <CartItem item={item} ></CartItem>)
@@ -121,8 +122,9 @@ const Cart = () => {
 
 
 			</div>
+			</div>
 
-			<div className="flex justify-between ">
+			<div className="flex justify-between mt-8 ">
 				<Link to="/allProduct" className="btn btn-outline rounded-none ">
 					Return To Shop{" "}
 				</Link>
@@ -136,7 +138,7 @@ const Cart = () => {
 					<input
 						type="text"
 						placeholder="Coupon code "
-						className="input  border-black  rounded-sm  input-bordered "
+						className="input w-full lg:w-auto  border-black  rounded-sm  input-bordered "
 						name="coupon"
 					/>
 					<button type="submit"  className="btn btn-error bg-primary text-white rounded-sm ">
@@ -144,8 +146,8 @@ const Cart = () => {
 					</button>
 				</form>
 
-				<div className="flex justify-end -mt-10">
-					<div className=" p-8 space-y-4 border-2 border-black w-1/3">
+				<div className="flex justify-end mt-10 lg:-mt-10">
+					<div className=" p-8 space-y-4 border-2 border-black w-full lg:w-1/3">
 						<h1 className="text-xl font-medium mb-8 ">cart total</h1>
 						<div className="flex justify-between border-b-2 pb-4 border-b-black">
 							<span>subtotal:</span>
