@@ -59,7 +59,7 @@ export const loginUser = createAsyncThunk(
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const userData = { name: user.displayName, email: user.email };
-      
+
       return userData;
     } catch (error) {
       console.error("Error logging in:", error.response ? error.response.data : error.message);
@@ -69,16 +69,16 @@ export const loginUser = createAsyncThunk(
 );
 
 // Thunk for Google sign-in
-  export const signInWithGoogle = createAsyncThunk(
-    "user/signInWithGoogle",
-    async (_, thunkAPI) => {
-      try {
-        const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        const userData = { name: user.displayName, email: user.email };
-        
-        const apiUrl = "http://localhost:5144/users";
+export const signInWithGoogle = createAsyncThunk(
+  "user/signInWithGoogle",
+  async (_, thunkAPI) => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userData = { name: user.displayName, email: user.email };
+
+      const apiUrl = "http://localhost:5144/users";
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -91,14 +91,14 @@ export const loginUser = createAsyncThunk(
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to create user');
       }
-        
-        return userData;
-      } catch (error) {
-        console.error("Error signing in with Google:", error.response ? error.response.data : error.message);
-        return thunkAPI.rejectWithValue(error.message);
-      }
+
+      return userData;
+    } catch (error) {
+      console.error("Error signing in with Google:", error.response ? error.response.data : error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
-  );
+  }
+);
 
 
 

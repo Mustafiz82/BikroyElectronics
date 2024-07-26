@@ -64,11 +64,11 @@ const Home = () => {
 
 	// console.log(products);
 
-	
+
 	return (
 		<div className="max-w-screen-xl mx-auto ">
 			<div className="flex ">
-				<ul className="border-r-2 font-poppins  w-1/5 space-y-5 pt-5">
+				<ul className="border-r-2 font-poppins hidden lg:block w-1/5 space-y-5 pt-5">
 					{categoryItems?.map((item) => (
 						<li onClick={() => handleSelectCategory(item?.title)} key={item.id}>
 							<Link to={`/allproduct`}>
@@ -77,18 +77,18 @@ const Home = () => {
 						</li>
 					))}
 				</ul>
-				<div className="w-4/5 pt-5 pl-5">
+				<div className="w-full lg:w-4/5 lg:pt-5 lg:pl-5">
 					<Slider></Slider>
 				</div>
 			</div>
 
-			{/* <FlashSale></FlashSale>
+			<FlashSale></FlashSale>
 			<Categories categories={categoryItems}></Categories>
 			<BestSelling ></BestSelling>
-			<BannerAdd></BannerAdd>
-			<ExploreProduct explore="explore" products={products}></ExploreProduct> */}
+				<BannerAdd></BannerAdd>
+				<ExploreProduct explore="explore" products={products}></ExploreProduct>
 
-			<div className="flex justify-around my-40">
+			<div className="flex flex-col lg:flex-row lg:justify-around gap-14 lg:gap-0 my-10 lg:my-40">
 				<div className="space-y-4 text-center ">
 					<div className="p-2	inline-block bg-slate-400 rounded-full">
 						<div className="flex ">
@@ -139,7 +139,7 @@ const Home = () => {
 				</div>
 			</div>
 
-			
+
 		</div>
 	);
 };

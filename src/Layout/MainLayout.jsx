@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Nav from '../Shared/Nav';
 import Footer from '../Shared/Footer';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -13,6 +13,7 @@ import BottomNav from '../Shared/NavForMobile/BottomNav';
 const MainLayout = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -27,6 +28,7 @@ const MainLayout = () => {
                 dispatch(setUser({
                     isInitializing: false,
                 }))
+                navigate('/')
             }
         })
     }, []);
@@ -34,8 +36,8 @@ const MainLayout = () => {
     return (
         <div>
             <div className='hidden lg:block'> <Nav  ></Nav></div>
-            <div className='sticky lg:hidden bg-white top-0 p-2'> <TopNav></TopNav></div>
-            {/* <Outlet></Outlet> */}
+            <div className='sticky lg:hidden z-[999] bg-white top-0 p-2'> <TopNav></TopNav></div>
+            <Outlet></Outlet>
             <Footer></Footer>
             <div className='fixed lg:hidden  bottom-0 z-[999] bg-white'>
                 <BottomNav></BottomNav>

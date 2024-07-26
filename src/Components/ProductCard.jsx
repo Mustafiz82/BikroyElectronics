@@ -105,7 +105,7 @@ const ProductCard = ({ item, discount }) => {
 	return (<div>
 		<div>
 
-			<div className="w-[250px]  overflow-hidden">
+			<div className="lg:w-[250px] mt-5 overflow-hidden">
 
 				<div className="rounded-md relative  bg-[#F5F5F5]">
 					<div className="p-6 h-[250px] flex items-center">
@@ -131,8 +131,8 @@ const ProductCard = ({ item, discount }) => {
 					</div>
 				</div>
 
-				<h1 className="my-4 min-h-12 font-medium">{item?.title}</h1>
-				<h1 className="text-xl   font-medium text-primary ">
+				<h1 className="mb-2 lg:mb-auto my-4 text-sm lg:min-h-12 font-medium">{item?.title}</h1>
+				<h1 className="lg:text-xl   font-medium text-primary ">
 					BDT {item?.discountedPrice ? item?.discountedPrice : item?.price} <span >{item?.discountedPrice ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}

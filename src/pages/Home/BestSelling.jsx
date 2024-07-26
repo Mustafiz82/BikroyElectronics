@@ -10,7 +10,7 @@ const BestSelling = ({ categories }) => {
 	// console.log(bestSellingProduct);
 
 	return (
-		<div className="my-20">
+		<div className="lg:my-20 my-10 px-5 lg:px-0">
 			<div className="flex justify-between items-center">
             <div >
             <div className="flex ">
@@ -19,7 +19,7 @@ const BestSelling = ({ categories }) => {
 					This Month
 				</h1>
 			</div>
-			<h1 className="text-4xl mt-10 font-medium font-inter">
+			<h1 className="text-2xl lg:text-4xl mt-4 lg:mt-10 font-medium font-inter">
 				Best Selling Products
 			</h1>
 
@@ -30,15 +30,11 @@ const BestSelling = ({ categories }) => {
             </div>``
 
 			<div className="relative">
-				<div className=" overflow-hidden flex justify-between  mt-10 a z-50  ">
+				<div className=" overflow-hidden grid grid-cols-2 gap-5 lg:flex justify-between  lg:mt-10 a z-50  ">
 					{bestSellingProduct?.map((item, inx) => (
 						<div
 							key={inx}
-							className={`flex justify-between ${+-	
-								currentSlider - 1 === inx
-									? "scale-0"
-									: "scale-100 delay-500"
-							} duration-300 rounded-lg z-50`}
+							className={`flex justify-between  rounded-lg z-50`}
 						>
 							<ProductCard item ={item}></ProductCard>
 						</div>

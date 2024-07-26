@@ -48,14 +48,7 @@ const router = createBrowserRouter([
 				path: "/contact",
 				element: <Contack></Contack>
 			},
-			{
-				path: "/login",
-				element: <Login></Login>,
-			},
-			{
-				path: "/signUp",
-				element: <Regestration></Regestration>,
-			},
+			
 			{
 				path: "/wishlist",
 				element: <PrivateRoute><Wishlist></Wishlist></PrivateRoute>,
@@ -152,6 +145,14 @@ const router = createBrowserRouter([
 				element: <OrderList></OrderList>
 			},
 		],
+	},
+	{
+		path: "/login",
+		element: <Login></Login>,
+	},
+	{
+		path: "/signUp",
+		element: <Regestration></Regestration>,
 	},
 ]);
 

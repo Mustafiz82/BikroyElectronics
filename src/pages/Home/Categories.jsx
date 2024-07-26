@@ -25,25 +25,25 @@ const Categories = ({ categories }) => {
 		);
 	const nextSlider = () =>
 		setCurrentSlider((currentSlider) =>
-			currentSlider === categories.length - 6 ? 0 : currentSlider + 1
+			currentSlider === categories.length - (isSmallScreen ? 3 : 6) ? 0 : currentSlider + 1
 		);
 	const isSmallScreen = window.innerWidth <= 768;
 	return (
-		<div className="my-20">
+		<div className="my-12 p-5 lg:p-0">
 			<div className="flex ">
 				<span className="p-2 rounded-sm bg-primary"></span>
 				<h1 className="text-xl font-medium border-l-primary border-l- pl-4">
 					Categories
 				</h1>
 			</div>
-			<h1 className="text-4xl mt-10 font-medium font-inter">
+			<h1 className="text-2xl lg:text-4xl mt-10 font-medium font-inter">
 				Browse By Category
 			</h1>
 
 			<div>
-				<div className="w-full relative  flex flex-col xl:flex-row items-center justify-center gap-5 lg:gap-10 relative">
+				<div className="  flex flex-col xl:flex-row items-center justify-center gap-5 lg:gap-10 relative">
 					{/* arrow */}
-					<div className="absolute   -top-12 right-0 text-2xl  flex gap-8 z-50 pl-5">
+					<div className="absolute   -top-12 right-0 text-2xl  flex gap-2 lg:gap-8 z-50 pl-5">
 						{/* arrow left */}
 						<button
 							onClick={prevSlider}
@@ -63,12 +63,12 @@ const Categories = ({ categories }) => {
 					{/* text container here */}
 
 					{/* slider container */}
-					<div className=" overflow-hidden mt-10 a z-50  ">
+					<div className="w-screen px-4 lg:px-0 overflow-hidden mt-10 a z-50  ">
 						<div
-							className="ease-linear duration-300 flex gap-4 items-center"
+							className="ease-linear duration-300 flex  lg:gap-4 items-center"
 							style={{
 								transform: `translateX(-${
-									currentSlider * (isSmallScreen ? 98 : 205)
+									currentSlider * (isSmallScreen ? 130 : 210)
 								}px)`,
 							}}
 						>
@@ -77,15 +77,15 @@ const Categories = ({ categories }) => {
 								<Link to={`/allproduct`} >
 									<div onClick={() => handleSelectCategory(item?.title)}
 										key={inx}
-										className={` ${
+										className={`  ${
 											currentSlider - 1 === inx
 												? "scale-0"
 												: "scale-100 delay-500"
-										} duration-300 rounded-lg z-50`}
+										} duration-300 rounded-lg z-50`}	
 									>
-										<div className="flex mr-7 justify-center items-center p-2 border-2 min-w-44 text-center min-h-44  space-y-2">
+										<div className="flex mr-5  justify-center items-center lg:p-2 border-2 lg:min-w-44 text-center lg:min-h-44 min-h-40 min-w-28 space-y-2">
 											<div>
-												<div className="flex  mb-4 justify-center items-center">
+												<div className="flex mb-2 lg:mb-4 justify-center items-center">
 													{" "}
 													<img
 														src={item?.imageurl}
