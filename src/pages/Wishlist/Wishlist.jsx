@@ -29,7 +29,7 @@ const handleMoveToCart = () => {
 			const {_id , productId , email , quantity , imageUrl , title , price , category } = item
 
 			const newObject = {
-				productId , email , quantity , imageUrl , title , price , category , quantity : 1
+				productId , email  , imageUrl , title , price , category , quantity : 1
 			}
 
 			return newObject
@@ -40,10 +40,10 @@ const handleMoveToCart = () => {
 }
 	
 	return (
-		<div className="max-w-screen-xl mx-auto">
-			<div className=" ">
-				<div className="flex my-14 justify-between items-center">
-					<h1 className="text-xl">Wishlist (4)</h1>
+		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
+			<div className="">
+				<div className="flex my-5 lg:my-14 justify-between items-center">
+					<h1 className="text-xl">Wishlist ({wishlistProduct?.length})</h1>
 					<button disabled={isLoading || wishlistProduct?.length < 1 } onClick={handleMoveToCart} className="btn btn-outline rounded-none ">
 						{isLoading ? "Moving to cart..." : "Move all to Cart"}
 					</button>
@@ -60,7 +60,7 @@ const handleMoveToCart = () => {
 
 						</h1>
 
-					</div> : <div className="grid grid-cols-4 gap-16">
+					</div> : <div className="grid  grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-16">
 
 							{
 								wishlistProduct?.map(item => <WishListProductCard item={item} ></WishListProductCard>)
@@ -74,7 +74,7 @@ const handleMoveToCart = () => {
 			</div>
 
 			<div>
-				<div className="flex mt-16 mb-14 justify-between items-center">
+				<div className="flex  mt-16 mb-5 lg:mb-14 justify-between items-center">
 					<div className="flex ">
 						<span className="p-2 rounded-sm bg-primary"></span>
 						<h1 className="text-xl font-medium border-l-primary border-l- pl-4">
@@ -86,7 +86,7 @@ const handleMoveToCart = () => {
 					</Link>
 				</div>
 
-				<div className="grid grid-cols-4 gap-16">
+				<div className="grid grid-cols-2  lg:grid-cols-4 gap-5 lg:gap-16">
 
 					{
 						Products && [...Products]?.sort(() => 0.5 - Math.random()).slice(0, 4).map(item => <ProductCard item={item}></ProductCard>)
