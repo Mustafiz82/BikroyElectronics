@@ -92,7 +92,7 @@ const Cart = () => {
 
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
-			<div className="w-full overflow-x-scroll">
+			<div className="w-full overflow-x-auto">
 			<div className="px-5 min-w-[600px]  lg:px-16">
 				<div className="grid  grid-cols-9 font-medium my-16">
 					<h1 className="col-span-4">Product</h1>
