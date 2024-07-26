@@ -30,7 +30,7 @@ const AllProduct = () => {
 	const { data: products } = useGetProductsQuery(filter, {
 		pollingInterval: 30000,
 		refetchOnMountOrArgChange: true,
-		
+
 	});
 	const { searchText, page, limit, categories } = useSelector(
 		(state) => state.filterSearch
@@ -187,7 +187,7 @@ const AllProduct = () => {
 							<label className="flex gap-2">
 								<input
 									type="checkbox"
-									id={item.title}
+									id={item?.title}
 									className="checkbox rounded-none checkbox-sm checkbox"
 									checked={selectedCategories?.includes(
 										item?.title
@@ -202,14 +202,14 @@ const AllProduct = () => {
 			</div>
 
 			{/* Product viewing section */}
-			<div className="p-10 pb-2 pt-5 pr-0 w-full lg:w-3/4">
-				<div className="flex mb-5 items-center justify-between gap-5">
-					<p className="flex-1">{text}</p>
-					<div className="flex items-center flex-1 gap-2">
-						<h1>Items per Page:</h1>
+			<div className="p-5 lg:p-10 pb-2 pt-5 lg:pr-0 w-full lg:w-3/4">
+				<div className=" hidden lg:flex mb-5 items-center justify-between gap-5">
+					<p className="flex-1 hidden lg:block">{text}</p>
+					<div className="flex flex-col lg:flex-row lg:items-center lg:flex-1 gap-2">
+						<h1 >Items per Page:</h1>
 						<select
 							onChange={handleShowItemPerPage}
-							className="select select-bordered w-full max-w-[150px]"
+							className="select select-bordered w-full max-w-[110px] lg:max-w-[150px]"
 						>
 							<option value={15}>15</option>
 							<option selected value={30}>
@@ -218,11 +218,11 @@ const AllProduct = () => {
 							<option value={50}>50</option>
 						</select>
 					</div>
-					<div className="flex justify-end items-center flex-1 gap-2">
-						<h1>Sort By:</h1>
+					<div className="flex flex-col lg:flex-row  justify-end lg:items-center lg:flex-1 gap-2">
+						<h1 className="">Sort By:</h1>
 						<select
 							onChange={handleSortBy}
-							className="select select-bordered w-full max-w-[150px]"
+							className="select max-w-[110px] select-bordered w-full lg:-w-[150px]"
 						>
 							<option value="" selected>
 								Default
@@ -232,13 +232,128 @@ const AllProduct = () => {
 						</select>
 					</div>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+				<div className="grid  grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-20">
 					{products?.map((item) => (
 						<ProductCard key={item.id} item={item} />
 					))}
 				</div>
 				<div className="flex justify-center mt-20">
 					<Pagination />
+				</div>
+
+				<div>
+					{/* <button className="btn btn-primary bg-primary lg:hidden border-none rounded-sm fixed bottom-20 right-5">Filter</button> */}
+					<label htmlFor="my-drawer" className="btn btn-primary bg-primary lg:hidden border-none rounded-sm fixed bottom-24 right-10 ">Filter</label>
+
+
+				</div>
+
+				<div className="drawer">
+					<input id="my-drawer" type="checkbox" className="drawer-toggle" />
+					<div className="drawer-content">
+						{/* Page content here */}
+					</div>
+					<div className="drawer-side mt-16">
+						<label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+						<ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+							{/* Sidebar content here */}
+							<div className="lg:pt-5  border-r  h-auto bg-transparent lg:p-0">
+
+								<div className="flex mb-5 items-center justify-between gap-5">
+									<p className="flex-1 hidden lg:block">{text}</p>
+									<div className="flex flex-col lg:flex-row lg:items-center lg:flex-1 gap-2">
+										<h1 >Items per Page:</h1>
+										<select
+											onChange={handleShowItemPerPage}
+											className="select select-bordered w-full max-w-[110px] lg:max-w-[150px]"
+										>
+											<option value={15}>15</option>
+											<option selected value={30}>
+												30
+											</option>
+											<option value={50}>50</option>
+										</select>
+									</div>
+									<div className="flex flex-col lg:flex-row  justify-end lg:items-center lg:flex-1 gap-2">
+										<h1 className="">Sort By:</h1>
+										<select
+											onChange={handleSortBy}
+											className="select max-w-[110px] select-bordered w-full lg:-w-[150px]"
+										>
+											<option value="" selected>
+												Default
+											</option>
+											<option value="asc">price min to max</option>
+											<option value="desc">Price max to min</option>
+										</select>
+									</div>
+								</div>
+								<h1 className="text-2xl mt-5 md:mt-0 font-medium">
+									Select Products
+								</h1>
+
+								<form
+									onSubmit={handleSubmit(handleFilterPrice)}
+									className="flex mt-5 pr-4 items-center gap-4"
+								>
+									<div className="flex gap-2 items-center">
+										<div className="relative w-full">
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+												<FaBangladeshiTakaSign />
+											</span>
+											<input
+												type="number"
+												className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5] pl-8"
+												name="lowest_price"
+												placeholder="Min"
+												min={0}
+												{...register("minPrice", { required: true })}
+											/>
+										</div>
+										<span className="font-bold">-</span>
+										<input
+											type="number"
+											className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+											name="highest_price"
+											placeholder="$ Max"
+											{...register("maxPrice", { required: true })}
+										/>
+									</div>
+									<button
+										type="submit"
+										className="btn btn-error bg-primary rounded-sm text-white"
+									>
+										<MdOutlineArrowForwardIos />
+									</button>
+								</form>
+
+								<h1 className="text-2xl mt-8 font-medium">Filter Check</h1>
+
+								<div className="text-base mt-5 font-normal text-black">
+									{categoryItems?.map((item, index) => (
+										<label
+											key={index}
+											htmlFor={item.title}
+											className="py-2 flex justify-between items-center"
+										>
+											<label className="flex gap-2">
+												<input
+													type="checkbox"
+													id={item?.title}
+													className="checkbox rounded-none checkbox-sm checkbox"
+													checked={selectedCategories?.includes(
+														item?.title
+													)}
+													onChange={handleFilterCategory}
+												/>
+												<h2 className="">{item.title}</h2>
+											</label>
+										</label>
+									))}
+								</div>
+							</div>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
