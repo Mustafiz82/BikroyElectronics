@@ -1,13 +1,14 @@
 import React from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setSearchText } from '../../redux/features/filter/filterSlice';
 
 const TopNav = () => {
 
     const dispatch  = useDispatch()
 	const navigate = useNavigate()
+    
 	
 	const { email } = useSelector((state) => state.userSlice);
 	console.log({userEmail : email})
@@ -21,7 +22,7 @@ const TopNav = () => {
 		navigate("/allproduct")
 	};
     return (
-        <div>
+        <div >
 
             <form
                 onSubmit={handleSearch}

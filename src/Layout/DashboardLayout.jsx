@@ -6,68 +6,157 @@ import { FiShoppingBag } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
 import { CiStar } from "react-icons/ci";
 import { TiDeleteOutline } from "react-icons/ti";
+import { CiMenuBurger } from "react-icons/ci";
+import TopNav from "../Shared/NavForMobile/TopNav";
+
 const DashboardLayout = () => {
 	return (
-		<div className="flex gap-5 max-w-screen-xl font-poppins mx-auto">
-			<div className="w-1/4 font-medium  border-r p-10 pl-0  ">
-				<NavLink
-					to="/Dashboard/myaccount"
-					className={({ isActive, isPending }) =>
-						isPending
-							? "pending"
-							: isActive
-							? "text-primary  border-b-2 pb-5  border-primary"
-							: ""
-					}
-				>
-					<div className="flex items-center  mb-5 gap-2 flex-row">
-						<span>
-							{" "}
-							<VscAccount className="text-xl "></VscAccount>
-						</span>{" "}
-						Manage My account{" "}
-					</div>
-				</NavLink>
+		// <div className="flex gap-5 max-w-screen-xl font-poppins mx-auto">
+		// 	<div className="w-1/4 font-medium  border-r p-10 pl-0  ">
+		// 		<NavLink
+		// 			to="/Dashboard/myaccount"
+		// 			className={({ isActive, isPending }) =>
+		// 				isPending
+		// 					? "pending"
+		// 					: isActive
+		// 					? "text-primary  border-b-2 pb-5  border-primary"
+		// 					: ""
+		// 			}
+		// 		>
+		// 			<div className="flex items-center  mb-5 gap-2 flex-row">
+		// 				<span>
+		// 					{" "}
+		// 					<VscAccount className="text-xl "></VscAccount>
+		// 				</span>{" "}
+		// 				Manage My account{" "}
+		// 			</div>
+		// 		</NavLink>
 
-				<NavLink
-					to="/Dashboard/myorders"
-					className={({ isActive, isPending }) =>
-						isPending
-							? "pending"
-							: isActive
-							? "text-primary items-center border-b-2 pb-1  border-primary"
-							: ""
-					}
-				>
-					<div className="flex items-center mb-5 gap-2 flex-row">
-						<span>
-							{" "}
-							<FiShoppingBag className="text-xl "></FiShoppingBag>
-						</span>{" "}
-						My Order{" "}
+		// 		<NavLink
+		// 			to="/Dashboard/myorders"
+		// 			className={({ isActive, isPending }) =>
+		// 				isPending
+		// 					? "pending"
+		// 					: isActive
+		// 					? "text-primary items-center border-b-2 pb-1  border-primary"
+		// 					: ""
+		// 			}
+		// 		>
+		// 			<div className="flex items-center mb-5 gap-2 flex-row">
+		// 				<span>
+		// 					{" "}
+		// 					<FiShoppingBag className="text-xl "></FiShoppingBag>
+		// 				</span>{" "}
+		// 				My Order{" "}
+		// 			</div>
+		// 		</NavLink>
+		// 		<NavLink
+		// 			to="/Dashboard/mycancellation"
+		// 			className={({ isActive, isPending }) =>
+		// 				isPending
+		// 					? "pending"
+		// 					: isActive
+		// 					? "text-primary border-b-2 pb-1  border-primary"
+		// 					: ""
+		// 			}
+		// 		>
+		// 			<div className="flex gap-1 items-center flex-row">
+		// 				<span>
+		// 					{" "}
+		// 					<TiDeleteOutline className="text-2xl p-0 "></TiDeleteOutline>
+		// 				</span>{" "}
+		// 				My Cancellation{" "}
+		// 			</div>
+		// 		</NavLink>
+		// 	</div>
+		// 	<div className="w-3/4">
+		// 		<Outlet></Outlet>
+		// 	</div>
+		// </div>
+
+		<div className="drawer max-w-screen-xl font-poppins mx-auto lg:drawer-open">
+			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+			<div className="drawer-content flex flex-col items-center justify-center">
+				<div className="">
+					{/*  */}
+
+				</div>
+				<div className=" px-5 lg:px-0 lg:pl-10">
+					<div className="flex gap-2 sticky lg:hidden z-[998] bg-white top-0 p-4 px-0">
+						<div className="flex-1 ">
+							<TopNav ></TopNav>
+
+						</div>
+						<label htmlFor="my-drawer-2" className=" overflow-hidden text-5xl drawer-button lg:hidden">
+							<CiMenuBurger className=" -mr-1" />
+
+						</label>
 					</div>
-				</NavLink>
-				<NavLink
-					to="/Dashboard/mycancellation"
-					className={({ isActive, isPending }) =>
-						isPending
-							? "pending"
-							: isActive
-							? "text-primary border-b-2 pb-1  border-primary"
-							: ""
-					}
-				>
-					<div className="flex gap-1 items-center flex-row">
-						<span>
-							{" "}
-							<TiDeleteOutline className="text-2xl p-0 "></TiDeleteOutline>
-						</span>{" "}
-						My Cancellation{" "}
-					</div>
-				</NavLink>
+					<Outlet></Outlet>
+				</div>
+
+
 			</div>
-			<div className="w-3/4">
-				<Outlet></Outlet>
+			<div className="drawer-side z-[999]">
+				<label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+				<ul className="menu  border-r p-5 lg:p-0   bg-white pt-10 text-base-content min-h-full w-72 ">
+					{/* Sidebar content here */}
+					<NavLink
+						to="/Dashboard/myaccount"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+									? "text-primary    border-primary"
+									: ""
+						}
+					>
+						<div className="flex items-center  mb-5 gap-2 flex-row">
+							<span>
+								{" "}
+								<VscAccount className="text-xl "></VscAccount>
+							</span>{" "}
+							Manage My account{" "}
+						</div>
+					</NavLink>
+
+					<NavLink
+						to="/Dashboard/myorders"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+									? "text-primary items-center   border-primary"
+									: ""
+						}
+					>
+						<div className="flex items-center mb-5 gap-2 flex-row">
+							<span>
+								{" "}
+								<FiShoppingBag className="text-xl "></FiShoppingBag>
+							</span>{" "}
+							My Order{" "}
+						</div>
+					</NavLink>
+					<NavLink
+						to="/Dashboard/mycancellation"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+									? "text-primary   border-primary"
+									: ""
+						}
+					>
+						<div className="flex gap-1 items-center flex-row">
+							<span>
+								{" "}
+								<TiDeleteOutline className="text-2xl p-0 "></TiDeleteOutline>
+							</span>{" "}
+							My Cancellation{" "}
+						</div>
+					</NavLink>
+				</ul>
 			</div>
 		</div>
 	);

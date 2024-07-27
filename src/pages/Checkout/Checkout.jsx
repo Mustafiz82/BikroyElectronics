@@ -129,8 +129,8 @@ const Checkout = () => {
             <div className='flex-1 space-y-5 mt-10'>
 
                 {
-                    cartData?.map(item =>  <div className='flex justify-between mb-10 items-center '>
-                        <div className='flex  gap-2 items-center'>
+                    cartData?.map(item =>  <div className='grid grid-cols-2  lg:flex justify-between mb-10 items-center '>
+                        <div className='flex   gap-2 items-center'>
                             <div>
                                 <img src={item?.imageUrl} className="w-16  p-0" alt="" />
                             </div>
@@ -140,7 +140,7 @@ const Checkout = () => {
                             </h1>
                         </div>
     
-                        <h1 className='font-semibold'>BDT {(item?.discountedPrice || item?.price) * item?.quantity  }</h1>
+                        <h1 className='text-right lg:text-left font-semibold'>BDT {(item?.discountedPrice || item?.price) * item?.quantity  }</h1>
                     </div>
     )
                 }

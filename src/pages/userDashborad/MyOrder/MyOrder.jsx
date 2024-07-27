@@ -24,7 +24,7 @@ const MyOrder = () => {
 }
 
 return (
-	<div className=" mt-10">
+	<div className=" mt-5 lg:mt-10">
 
 		{
 			orders?.length == 0 ? <div>

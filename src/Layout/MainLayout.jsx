@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Nav from '../Shared/Nav';
 import Footer from '../Shared/Footer';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -14,6 +14,11 @@ const MainLayout = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {pathname} = useLocation()
+    const pathname2 = pathname.split("/")
+  
+    console.log(pathname2[1])
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -36,7 +41,7 @@ const MainLayout = () => {
     return (
         <div>
             <div className='hidden lg:block'> <Nav  ></Nav></div>
-            <div className='sticky lg:hidden z-[999] bg-white top-0 p-2'> <TopNav></TopNav></div>
+            <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>
             <Footer></Footer>
             <div className='fixed lg:hidden  bottom-0 z-[999] bg-white'>

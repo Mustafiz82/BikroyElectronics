@@ -105,7 +105,7 @@ const MyAccount = () => {
 	}
 
 	return (
-		<div className="max-w-screen-xl m-10 mx-auto">
+		<div className="max-w-screen-xl m-10 mt-5 mx-auto">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="flex items-center justify-between">
 					<h1 className="text font-medium-xl font-medium text-primary">Edit your Profile</h1>
@@ -114,7 +114,7 @@ const MyAccount = () => {
 					</button>
 				</div>
 
-				<div className="flex mt-5 gap-20">
+				<div className="flex mt-5 gap-10 lg:gap-20">
 					<div className="mt-5 flex-1">
 						<h1 className="mb-2 f onSubmit={handleSubmit(onSubmit)}nt-medium">First Name</h1>
 						<input
@@ -136,7 +136,7 @@ const MyAccount = () => {
 
 
 				</div>
-				<div className="flex mt-5 gap-20">
+				<div className="flex mt-5 gap-10 lg:gap-20">
 					<div className="mt-5 flex-1">
 						<h1 className="mb-2 font-medium">Email</h1>
 						<input
@@ -192,7 +192,7 @@ const MyAccount = () => {
 
 				<div className="flex justify-end items-center mt-8 gap-5">
 					<button type="button">Cancel</button>
-					<button type="submit" className="btn btn-error bg-primary px-8 rounded-sm text-white">
+					<button disabled={provider != "password"} type="submit" className="btn btn-error bg-primary px-8 rounded-sm text-white">
 						 {
 							loading ? "changing ..." : "Change password"
 						}
