@@ -32,44 +32,47 @@ const MyCancellations = () => {
                         <Link to="/Dashboard/myorders" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Manage Orders</Link>
                     </div>
                 </div> : orders?.map(item => <div className="mb-16 border-2  ">
-                    <div className="border-b-2 ">
-                        <div className="flex p-10  items-center justify-between">
-                            <div>
-                                <h1>
-                                    {" "}
-                                    Order ID :{" "}
-                                    <span className="text-primary">
-                                        {item?._id}
-                                    </span>
-                                </h1>
-                                <p> Placed on {formatDateString(item?.date)}</p>
-                            </div>
-                            <div>
-                                <h1> Total : {item?.totalPrice}</h1>{" "}
-                                <p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.status}</p>
-                            </div>
-                        </div>
+					<div className="border-b-2 ">
+						<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
+							<div className="">
+								<h1>
 
-                    </div>
+									Order ID :{" "}
+									<span className="text-primary text-sm">
+										{item?._id}
+									</span>
+								</h1>
+								<p> Placed on {formatDateString(item?.date)}</p>
+							</div>
+							<div className="">
+								<h1> Total : {item?.totalPrice}</h1>{" "}
+								<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.status}</p>
+							</div>
+						</div>
 
-                    <div className="p-10 pt-0">
-                        {
-                            item?.OrderDetails.map(OrderedItem => <div className="grid grid-cols-8   font-medium  mt-16">
-                                <div className="flex relative items-center col-span-4  gap-2">
-                                    <div>
-                                        <img src={OrderedItem?.imageUrl} className="w-10  p-0" alt="" />
-                                    </div>
-                                    <h1 className="max-w-72 col-span-2">
-                                        {" "}
-                                        {OrderedItem?.title}
-                                    </h1>
-                                </div>
-                                <h1 className="col-span-3">x {OrderedItem?.quantity}</h1>
+					</div>
 
-                                <h1 className="">{item?.discountedPrice || OrderedItem?.price * OrderedItem?.quantity}</h1>
-                            </div>)
-                        }
-                    </div>
+					<div className="p-10 pt-0">
+						{
+							item?.OrderDetails.map(OrderedItem => <div className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+								<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
+
+									<div className='w-1/4 lg:w-10'>
+										<img src={OrderedItem?.imageUrl} className="min-w-full   p-0" alt="" />
+									</div>
+
+									<h1 className="w-3/4 lg:max-w-72 text-sm col-span-2">
+										{" "}
+										{OrderedItem?.title}
+									</h1>
+								</div>
+								<h1 className="col-span-1 lg:col-span-3">x {OrderedItem?.quantity}</h1>
+
+								<h1 className="col-span-1">{item?.discountedPrice || OrderedItem?.price * OrderedItem?.quantity}</h1>
+							</div>)
+						}
+					</div>
+					<button onClick={() => handleCancelOrder(item?._id)} className="btn w-full rounded-sm">	cancel Order</button>
 
                 </div>)
             }
