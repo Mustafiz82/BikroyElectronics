@@ -87,7 +87,7 @@ const DashboardLayout = () => {
 							<TopNav ></TopNav>
 
 						</div>
-						<label htmlFor="my-drawer-2" className=" overflow-hidden text-5xl drawer-button lg:hidden">
+						<label htmlFor="my-drawer-2" className="  text-5xl drawer-button lg:hidden">
 							<CiMenuBurger className=" -mr-1" />
 
 						</label>
@@ -97,9 +97,9 @@ const DashboardLayout = () => {
 
 
 			</div>
-			<div className="drawer-side z-[999]">
+			<div className="drawer-side  z-[999]">
 				<label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-				<ul className="menu  border-r p-5 lg:p-0   bg-white pt-10 text-base-content min-h-full w-72 ">
+				<ul className="menu  border-r p-5 lg:p-0   bg-white !pt-5 text-base-content min-h-full w-72 ">
 					{/* Sidebar content here */}
 					<NavLink
 						to="/Dashboard/myaccount"

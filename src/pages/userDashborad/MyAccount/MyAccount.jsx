@@ -114,13 +114,13 @@ const MyAccount = () => {
 					</button>
 				</div>
 
-				<div className="flex mt-5 gap-10 lg:gap-20">
+				<div className="flex flex-col lg:flex-row mt-5  lg:gap-20">
 					<div className="mt-5 flex-1">
 						<h1 className="mb-2 f onSubmit={handleSubmit(onSubmit)}nt-medium">First Name</h1>
 						<input
 							{...register("firstName")}
 							type="text"
-							placeholder="Name"
+							placeholder=""
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
@@ -129,19 +129,19 @@ const MyAccount = () => {
 						<input
 							{...register("lastName")}
 							type="text"
-							placeholder="Name"
+							placeholder=""
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
 
 
 				</div>
-				<div className="flex mt-5 gap-10 lg:gap-20">
+				<div className="flex lg:mt-5 flex-col lg:flex-row lg:gap-20">
 					<div className="mt-5 flex-1">
 						<h1 className="mb-2 font-medium">Email</h1>
 						<input
 							type="text"
-							placeholder="Name"
+							placeholder=""
 							defaultValue={email}
 							disabled
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
@@ -152,7 +152,7 @@ const MyAccount = () => {
 						<input
 							{...register("Address")}
 							type="text"
-							placeholder="Name"
+							placeholder=""
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
@@ -164,7 +164,7 @@ const MyAccount = () => {
 				<div className="space-y-5">
 					<h1 className="mb-2 font-medium mt-10">Password Changes</h1>
 					{
-						provider == "google.com" ? <p className="text-sm text-primary">
+						provider == "google.com" ? <p className="text-[10px] text-primary">
 							Since you signed in with Google, you can't change your password here. Please use Google account settings to update your password.
 						</p> : ""
 					}
