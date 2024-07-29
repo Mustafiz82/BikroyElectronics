@@ -112,7 +112,7 @@ const Login = () => {
 										<span>Logging In ...</span>
 									</div>
 								) : (
-									"Create Account"
+									"Log In"
 								)}{" "}
 							</button>
 							<button

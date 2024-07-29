@@ -16,7 +16,7 @@ const ProductDetail = () => {
   const { email } = useSelector((state) => state.userSlice);
   const [wishListStatus, setWishListStatus] = useState(null); // State to hold wish list status
   const [setWishListProduct, { data: wishListData, error, isLoading }] = useSetWishListProductMutation();
-  const [setCart , {data:cartData , error:cartError}] = useSetCartProductMutation()
+  const [setCart, { data: cartData, error: cartError }] = useSetCartProductMutation()
   const [actionStatus, setActionStatus] = useState(null); // null for no action, 'success', 'error'
   const navigate = useNavigate()
 
@@ -38,21 +38,21 @@ const ProductDetail = () => {
     };
 
     // Lenovo IdeaPad Flex 5 14ALC7
-// BDT 93500 (0 sold)
+    // BDT 93500 (0 sold)
 
     try {
       await setWishListProduct(wishListObject);
       toast.success('product Added to WishList', {
-				style: {
-					padding: '16px',
-					color: '#ffffff',
-					background: '#DB4444',
-				},
-				iconTheme: {
-					primary: '#ffffff',
-					secondary: '#DB4444',
-				},
-			});
+        style: {
+          padding: '16px',
+          color: '#ffffff',
+          background: '#DB4444',
+        },
+        iconTheme: {
+          primary: '#ffffff',
+          secondary: '#DB4444',
+        },
+      });
     } catch (error) {
       console.error('Error adding to wishlist:', error);
       setActionStatus('error');
@@ -76,23 +76,23 @@ const ProductDetail = () => {
     const cartObject = {
       productId: _id,
       email: email,
-      quantity : 1,
+      quantity: 1,
       ...rest
     };
 
     try {
       await setCart(cartObject)
       toast.success('product Added to Cart', {
-				style: {
-					padding: '16px',
-					color: '#ffffff',
-					background: '#DB4444',
-				},
-				iconTheme: {
-					primary: '#ffffff',
-					secondary: '#DB4444',
-				},
-			});;
+        style: {
+          padding: '16px',
+          color: '#ffffff',
+          background: '#DB4444',
+        },
+        iconTheme: {
+          primary: '#ffffff',
+          secondary: '#DB4444',
+        },
+      });;
     } catch (error) {
       console.error('Error adding to cart:', error);
       setActionStatus('error');
@@ -106,21 +106,21 @@ const ProductDetail = () => {
       console.log('Error: Failed to add product to wishlist');
     }
   }, [actionStatus]);
-  if (productLoading ) return <p>Loading...</p>;
+  if (productLoading) return <p>Loading...</p>;
 
   return (
-    <div className="mx-28 flex gap-12 my-10">
+    <div className="mx-5 lg:mx-28 flex flex-col lg:flex-row gap-12 my-5 lg:my-10">
       <div className=" ">
         <img src={product?.imageUrl} className="w-[500px] bg-[#F5F5F5]" alt="" />
       </div>
 
-      <div className="w-1/2 space-y-5">
+      <div className="w-full lg:w-1/2 space-y-5">
         <h1 className="text-xl text-primary font-medium">{product?.title}</h1>
         <div className="flex gap-4 items-center mt-4">
           <span className="text-green-400 pl-2 border-l-2">In stock</span>
         </div>
 
-        <h1 className="text-3xl font-medium">BDT {product?.discountedPrice ? product?.discountedPrice : product?.price}<span className={`${product?.discountedPrice ? "" : "hidden"} text-[#00000090] line-through ml-4`}>{ product?.price}</span></h1> 
+        <h1 className="text-3xl font-medium">BDT {product?.discountedPrice ? product?.discountedPrice : product?.price}<span className={`${product?.discountedPrice ? "" : "hidden"} text-[#00000090] line-through ml-4`}>{product?.price}</span></h1>
 
         <p className="inline-block" dangerouslySetInnerHTML={{ __html: product?.description }}></p>
 
@@ -144,8 +144,8 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {isLoading && <p>Loading...</p> }
-    
+        {isLoading && <p>Loading...</p>}
+
       </div>
     </div>
   );

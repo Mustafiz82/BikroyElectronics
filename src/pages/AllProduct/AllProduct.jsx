@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-
+import noProductImage from "../../assets/Others/no-product-found.png"
 import ProductCard from "../../Components/ProductCard";
 import {
 	useGetCategoryListQuery,
@@ -85,6 +85,22 @@ const AllProduct = () => {
 		});
 	};
 
+	const handleFilterPriceForLargeDevice = (e) => {
+
+		e.preventDefault()
+		const maxPrice = e.target.maxPrice.value
+		const minPrice = e.target.minPrice.value
+
+		console.log(maxPrice , minPrice)
+
+		setFilter({
+			...filter,
+			maxPrice: maxPrice,
+			minPrice: minPrice
+		});
+	};
+
+
 	const handleFilterCategory = (event) => {
 		const { id, checked } = event.target;
 		let updatedCategories;
@@ -129,51 +145,67 @@ const AllProduct = () => {
 		});
 	};
 
+	
+
+	if (products?.length < 1) {
+		return <div className="w-full h-[500px] flex flex-col gap-4 justify-center items-center">
+			<img src={noProductImage} alt="" srcset="" />
+			<h1 className="text-2xl font-medium">No Products Found</h1>
+		</div>
+	}
+
+
+
 	return (
 		<div
 			id="start_of_all_product_page"
 			className="flex max-w-screen-xl mx-auto"
 		>
-			{/* Category section */}
+			{/* Category section for filtering in large screen  */}
 			<div className="lg:pt-5 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
-				<h1 className="text-2xl mt-10 md:mt-0 font-medium">
-					Filter From
-				</h1>
+				<h1 className="text-2xl mt-5 md:mt-0 font-medium">
+					Select Price range large device
+				</h1>   
 
 				<form
-					onSubmit={handleSubmit(handleFilterPrice)}
-					className="lg:flex mt-5 pr-4 items-center gap-4"
-				>
-					<div className="flex gap-2 items-center">
-						<div className="relative w-full">
-							<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-								<FaBangladeshiTakaSign />
-							</span>
-							<input
-								type="number"
-								className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5] pl-8"
-								name="lowest_price"
-								placeholder="Min"
-								min={0}
-								{...register("minPrice", { required: true })}
-							/>
-						</div>
-						<span className="font-bold">-</span>
-						<input
-							type="number"
-							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
-							name="highest_price"
-							placeholder="$ Max"
-							{...register("maxPrice", { required: true })}
-						/>
-					</div>
-					<button
-						type="submit"
-						className="btn btn-error bg-primary rounded-sm text-white"
-					>
-						<MdOutlineArrowForwardIos />
-					</button>
-				</form>
+									onSubmit={handleFilterPriceForLargeDevice}
+									className="flex mt-5 pr-4 items-center gap-4"
+								>
+									<div className="flex gap-2 items-center">
+										<div className="relative w-full">
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+												<FaBangladeshiTakaSign />
+											</span>
+											<input
+												type="number"
+												className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA] pl-8"
+												name="minPrice"
+												placeholder="Min"
+												min={0}
+												
+											/>
+										</div>
+										<span className="font-bold">-</span>
+
+										<div className="relative w-full">
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+												<FaBangladeshiTakaSign />
+											</span>
+											<input
+												type="number"
+												className="input pl-8 focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA]"
+												name="maxPrice"
+												placeholder="Max"
+											/>
+										</div>
+									</div>
+									<button
+										type="submit"
+										className="btn btn-error bg-primary rounded-sm text-white"
+									>
+										<MdOutlineArrowForwardIos />
+									</button>
+								</form>
 
 				<h1 className="text-2xl mt-8 font-medium">Filter Check</h1>
 
@@ -201,7 +233,7 @@ const AllProduct = () => {
 				</div>
 			</div>
 
-			{/* Product viewing section */}
+			{/* Product viewing section  */}
 			<div className="p-5 lg:p-10 pb-2 pt-5 lg:pr-0 w-full lg:w-3/4">
 				<div className=" hidden lg:flex mb-5 items-center justify-between gap-5">
 					<p className="flex-1 hidden lg:block">{text}</p>
@@ -247,11 +279,12 @@ const AllProduct = () => {
 
 
 				</div>
-
+						
+						{/* category section for small devices */}
 				<div className="drawer">
 					<input id="my-drawer" type="checkbox" className="drawer-toggle" />
 					<div className="drawer-content">
-						{/* Page content here */}
+						
 					</div>
 					<div className="drawer-side mt-16">
 						<label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -265,7 +298,7 @@ const AllProduct = () => {
 										<h1 >Items per Page:</h1>
 										<select
 											onChange={handleShowItemPerPage}
-											className="select select-bordered w-full max-w-[110px] lg:max-w-[150px]"
+											className="select select-bordered rounded-sm w-full max-w-[110px] lg:max-w-[150px]"
 										>
 											<option value={15}>15</option>
 											<option selected value={30}>
@@ -274,11 +307,11 @@ const AllProduct = () => {
 											<option value={50}>50</option>
 										</select>
 									</div>
-									<div className="flex flex-col lg:flex-row  justify-end lg:items-center lg:flex-1 gap-2">
+									<div className="flex flex-col lg:flex-row pr-4 lg:pr-0  justify-end lg:items-center lg:flex-1 gap-2">
 										<h1 className="">Sort By:</h1>
 										<select
 											onChange={handleSortBy}
-											className="select max-w-[110px] select-bordered w-full lg:-w-[150px]"
+											className="select rounded-sm  max-w-[110px] select-bordered w-full lg:-w-[150px]"
 										>
 											<option value="" selected>
 												Default
@@ -289,7 +322,7 @@ const AllProduct = () => {
 									</div>
 								</div>
 								<h1 className="text-2xl mt-5 md:mt-0 font-medium">
-									Select Products
+									Select Price range
 								</h1>
 
 								<form
@@ -303,7 +336,7 @@ const AllProduct = () => {
 											</span>
 											<input
 												type="number"
-												className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5] pl-8"
+												className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA] pl-8"
 												name="lowest_price"
 												placeholder="Min"
 												min={0}
@@ -311,13 +344,19 @@ const AllProduct = () => {
 											/>
 										</div>
 										<span className="font-bold">-</span>
-										<input
-											type="number"
-											className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
-											name="highest_price"
-											placeholder="$ Max"
-											{...register("maxPrice", { required: true })}
-										/>
+
+										<div className="relative w-full">
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+												<FaBangladeshiTakaSign />
+											</span>
+											<input
+												type="number"
+												className="input pl-8 focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA]"
+												name="highest_price"
+												placeholder="Max"
+												{...register("maxPrice", { required: true })}
+											/>
+										</div>
 									</div>
 									<button
 										type="submit"
@@ -327,7 +366,7 @@ const AllProduct = () => {
 									</button>
 								</form>
 
-								<h1 className="text-2xl mt-8 font-medium">Filter Check</h1>
+								<h1 className="text-2xl mt-8 font-medium">Select Products</h1>
 
 								<div className="text-base mt-5 font-normal text-black">
 									{categoryItems?.map((item, index) => (

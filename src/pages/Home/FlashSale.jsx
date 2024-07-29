@@ -55,7 +55,8 @@ const FlashSale = () => {
 
 
 	return (
-		<div className='lg:px-0 px-5'>
+		
+			flashSale?.products.length > 0 ? <div className='lg:px-0 px-5'>
 			<div className="mt-10 lg:mt-20 mb-5 lg:mb-8">
 				<div className="flex ">
 					<span className="p-2 rounded-sm bg-primary"></span>
@@ -69,7 +70,7 @@ const FlashSale = () => {
 					<div className="text-xl">
 						<Countdown
 							className="tet-xl "
-							date={new Date(flashSale?.endTime).getTime() || Date.now() + 458895000}
+							date={new Date(flashSale?.endTime).getTime() || Date.now() }
 							renderer={renderer}
 						/>
 					</div>
@@ -132,7 +133,9 @@ const FlashSale = () => {
 
 				))}
 			</div>
-		</div>
+		</div> : null
+		
+		
 	);
 };
 

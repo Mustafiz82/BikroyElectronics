@@ -93,7 +93,16 @@ const Cart = () => {
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
 			<div className="w-full overflow-x-auto">
-			<div className="px-5 min-w-[600px]  lg:px-16">
+			{
+				cartData?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
+				<img src={image} className="w-32" alt="" srcset="" />
+
+				<h1 className="text-xl font-semibold mb-2 font-inter">
+					Your Cart is Empty
+
+				</h1>
+
+			</div> : <div className="px-5 min-w-[600px]  lg:px-16">
 				<div className="grid  grid-cols-9 font-medium my-16">
 					<h1 className="col-span-4">Product</h1>
 					<h1 className="col-span-2">Price</h1>
@@ -102,26 +111,19 @@ const Cart = () => {
 				</div>
 
 
-				{
-					cartData?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
-						<img src={image} className="w-32" alt="" srcset="" />
-
-						<h1 className="text-xl font-semibold mb-2 font-inter">
-							Your Cart is Empty
-
-						</h1>
-
-					</div> : <div className="" >
+				
+					 <div className="" >
 
 						{
 							cartData?.map(item => <CartItem item={item} ></CartItem>)
 						}
 
 					</div>
-				}
+				
 
 
 			</div>
+			}
 			</div>
 
 			<div className="flex justify-between mt-8 ">

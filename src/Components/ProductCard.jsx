@@ -20,7 +20,7 @@ import toast from "react-hot-toast";
 
 const ProductCard = ({ item, discount }) => {
 	
-	console.log(discount)
+	// console.log(discount)
 
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
 	const [setWishListProduct, { data: wishListdata }] = useSetWishListProductMutation();
@@ -64,13 +64,8 @@ const ProductCard = ({ item, discount }) => {
 	};
 
 
-
-
-
-
 	const addToCart = async () => {
 		if (!item || !email) {
-			console.error('Product or email is undefined', { product, email });
 			return navigate("/login")
 		}
 

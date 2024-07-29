@@ -158,13 +158,15 @@ const Nav = () => {
 							<IoSearch className="ml-4 text-xl" />
 						</button>
 					</form>
-					<NavLink
+					{
+						email ? <>
+						<NavLink
 						to="/wishlist"
 						className={({ isActive, isPending }) =>
 							isPending
 								? "pending"
 								: isActive
-								? "text-primary hidden  border-b-2 pb-1  border-primary"
+								? "text-primary  "
 								: ""
 						}
 					>
@@ -176,7 +178,7 @@ const Nav = () => {
 							isPending
 								? "pending"
 								: isActive
-								? "text-primary border-b-2 pb-1  border-primary"
+								? "text-primary"
 								: ""
 						}
 					>
@@ -236,7 +238,8 @@ const Nav = () => {
 								</div>
 							</li>
 						</ul>
-					</div>
+					</div></> : ""
+					}
 				</div>
 			</div>
 		</div>

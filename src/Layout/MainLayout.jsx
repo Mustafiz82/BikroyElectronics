@@ -40,7 +40,7 @@ const MainLayout = () => {
 
     return (
         <div>
-            <div className='hidden lg:block'> <Nav  ></Nav></div>
+            <div className='hidden lg:block'> <Nav></Nav></div>
             <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>
             <Footer></Footer>
