@@ -16,6 +16,7 @@ const initialState = {
   isInitializing: true,
   isError: false,
   error: "",
+  isLoggedIn : false
 };
 
 
@@ -29,7 +30,7 @@ export const createUser = createAsyncThunk(
       const user = userCredential.user;
       const userData = { name: user.displayName, email: user.email };
 
-      const apiUrl = "http://localhost:5144/users";
+      const apiUrl = "https://bikroyelectronics-server.vercel.app/users";
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -76,20 +77,25 @@ export const signInWithGoogle = createAsyncThunk(
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const userData = { name: user.displayName, email: user.email };
+      const userData = { name: user.displayName, email: user.email, isLoggedIn: true };
 
-      const apiUrl = "http://localhost:5144/users";
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+      try {
+        const apiUrl = "https://bikroyelectronics-server.vercel.app/users";
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create user');
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to create user');
+        }
+      } catch (fetchError) {
+        console.error("Error during fetch:", fetchError.message);
+        // Optionally, you can handle the fetch error here, for example, by logging it or notifying the user.
       }
 
       return userData;
@@ -99,6 +105,7 @@ export const signInWithGoogle = createAsyncThunk(
     }
   }
 );
+
 
 
 
@@ -114,8 +121,11 @@ export const userSlice = createSlice({
     setLoading: (state, { payload }) => {
       state.isLoading = payload.isLoading;
     },
-    setInitializing: (state, { payload }) => {
+    setInitializing : (state, { payload }) => {
       state.isInitializing = payload.isInitializing;
+    },
+    setIsLoggedIn: (state, { payload }) => {
+      state.isLoggedIn = payload.isLoggedIn;
     },
 
   },
@@ -134,6 +144,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.error = "";
+        state.isLoggedIn = true;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.name = "";
@@ -148,6 +159,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.error = "";
+        state.isLoggedIn = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.name = action.payload.name;
@@ -155,6 +167,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.error = "";
+        state.isLoggedIn = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.name = "";
@@ -162,6 +175,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload; // Use action.payload for error message
+        state.isLoggedIn = false;
       })
       .addCase(signInWithGoogle.pending, (state) => {
         state.name = "";
@@ -169,6 +183,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.error = "";
+        state.isLoggedIn = false;
       })
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.name = action.payload.name;
@@ -176,6 +191,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.error = "";
+        state.isLoggedIn = true;
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.name = "";
@@ -183,12 +199,13 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload; // Use action.payload for error message
+        state.isLoggedIn = false;
       });
   },
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setUser, setLoading, setInitializing } = userSlice.actions;
+export const { setUser, setLoading, setInitializing , setIsLoggedIn } = userSlice.actions;
 
 export default userSlice.reducer;

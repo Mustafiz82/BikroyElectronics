@@ -43,7 +43,8 @@ const Nav = () => {
 		signOut(auth).then(() => {
 			dispatch(setUser({
 				name : "",
-				email : ""
+				email : "",
+				isLoggedIn : false
 			}))
 		  }).catch((error) => {
 			// An error happened.

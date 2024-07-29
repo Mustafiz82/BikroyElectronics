@@ -21,6 +21,7 @@ const PrivateRoute = ({ children }) => {
 					setUser({
 						name: user?.displayName,
 						email: user?.email,
+						
 					})
 				);
 				dispatch(setInitializing({ isInitializing: false }));

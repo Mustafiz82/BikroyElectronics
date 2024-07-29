@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import signUpImage from "../../assets/Signup/Sign Up.jpeg";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch ,useSelector} from "react-redux";
-import { createUser, signInWithGoogle } from "../../redux/features/user/userSlice";
+import { createUser, setIsLoggedIn, setUser, signInWithGoogle } from "../../redux/features/user/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import auth from "../../../firebase.config";
 
 const Regestration = () => {
 	const { register, handleSubmit } = useForm();
     const dispatch = useDispatch()
-	const { isLoading } = useSelector((state) => state.userSlice);
+	const { isLoading, isInitializing, isLoggedIn, email } = useSelector((state) => state.userSlice);
 	const navigate = useNavigate()
 
 	
@@ -35,6 +37,41 @@ const Regestration = () => {
             // Handle error (if createUser thunk rejects)
         }
     };
+
+	
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				dispatch(setUser({
+					name: user?.displayName,
+					email: user?.email,
+					isInitializing: true,
+					
+				}))
+
+				// if(isInitializing){
+				// 	navigate('/')
+
+				// }
+
+				if (isLoggedIn) {
+					navigate('/')
+					dispatch(setIsLoggedIn({
+						isLoggedIn: false
+					}))
+
+				}
+
+
+			}
+			else {
+				console.log("user singed out")
+				dispatch(setUser({
+					isInitializing: false,
+				}))
+			}
+		})
+	}, [handleGoogleSignin]);
 
 
     

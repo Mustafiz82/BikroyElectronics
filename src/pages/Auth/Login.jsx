@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import {
 	loginUser,
+	setIsLoggedIn,
 	setUser,
 	signInWithGoogle,
 } from "../../redux/features/user/userSlice";
@@ -15,17 +16,17 @@ import auth from "../../../firebase.config";
 const Login = () => {
 	const { register, handleSubmit } = useForm();
 	const dispatch = useDispatch();
-    const navigate = useNavigate()
-	const { isLoading,isInitializing , email } = useSelector((state) => state.userSlice);
+	const navigate = useNavigate()
+	const { isLoading, isInitializing, isLoggedIn, email } = useSelector((state) => state.userSlice);
 
-   
+
 
 	const onSubmit = async (data) => {
 		try {
 			await dispatch(
 				loginUser({ email: data.email, password: data.password })
 			);
-            
+
 
 		} catch (error) {
 			console.error("Login error:", error);
@@ -33,47 +34,50 @@ const Login = () => {
 		console.log(data);
 	};
 
-	const handleGoogleSignin = async (data) => {
+	const handleGoogleSignin = async () => {
 		try {
-			await dispatch(
-				signInWithGoogle({
-					name: data.userName,
-					email: data.email,
-					password: data.password,
-				})
-			);
-
-			console.log(data.userName);
+		  await dispatch(signInWithGoogle()).unwrap(); // unwrap to handle rejected promises
+		  navigate('/');
 		} catch (error) {
-			console.error("Registration error:", error);
+		  console.error("Google sign-in error:", error);
 		}
-	};
+	  };
+	  
 
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                dispatch(setUser({
-                    name: user?.displayName,
-                    email: user?.email,
-                    isInitializing: true,
-                }))
-				
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				dispatch(setUser({
+					name: user?.displayName,
+					email: user?.email,
+					isInitializing: true,
+					
+				}))
+
 				// if(isInitializing){
 				// 	navigate('/')
 
 				// }
 
-				
-            }
-            else {
-                console.log("user singed out")
-                dispatch(setUser({
-                    isInitializing: false,
-                }))
-            }
-        })
-    }, [handleGoogleSignin]);
+				if (isLoggedIn) {
+					navigate('/')
+					dispatch(setIsLoggedIn({
+						isLoggedIn: false
+					}))
+
+				}
+
+
+			}
+			else {
+				console.log("user singed out")
+				dispatch(setUser({
+					isInitializing: false,
+				}))
+			}
+		})
+	}, [handleGoogleSignin]);
 
 	return (
 		<div>
@@ -118,8 +122,8 @@ const Login = () => {
 							<button
 								onClick={handleGoogleSignin}
 								className="btn mt-2 btn-outline  w-full rounded-md"
-							> 
-                            
+							>
+
 								<FcGoogle className="mr-2 text-xl" />
 								Sign in with google
 							</button>
