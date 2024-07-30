@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const MyCancellations = () => {
 
     const { email } = useSelector((state) => state.userSlice)
-	const { data: orders } = useGetCancelledOrdersQuery(email)
+	const { data: cancelledOrders , isLoading } = useGetCancelledOrdersQuery(email)
 
 
 	const formatDateString = (dateString) => {
@@ -21,9 +21,61 @@ const MyCancellations = () => {
 
     return (
         <div className=" mt-5 lg:mt-10">
+			{
+				isLoading ? <div className="mb-16 border-2">
+					<div className="border-b-2">
+					<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
+						<div>
+							<div className="skeleton w-80 h-7 rounded-md"></div>
+							<div className="skeleton w-52 mt-2 h-7 rounded-md"></div>
+						</div>
+						<div>
+							<div className="skeleton w-32 h-7 rounded-md"></div>
+							<div className="skeleton w-28  h-7 mt-2"></div>
+
+						</div>
+					</div>
+					</div>
+					<div className="p-10 pt-0">
+						<div className="grid   gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+							<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
+
+								<div className='skeleton h-10 w-1/4 lg:w-10'>
+
+								</div>
+
+								<h1 className="skeleton w-3/4 h-7 lg:max-w-72 text-sm col-span-2">
+									{" "}
+
+								</h1>
+							</div>
+							<div className="skeleton h-7 w-10 col-span-1 lg:col-span-3"></div>
+
+							<div className="skeleton h-7 col-span-1"></div>
+						</div>
+						<div className="grid mt-10  gap-5 lg:gap-10 items-center grid-cols-8  font-medium ">
+							<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
+
+								<div className='skeleton h-10 w-1/4 lg:w-10'>
+
+								</div>
+
+								<h1 className="skeleton w-3/4 h-7 lg:max-w-72 text-sm col-span-2">
+									{" "}
+
+								</h1>
+							</div>
+							<div className="skeleton h-7 w-10 col-span-1 lg:col-span-3"></div>
+
+							<div className="skeleton h-7 col-span-1"></div>
+						</div>
+					</div>
+					<div className="skeleton h-10 w-full rounded-none"></div>
+				</div> : ""
+			}
 
             {
-                orders?.length == 0 ? <div>
+                cancelledOrders?.length == 0 ? <div>
                     <div class="flex justify-center gap-2 h-[500px] items-center flex-col text-center">
                         <img src={image} className="w-20 h-20" alt="" />
 
@@ -31,7 +83,7 @@ const MyCancellations = () => {
                         <p>If you want to cancel any order go to Order page.</p>
                         <Link to="/Dashboard/myorders" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Manage Orders</Link>
                     </div>
-                </div> : orders?.map(item => <div className="mb-16 border-2  ">
+                </div> : cancelledOrders?.map(item => <div className="mb-16 border-2  ">
 					<div className="border-b-2 ">
 						<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
 							<div className="">

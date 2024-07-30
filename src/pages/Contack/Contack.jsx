@@ -4,7 +4,7 @@ import { IoMailOutline } from "react-icons/io5";
 
 const Contack = () => {
 	return (
-		<div className="max-w-screen-xl flex gap-20  mx-auto my-20">
+		<div className="max-w-screen-xl flex flex-col lg:flex-row px-5 lg:px-0 gap-2 lg:gap-20  mx-auto my-5 lg:my-20">
 			<div className="">
 				<div className="space-y-2 font-medium font-poppins">
 					<div className="font-medium mb-5  flex  items-center gap-4">
@@ -23,7 +23,7 @@ const Contack = () => {
 						<div className="p-2  inline-block text-white bg-primary rounded-full text-xl">
 							<IoMailOutline />
 						</div>
-						<h1 className="text-xl"> Write to Us</h1>
+						<h1 className="text-xl mt-5 lg:mt-0"> Write to Us</h1>
 					</div>
 
 					<p>
