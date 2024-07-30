@@ -29,10 +29,10 @@ const BannerAdd = () => {
 	};
 
     return (
-        <div className=''>
-             <div className="flex lg:flex-row flex-col-reverse text-white lg:justify-around items-center w-full lg:h-[500px] bg-black ">
+        <div className='md:my-20 last: '>
+             <div className="flex md:flex-row flex-col-reverse text-white md:px-5 lg:px-0 lg:justify-around items-center w-full md:h-[500px]  bg-black ">
                 <div className='space-y-10 pb-10  lg:p-0'>
-                    <h1 className='text-xl lg:text-4xl font-medium '>
+                    <h1 className='text-xl md:text-2xl lg:text-4xl font-medium '>
                         Enhance your <br /> videography Experience 
                     </h1>
                     <Countdown

@@ -64,11 +64,11 @@ const Categories = ({ categories ,isLoading}) => {
 				{/* text container here */}
 
 				{/* slider container */}
-				<div className="w-screen px-4 lg:px-0 overflow-hidden mt-10 a z-50  ">
+				<div className="w-screen  px-4 md:px-0 overflow-hidden mt-10 a z-50  ">
 					<div
 						className="ease-linear duration-300 flex  lg:gap-4 items-center"
 						style={{
-							transform: `translateX(-${currentSlider * (isSmallScreen ? 130 : 210)
+							transform: `translateX(-${currentSlider * (isSmallScreen ? 140 : 220)
 								}px)`,
 						}}
 					>
@@ -95,7 +95,7 @@ const Categories = ({ categories ,isLoading}) => {
 										: "scale-100 delay-500"
 										} duration-300 rounded-lg z-50`}
 								>
-									<div className="flex  mr-5  justify-center items-center lg:p-2 border-2 lg:min-w-44 text-center lg:min-h-44 min-h-40 min-w-28 space-y-2">
+									<div className="flex  mr-7 md:mr-7 md:ml-5 lg:ml-0 lg:mr-7  justify-center items-center lg:p-2 border-2   md:min-w-44 text-center md:min-h-44 min-h-40 min-w-28 space-y-2">
 										<div className="">
 											<div className="flex mb-2 lg:mb-4 justify-center items-center">
 												{" "}

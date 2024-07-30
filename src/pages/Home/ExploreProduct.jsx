@@ -98,9 +98,9 @@ const ExploreProduct = ({ products }) => {
 				</div>
 			</div>
  
-			<div className="grid lg:hidden mt-5 grid-cols-2 gap-5">
+			<div className="grid lg:hidden mt-5 grid-cols-2 md:grid-cols-3 gap-5">
 				{
-					slicedProducts?.map(item => <ProductCard item={item}></ProductCard>)
+					slicedProducts?.map((item , inx) => <div className={inx == (slicedProducts?.length - 1) ? "hidden" : ""}><ProductCard item={item}></ProductCard></div> )
 				}
 			</div>
 			<div className="flex lg:hidden  justify-center">

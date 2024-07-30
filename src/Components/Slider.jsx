@@ -33,7 +33,7 @@ export default function Slider() {
 				<SwiperSlide>
 					<img
 						src={Banner3}
-						className="w-full h-[220px] lg:h-[450px]"
+						className="w-full h-[220px] md:h-[330px] lg:h-[450px]"
 						alt=""
 						srcset=""
 					/>
@@ -41,7 +41,7 @@ export default function Slider() {
 				<SwiperSlide>
 					<img
 						src={Banner4}
-						className="w-full h-[220px] lg:h-[450px]"
+						className="w-full h-[220px] md:h-[330px] lg:h-[450px]"
 						alt=""
 						srcset=""
 					/>
@@ -49,7 +49,7 @@ export default function Slider() {
 				<SwiperSlide>
 					<img
 						src={Banner1}
-						className="w-full h-[220px] lg:h-[450px]"
+						className="w-full h-[220px] md:h-[330px] lg:h-[450px]"
 						alt=""
 						srcset=""
 					/>
@@ -57,7 +57,7 @@ export default function Slider() {
 				<SwiperSlide>
 					<img
 						src={Banner2}
-						className="w-full h-[220px] lg:h-[450px]"
+						className="w-full h-[220px] md:h-[330px] lg:h-[450px]"
 						alt=""
 						srcset=""
 					/>
@@ -65,7 +65,7 @@ export default function Slider() {
 				<SwiperSlide>
 					<img
 						src={Banner5}
-						className="w-full h-[220px] lg:h-[450px]"
+						className="w-full h-[220px] md:h-[330px] lg:h-[450px]"
 						alt=""
 						srcset=""
 					/>

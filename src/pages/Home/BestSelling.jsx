@@ -31,7 +31,7 @@ const BestSelling = ({ categories }) => {
             </div>
 
 			<div className="relative">
-				<div className=" overflow-hidden grid grid-cols-2 gap-5 lg:flex justify-between  lg:mt-10 a z-50  ">
+				<div className=" overflow-hidden grid grid-cols-2 gap-5 md:flex justify-between  md:mt-10 a z-50  ">
 
 					{
 						isLoading ? <div className="flex w-full justify-between">
