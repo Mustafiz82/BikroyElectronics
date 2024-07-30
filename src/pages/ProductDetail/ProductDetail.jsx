@@ -106,7 +106,22 @@ const ProductDetail = () => {
       console.log('Error: Failed to add product to wishlist');
     }
   }, [actionStatus]);
-  if (productLoading) return <p>Loading...</p>;
+
+  if (productLoading) return <div className="mx-5 lg:mx-28 flex flex-col lg:flex-row gap-12 my-5 lg:my-10">
+
+    <div className="skeleton  h-[500px] w-[500px] rounded-none" ></div>
+    <div>
+      <div className="skeleton h-7 w-80 rounded-sm"></div>
+      <div className="skeleton  mt-10 h-6 w-20 rounded-md"></div>
+      <div className="skeleton  mt-10 h-10 w-40 rounded-md"></div>
+      <div className="skeleton  mt-5 h-7 w-80 rounded-md"></div>
+      <div className="skeleton  mt-10 h-6 w-50 rounded-md"></div>
+      <div className="skeleton  mt-4 h-6 w-40 rounded-md"></div>
+      <div className="skeleton  mt-4 h-6 w-48 rounded-md"></div>
+      <div className="skeleton  mt-4 h-6 w-50 rounded-md"></div>
+      <div className="skeleton  mt-4 h-6 w-44 rounded-md"></div>
+    </div>
+  </div>
 
   return (
     <div className="mx-5 lg:mx-28 flex flex-col lg:flex-row gap-12 my-5 lg:my-10">

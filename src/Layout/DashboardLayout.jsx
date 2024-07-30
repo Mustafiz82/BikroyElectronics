@@ -76,7 +76,7 @@ const DashboardLayout = () => {
 
 		<div className="drawer max-w-screen-xl font-poppins mx-auto lg:drawer-open">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-			<div className="drawer-content flex flex-col items-center justify-center">
+			<div className="drawer-content ">
 				<div className="">
 					{/*  */}
 

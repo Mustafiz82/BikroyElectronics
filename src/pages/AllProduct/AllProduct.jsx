@@ -26,8 +26,8 @@ const AllProduct = () => {
 	const dispatch = useDispatch();
 	const { handleSubmit, register } = useForm();
 
-	const { data: categoryItems } = useGetCategoryListQuery();
-	const { data: products } = useGetProductsQuery(filter, {
+	const { data: categoryItems , isLoading : categoryLoading} = useGetCategoryListQuery();
+	const { data: products ,isLoading } = useGetProductsQuery(filter, {
 		pollingInterval: 30000,
 		refetchOnMountOrArgChange: true,
 
@@ -164,7 +164,7 @@ const AllProduct = () => {
 			{/* Category section for filtering in large screen  */}
 			<div className="lg:pt-5 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
 				<h1 className="text-2xl mt-5 md:mt-0 font-medium">
-					Select Price range large device
+					Select Price range 
 				</h1>   
 
 				<form
@@ -207,9 +207,23 @@ const AllProduct = () => {
 									</button>
 								</form>
 
-				<h1 className="text-2xl mt-8 font-medium">Filter Check</h1>
+				<h1 className="text-2xl mt-8 font-medium">Select Category</h1>
 
 				<div className="text-base mt-5 font-normal text-black">
+				{
+						categoryLoading ? <div className="space-y-5" >
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+						</div> :""
+					}
 					{categoryItems?.map((item, index) => (
 						<label
 							key={index}
@@ -268,13 +282,59 @@ const AllProduct = () => {
 					{products?.map((item) => (
 						<ProductCard key={item.id} item={item} />
 					))}
+					{
+						isLoading ? <>
+							<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						</> : null
+					}
 				</div>
 				<div className="flex justify-center mt-20">
 					<Pagination />
 				</div>
 
 				<div>
-					{/* <button className="btn btn-primary bg-primary lg:hidden border-none rounded-sm fixed bottom-20 right-5">Filter</button> */}
+				
 					<label htmlFor="my-drawer" className="btn btn-primary bg-primary lg:hidden border-none rounded-sm fixed bottom-24 right-10 ">Filter</label>
 
 

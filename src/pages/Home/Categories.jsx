@@ -7,16 +7,17 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCategories } from "../../redux/features/filter/filterSlice";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories ,isLoading}) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
 	const dispatch = useDispatch()
 
 	const handleSelectCategory = (category) => {
 		dispatch(setCategories({
-			categories : category
+			categories: category
 		}))
 		console.log(category);
 	}
+
 
 
 	const prevSlider = () =>
@@ -40,68 +41,79 @@ const Categories = ({ categories }) => {
 				Browse By Category
 			</h1>
 
-			<div>
-				<div className="  flex flex-col xl:flex-row items-center justify-center gap-5 lg:gap-10 relative">
-					{/* arrow */}
-					<div className="absolute   -top-12 right-0 text-2xl  flex gap-2 lg:gap-8 z-50 pl-5">
-						{/* arrow left */}
-						<button
-							onClick={prevSlider}
-							className="bg-base-200 p-4 rounded-full"
-						>
-							<FaArrowLeftLong />
-						</button>
-						{/* arrow right */}
-						<button
-							onClick={nextSlider}
-							className="bg-base-200 p-4 rounded-full"
-						>
-							{" "}
-							<FaArrowRightLong />
-						</button>
-					</div>
-					{/* text container here */}
 
-					{/* slider container */}
-					<div className="w-screen px-4 lg:px-0 overflow-hidden mt-10 a z-50  ">
-						<div
-							className="ease-linear duration-300 flex  lg:gap-4 items-center"
-							style={{
-								transform: `translateX(-${
-									currentSlider * (isSmallScreen ? 130 : 210)
+			<div className="  flex flex-col xl:flex-row items-center justify-center gap-5 lg:gap-10 relative">
+				{/* arrow */}
+				<div className="absolute   -top-12 right-0 text-2xl  flex gap-2 lg:gap-8 z-50 pl-5">
+					{/* arrow left */}
+					<button
+						onClick={prevSlider}
+						className="bg-base-200 p-4 rounded-full"
+					>
+						<FaArrowLeftLong />
+					</button>
+					{/* arrow right */}
+					<button
+						onClick={nextSlider}
+						className="bg-base-200 p-4 rounded-full"
+					>
+						{" "}
+						<FaArrowRightLong />
+					</button>
+				</div>
+				{/* text container here */}
+
+				{/* slider container */}
+				<div className="w-screen px-4 lg:px-0 overflow-hidden mt-10 a z-50  ">
+					<div
+						className="ease-linear duration-300 flex  lg:gap-4 items-center"
+						style={{
+							transform: `translateX(-${currentSlider * (isSmallScreen ? 130 : 210)
 								}px)`,
-							}}
-						>
-							{/* sliders */}
-							{categories?.map((item, inx) => (
-								<Link to={`/allproduct`} >
-									<div onClick={() => handleSelectCategory(item?.title)}
-										key={inx}
-										className={`  ${
-											currentSlider - 1 === inx
-												? "scale-0"
-												: "scale-100 delay-500"
-										} duration-300 rounded-lg z-50`}	
-									>
-										<div className="flex mr-5  justify-center items-center lg:p-2 border-2 lg:min-w-44 text-center lg:min-h-44 min-h-40 min-w-28 space-y-2">
-											<div>
-												<div className="flex mb-2 lg:mb-4 justify-center items-center">
-													{" "}
-													<img
-														src={item?.imageurl}
-														alt=""
-													/>
-												</div>{" "}
-												<h1>{item?.title}</h1>
-											</div>
+						}}
+					>
+						{/* sliders */}
+
+						{
+							isLoading ? <div className="flex gap-6">
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+							</div> : null
+						}
+						{categories?.map((item, inx) => (
+							<Link to={`/allproduct`} >
+								<div onClick={() => handleSelectCategory(item?.title)}
+									key={inx}
+									className={`  ${currentSlider - 1 === inx
+										? "scale-0"
+										: "scale-100 delay-500"
+										} duration-300 rounded-lg z-50`}
+								>
+									<div className="flex  mr-5  justify-center items-center lg:p-2 border-2 lg:min-w-44 text-center lg:min-h-44 min-h-40 min-w-28 space-y-2">
+										<div className="">
+											<div className="flex mb-2 lg:mb-4 justify-center items-center">
+												{" "}
+												<img
+													src={item?.imageurl}
+													alt=""
+												/>
+											</div>{" "}
+											<h1>{item?.title}</h1>
 										</div>
 									</div>
-								</Link>
-							))}
-						</div>
+								</div>
+							</Link>
+						))}
 					</div>
 				</div>
 			</div>
+
 		</div>
 	);
 };

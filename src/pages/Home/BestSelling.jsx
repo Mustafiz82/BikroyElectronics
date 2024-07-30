@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 const BestSelling = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
-	const {data:bestSellingProduct } = useGetProductsQuery({limit : 4 , sortBy : "sellCount" , sortOrder : "desc"})
+	const {data:bestSellingProduct  ,isLoading} = useGetProductsQuery({limit : 4 , sortBy : "sellCount" , sortOrder : "desc"})
 
 	// console.log(bestSellingProduct);
+	// const isLoading = true
 
 	return (
 		<div className="lg:my-20 my-10 px-5 lg:px-0">
@@ -27,10 +28,43 @@ const BestSelling = ({ categories }) => {
             <Link to="/allProduct" className="btn btn-error px-8 text-white  bg-primary rounded-sm ">
 				view All
 			</Link>
-            </div>``
+            </div>
 
 			<div className="relative">
 				<div className=" overflow-hidden grid grid-cols-2 gap-5 lg:flex justify-between  lg:mt-10 a z-50  ">
+
+					{
+						isLoading ? <div className="flex w-full justify-between">
+							<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						</div> : ""
+					}
 					{bestSellingProduct?.map((item, inx) => (
 						<div
 							key={inx}

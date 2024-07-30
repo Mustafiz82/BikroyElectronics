@@ -24,35 +24,12 @@ import { setUser } from "../../redux/features/user/userSlice";
 import { Toaster } from "react-hot-toast";
 
 const Home = () => {
-	const renderer = ({ days, hours, minutes, seconds, completed }) => {
-		return (
-			<div className="flex items-center font-bold gap-5">
-				<div>
-					<h1 className="text-base">Days</h1>
-					<h1 className="text-5xl font-bold">{days}</h1>
-				</div>
-				<span className="text-primary text-5xl font-bold">:</span>
-				<div>
-					<h1 className="text-base">Hours</h1>
-					<h1 className="text-5xl font-bold">{hours}</h1>
-				</div>
-				<span className="text-primary text-5xl font-bold">:</span>
-				<div>
-					<h1 className="text-base">Munite</h1>
-					<h1 className="text-5xl font-bold">{minutes}</h1>
-				</div>
-				<span className="text-primary text-5xl font-bold">:</span>
-				<div>
-					<h1 className="text-base">Second</h1>
-					<h1 className="text-5xl font-bold">{seconds}</h1>
-				</div>
-			</div>
-		);
-	};
+	
 
 	const { data: categoryItems, isLoading, error } = useGetCategoryListQuery();
 	const { data: products } = useGetProductsQuery();
 	const dispatch = useDispatch();
+// const isLoading = true
 
 
 	const handleSelectCategory = (category) => {
@@ -69,6 +46,20 @@ const Home = () => {
 		<div className="max-w-screen-xl mx-auto ">
 			<div className="flex ">
 				<ul className="border-r-2 font-poppins hidden lg:block w-1/5 space-y-5 pt-5">
+					{
+						isLoading ? <div className="space-y-5" >
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+							<div className="skeleton h-7 rounded-md  w-44"></div>
+						</div> :""
+					}
 					{categoryItems?.map((item) => (
 						<li onClick={() => handleSelectCategory(item?.title)} key={item.id}>
 							<Link to={`/allproduct`}>
@@ -83,7 +74,7 @@ const Home = () => {
 			</div>
 
 			<FlashSale></FlashSale>
-			<Categories categories={categoryItems}></Categories>
+			<Categories isLoading={isLoading} categories={categoryItems}></Categories>
 			<BestSelling ></BestSelling>
 				<BannerAdd></BannerAdd>
 				<ExploreProduct explore="explore" products={products}></ExploreProduct>

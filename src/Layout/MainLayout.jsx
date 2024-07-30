@@ -33,7 +33,7 @@ const MainLayout = () => {
                 dispatch(setUser({
                     isInitializing: false,
                 }))
-                navigate('/')
+                // navigate('/')
             }
         })
     }, []);

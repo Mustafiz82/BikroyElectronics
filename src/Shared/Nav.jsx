@@ -91,16 +91,16 @@ const Nav = () => {
 				Contact
 			</NavLink>
 			<NavLink
-				to="/signUp"
-				className={({ isActive, isPending }) =>
+				to="/login"
+				className={ ({ isActive, isPending }) =>
 					isPending
 						? "pending"
 						: isActive
 						? "text-primary border-b-2 pb-1  border-primary"
-						: ""
+						: email ? "hidden" : "block"
 				}
 			>
-				Signup
+				Login
 			</NavLink>
 		</>
 	);

@@ -164,7 +164,7 @@ const MyAccount = () => {
 				<div className="space-y-5">
 					<h1 className="mb-2 font-medium mt-10">Password Changes</h1>
 					{
-						provider == "google.com" ? <p className="text-[10px] text-primary">
+						provider == "google.com" ? <p className="lg:text-sm text-[10px] text-primary">
 							Since you signed in with Google, you can't change your password here. Please use Google account settings to update your password.
 						</p> : ""
 					}
