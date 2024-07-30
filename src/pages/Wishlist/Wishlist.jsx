@@ -6,15 +6,17 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import image from "../../assets/Others/emptywishlist.png"
 import { Link } from "react-router-dom";
+import { isPending } from "@reduxjs/toolkit";
 
 const Wishlist = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
-	const { data: wishlistProduct } = useGetWishlistProductQuery(email)
-	const { data: Products } = useGetProductsQuery()
+	const { data: wishlistProduct , isLoading : isWishListProductLoading} = useGetWishlistProductQuery(email)
+	const { data: Products , isLoading:isProductsLoading} = useGetProductsQuery()
 	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
 	const [moveToCart , {data : moveStatus , isLoading}] = useSetAllCartProductMutation() 
 console.log(data)
+
 
 
 const handleMoveToCart = () => {
@@ -66,6 +68,39 @@ const handleMoveToCart = () => {
 								wishlistProduct?.map(item => <WishListProductCard item={item} ></WishListProductCard>)
 							}
 
+{
+						isWishListProductLoading ? <>
+							<div >
+							<div className="skeleton  lg:min-w-[250px]   rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px]   rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px]   rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						</> : ""
+					}
+
 						</div>
 					}
 				</div>
@@ -87,6 +122,39 @@ const handleMoveToCart = () => {
 				</div>
 
 				<div className="grid grid-cols-2  lg:grid-cols-4 gap-5 lg:gap-16">
+
+				{
+						isProductsLoading ? <>
+							<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						<div >
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+
+						</div>
+						</> : ""
+					}
 
 					{
 						Products && [...Products]?.sort(() => 0.5 - Math.random()).slice(0, 4).map(item => <ProductCard item={item}></ProductCard>)

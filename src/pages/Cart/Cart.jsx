@@ -11,12 +11,13 @@ const Cart = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
 
-	const { data: cartData, error } = useGetCartProductQuery(email)
+	const { data: cartData, isLoading, error } = useGetCartProductQuery(email)
 	const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
-	
+
 	const cartTotal = cartData?.reduce((accumulator, product) => {
 		return accumulator + ((product?.discountedPrice || product?.price) * product?.quantity);
-	  }, 0);
+	}, 0);
+
 
 
 	console.log(cartTotal)
@@ -93,37 +94,68 @@ const Cart = () => {
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
 			<div className="w-full overflow-x-auto">
-			{
-				cartData?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
-				<img src={image} className="w-32" alt="" srcset="" />
-
-				<h1 className="text-xl font-semibold mb-2 font-inter">
-					Your Cart is Empty
-
-				</h1>
-
-			</div> : <div className="px-5 min-w-[600px]  lg:px-16">
-				<div className="grid  grid-cols-9 font-medium my-16">
-					<h1 className="col-span-4">Product</h1>
-					<h1 className="col-span-2">Price</h1>
-					<h1 className="col-span-2">Quantity</h1>
-					<h1 className="col-span-1 ">Subtotal</h1>
-				</div>
-
 
 				
-					 <div className="" >
+				{
+					cartData?.length < 1 ? <div className="w-2/3 flex items-center flex-col my-20 mx-auto text-center">
+						<img src={image} className="w-32" alt="" srcset="" />
 
-						{
-							cartData?.map(item => <CartItem item={item} ></CartItem>)
-						}
+						<h1 className="text-xl font-semibold mb-2 font-inter">
+							Your Cart is Empty
+
+						</h1>
+
+					</div> : <div className="px-5 min-w-[600px]  lg:px-16">
+						<div className="grid  grid-cols-9 mb-8 mt-16 font-medium my-16">
+							<h1 className="col-span-2">Product</h1>
+							<h1 className="col-span-2">Title</h1>
+							<h1 className="col-span-2">Price</h1>
+							<h1 className="col-span-2">Quantity</h1>
+							<h1 className="col-span-1 ">Subtotal</h1>
+						</div>
+
+
+
+						<div className="" >
+
+							{
+								cartData?.map(item => <CartItem item={item} ></CartItem>)
+							}
+
+						</div>
+
+
 
 					</div>
-				
+				}
 
 
-			</div>
-			}
+{
+					isLoading ? <div>
+						<div className="grid  grid-cols-9 mb-8 mt-16 px-5 min-w-[600px]  lg:px-16 justify-between items-center ">
+
+							<div className="col-span-1 skeleton w-10 h-10 rounded-md"></div>
+							<div className="col-span-3 skeleton w-56 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-20 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-16 h-12 rounded-md "></div>
+							<div className="col-span-1 skeleton w-20 h-7 rounded-md"></div>
+						</div><div className="grid grid-cols-9 mb-8 mt-16 px-5 min-w-[600px]  lg:px-16 justify-between items-center ">
+
+							<div className="col-span-1 skeleton w-10 h-10 rounded-md"></div>
+							<div className="col-span-3 skeleton w-56 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-20 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-16 h-12 rounded-md "></div>
+							<div className="col-span-1 skeleton w-20 h-7 rounded-md"></div>
+						</div><div className="grid grid-cols-9 mb-8 mt-16 px-5 min-w-[600px]  lg:px-16 justify-between items-center ">
+
+							<div className="col-span-1 skeleton w-10 h-10 rounded-md"></div>
+							<div className="col-span-3 skeleton w-56 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-20 h-7 rounded-md"></div>
+							<div className="col-span-2 skeleton w-16 h-12 rounded-md "></div>
+							<div className="col-span-1 skeleton w-20 h-7 rounded-md"></div>
+						</div>
+					</div> : ""
+				}
 			</div>
 
 			<div className="flex justify-between mt-8 ">
@@ -136,14 +168,14 @@ const Cart = () => {
 			</div>
 
 			<div className="    mt-20 ">
-				<form onSubmit={handleSubmitCoupon}  className="flex gap-4 ">
+				<form onSubmit={handleSubmitCoupon} className="flex gap-4 ">
 					<input
 						type="text"
 						placeholder="Coupon code "
 						className="input w-full lg:w-auto  border-black  rounded-sm  input-bordered "
 						name="coupon"
 					/>
-					<button type="submit"  className="btn btn-error bg-primary text-white rounded-sm ">
+					<button type="submit" className="btn btn-error bg-primary text-white rounded-sm ">
 						Apply coupon
 					</button>
 				</form>
@@ -167,7 +199,7 @@ const Cart = () => {
 							<Link to="/checkout" className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">
 								Proceed to checkout{" "}
 							</Link>
-						</div>{" "} 
+						</div>{" "}
 					</div>
 				</div>
 			</div>
