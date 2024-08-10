@@ -11,7 +11,6 @@ const MyOrder = () => {
 	const { data: orders, isLoading } = useGetOrdersQuery(email)
 	const [updateOrder, { data: updateStatus }] = useUpdateOrderStatusMutation()
 
-
 	const formatDateString = (dateString) => {
 		const date = new Date(dateString);
 		const options = { day: '2-digit', month: 'short', year: 'numeric' };
@@ -33,12 +32,12 @@ const MyOrder = () => {
 					<div className="border-b-2">
 					<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
 						<div>
-							<div className="skeleton w-80 h-7 rounded-md"></div>
-							<div className="skeleton w-52 mt-2 h-7 rounded-md"></div>
+							<div className="skeleton w-40 lg:w-80 h-7 rounded-md"></div>
+							<div className="skeleton w-28 lg:w-52 mt-2 h-7 rounded-md"></div>
 						</div>
 						<div>
-							<div className="skeleton w-32 h-7 rounded-md"></div>
-							<div className="skeleton w-28  h-7 mt-2"></div>
+							<div className="skeleton w-16 lg:w-32 h-7 rounded-md"></div>
+							<div className="skeleton w-14 lg:w-28  h-7 mt-2"></div>
 
 						</div>
 					</div>
@@ -56,7 +55,7 @@ const MyOrder = () => {
 
 								</h1>
 							</div>
-							<div className="skeleton h-7 w-10 col-span-1 lg:col-span-3"></div>
+							<div className="skeleton h-7 w-10 col-span-2 lg:col-span-3"></div>
 
 							<div className="skeleton h-7 col-span-1"></div>
 						</div>
@@ -72,7 +71,7 @@ const MyOrder = () => {
 
 								</h1>
 							</div>
-							<div className="skeleton h-7 w-10 col-span-1 lg:col-span-3"></div>
+							<div className="skeleton h-7 w-10 col-span-2 lg:col-span-3"></div>
 
 							<div className="skeleton h-7 col-span-1"></div>
 						</div>

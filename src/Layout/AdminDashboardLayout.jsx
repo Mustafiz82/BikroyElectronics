@@ -9,7 +9,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 const AdminDashboardLayout = () => {
 	return (
-		<div className="flex gap-5 max-w-screen-xl font-poppins mx-auto">
+		<div className="flex gap-5 max-w-screen-2xl px-5 font-poppins mx-auto">
 			
             <div className="hidden lg:block lg:w-1/5  font-medium  border-r p-10 pb-0 pl-0  ">
                 <div className="mb-5">
@@ -149,7 +149,7 @@ const AdminDashboardLayout = () => {
                     </div>
                 </div>
             </div>
-			<div className="w-full p-4 lg:w-3/4">
+			<div className="w-full pr-0 p-4 lg:w-4/5">
 				<Outlet></Outlet>
 			</div>
 		</div>
