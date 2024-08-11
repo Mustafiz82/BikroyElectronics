@@ -15,9 +15,9 @@
 
 .navigation {
     position: relative;
-    width: 100%;
+    /* width: 100vw; */
     height: 70px;
-    background:    rgb(219, 68, 68);
+    background:transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,16 +26,22 @@
 
 .navigation ul {
     display: flex;
-    margin-bottom:  -55px;
-    width: 350px;
+    /* margin-bottom:  -55px; */
+    width: 390px; 
+
 }
 
 .navigation ul li {
     position: relative;
-    width: 70px;
+    padding-top: 20px;
+
+    /* top: -20%; */
+    width: 100%;
+    
     height: 70px;
     list-style: none;
     z-index: 1;
+    background-color:    rgb(219, 68, 68);
 }
 
 .navigation ul li a {
@@ -70,7 +76,8 @@
     font-size: .75em;
     letter-spacing: .05em;
     opacity: 0;
-    transform: translateY(20px);
+    padding-top : 10px;
+transform: translateY(20px);
     transition: .5s;
 }
 
@@ -92,34 +99,73 @@
 
 .navigation ul li.active a .circle {
     transition: .5s;
+    
     transition-delay: .5s;
     transform: translateY(-37px) scale(1);
 }
 
+
+.navigation ul li.active {
+    width: 100%;
+  position:relative;
+  z-index:0;
+
+
+
+    
+   
+}
+
+.navigation ul li.active {
+    
+    position: relative;
+    z-index: 1; /* Ensure it's above the default stack */
+    background-color: transparent;
+    
+}
+
+.navigation ul li.active::before {
+    content: "";
+    position: absolute;
+    z-index: 0; /* Place behind the content but above the background */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(219, 68, 68);
+    clip-path: polygon(0 100%, 0 0, 4% 6%, 8% 14%, 13% 23%, 20% 31%, 29% 37%, 38% 41%, 49% 42%, 60% 41%, 71% 38%, 80% 33%, 88% 25%, 93% 18%, 97% 8%, 100% 0, 100% 100%);
+}
+
+
+
 .indicator {
     position: absolute;
-    top: -50%;
-    width: 70px;
-    height: 70px;
+    top: -55%;
+   left : 2.4%;
+    width: 60px;
+    height: 60px;
     background: rgb(219, 68, 68);
-    border: 6px solid #fff;
+    /* border: 6px solid #000000; */
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: .5s;
+    z-index: -999;
+
+   
 }
 
 .indicator::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: -22px;
+    left: -10px;
     width: 20px;
     height: 20px;
     background: transparent;
     border-top-right-radius: 20px;
-    box-shadow: 1px -10px 0 #fff;
+    /* box-shadow: 1px -10px 0 #000000; */
 }
 
 .indicator::after {
@@ -131,25 +177,28 @@
     height: 20px;
     background: transparent;
     border-top-left-radius: 20px;
-    box-shadow: -1px -10px 0 #fff;
+    /* box-shadow: -1px -10px 0 #000000; */
 }
 
 .navigation ul li:nth-child(1).active~.indicator {
-    transform: translateX(calc(70px * 0));
+    transform: translateX(calc(83px * 0));
 }
 
 .navigation ul li:nth-child(2).active~.indicator {
-    transform: translateX(calc(70px * 1));
+    transform: translateX(calc(78px * 1));
 }
 
 .navigation ul li:nth-child(3).active~.indicator {
-    transform: translateX(calc(70px * 2));
+    transform: translateX(calc(78px * 2));
 }
 
 .navigation ul li:nth-child(4).active~.indicator {
-    transform: translateX(calc(70px * 3));
+    transform: translateX(calc(78px * 3));
 }
 
 .navigation ul li:nth-child(5).active~.indicator {
-    transform: translateX(calc(70px * 4));
+    transform: translateX(calc(78px * 4));
 }
+
+
+

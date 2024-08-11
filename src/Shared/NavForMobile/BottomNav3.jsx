@@ -79,7 +79,7 @@ const BottomNav3 = () => {
                         </Link>
             
                     </li>
-                    <div className="indicator"></div>
+                    <div className="indicator "></div>
                 </ul>
             </div>
         </div>

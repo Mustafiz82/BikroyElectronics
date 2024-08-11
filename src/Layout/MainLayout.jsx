@@ -45,9 +45,11 @@ const MainLayout = () => {
             <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>
             <Footer></Footer>
-            <div className='fixed  w-full  bottom-0 z-[999] bg-white'>
+            <div className='fixed flex  w-full   bottom-0 z-[999]'>
                 {/* <BottomNav></BottomNav> */}
-                <BottomNav3></BottomNav3>
+                <div className='bg-primary w-5  flex-1'></div>
+                <div><BottomNav3></BottomNav3></div>
+                <div className='bg-primary  w-5 flex-1 '></div>
             </div>
             <Toaster
                 position="top-center"
