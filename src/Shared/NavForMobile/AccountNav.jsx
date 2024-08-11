@@ -23,7 +23,7 @@ const AccountNav = () => {
     }
 
     return (
-        <div className='h-[500px]'>
+        <div className='h-[500px] mx-2 mt-5'>
             <div className="join w-full gap-2 join-vertical">
                 <div className='flex bg-[#F2F2F2]'>
                     <div className='clippath'></div>

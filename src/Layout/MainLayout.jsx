@@ -9,15 +9,14 @@ import { setUser } from '../redux/features/user/userSlice';
 import { Toaster } from 'react-hot-toast';
 import TopNav from '../Shared/NavForMobile/TopNav';
 import BottomNav from '../Shared/NavForMobile/BottomNav';
-import BottomNav3 from '../Shared/NavForMobile/BottomNav3';
 
 const MainLayout = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {pathname} = useLocation()
+    const { pathname } = useLocation()
     const pathname2 = pathname.split("/")
-  
+
     console.log(pathname2[1])
 
     useEffect(() => {
@@ -45,10 +44,9 @@ const MainLayout = () => {
             <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>
             <Footer></Footer>
-            <div className='fixed flex  w-full   bottom-0 z-[999]'>
-                {/* <BottomNav></BottomNav> */}
+            <div className='fixed flex lg:hidden w-full   bottom-0 z-[999]'>
                 <div className='bg-primary w-5  flex-1'></div>
-                <div><BottomNav3></BottomNav3></div>
+                <div><BottomNav></BottomNav> </div>
                 <div className='bg-primary  w-5 flex-1 '></div>
             </div>
             <Toaster
