@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCategories } from "../../redux/features/filter/filterSlice";
 
-const Categories = ({ categories ,isLoading}) => {
+const Categories = ({ categories  , isLoading}) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
 	const dispatch = useDispatch()
 
@@ -17,6 +17,8 @@ const Categories = ({ categories ,isLoading}) => {
 		}))
 		console.log(category);
 	}
+
+	
 
 
 
@@ -76,14 +78,14 @@ const Categories = ({ categories ,isLoading}) => {
 
 						{
 							isLoading ? <div className="flex gap-6">
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
-									<div className="skeleton rounded-none min-h-44 min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
+									<div className="skeleton rounded-none min-h-32 lg:min-h-44 min-w-28 lg:min-w-44 "></div>
 							</div> : null
 						}
 						{categories?.map((item, inx) => (

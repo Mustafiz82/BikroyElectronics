@@ -9,6 +9,7 @@ import { setUser } from '../redux/features/user/userSlice';
 import { Toaster } from 'react-hot-toast';
 import TopNav from '../Shared/NavForMobile/TopNav';
 import BottomNav from '../Shared/NavForMobile/BottomNav';
+import BottomNav3 from '../Shared/NavForMobile/BottomNav3';
 
 const MainLayout = () => {
 
@@ -44,8 +45,9 @@ const MainLayout = () => {
             <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>
             <Footer></Footer>
-            <div className='fixed lg:hidden  bottom-0 z-[999] bg-white'>
-                <BottomNav></BottomNav>
+            <div className='fixed  w-full  bottom-0 z-[999] bg-white'>
+                {/* <BottomNav></BottomNav> */}
+                <BottomNav3></BottomNav3>
             </div>
             <Toaster
                 position="top-center"

@@ -131,6 +131,7 @@ const BottomNav = () => {
                     </div>
                 </button>
             </div>
+
         </div>
     );
 };

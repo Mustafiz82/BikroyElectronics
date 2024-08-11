@@ -28,6 +28,7 @@ import AllProduct from "../pages/AllProduct/AllProduct";
 import PrivateRoute from "./PrivateRoute";
 import EditProduct from "../AdminDashboard/ProductManagement/EditProduct";
 import Checkout from "../pages/Checkout/Checkout";
+import AccountNav from "../Shared/NavForMobile/AccountNav";
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
 			{
 				path: "/allproduct",
 				element: <AllProduct></AllProduct>
+			},
+			{
+				path : "/accountNav",
+				element :<PrivateRoute><AccountNav></AccountNav></PrivateRoute> 
 			},
 			{
 				path: "/checkout",

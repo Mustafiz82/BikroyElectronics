@@ -226,3 +226,20 @@
         top: 28px;
         left: 5px;
       }
+
+
+.clippath {
+  width: 30px;
+  height: 60px;
+  background-color: rgb(219, 68, 68);
+  clip-path: polygon(0 0, 0% 100%, 50% 0);
+}
+.clippath-right {
+  width: 30px;
+  height: 60px;
+  background-color: rgb(219, 68, 68);
+  clip-path: polygon(100% 0, 50% 100%, 100% 100%);
+}
+
+
+      
