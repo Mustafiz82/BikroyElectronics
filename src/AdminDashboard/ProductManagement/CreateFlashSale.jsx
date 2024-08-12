@@ -7,7 +7,7 @@ const CreateFlashSale = () => {
     const [errorText, setErrorText] = useState('');
     const [buttonText, setButtonText] = useState('Create Flash Sale');
 
-    const { data: products } = useGetProductsQuery()
+    const { data: products , isLoading } = useGetProductsQuery()
     const [setFlashSale, { data: status }] = useSetFlashSaleMutation()
 
     console.log(status)
@@ -91,6 +91,20 @@ const CreateFlashSale = () => {
                     <div className="mt-4 flex-1 ">
                         <h2 className="text-normal  mb-2">Select Products</h2>
                         <div className="max-h-80 overflow-y-auto border border-gray-300 p-2 rounded-md">
+
+                            {
+                                isLoading ? <div className='space-y-3'>
+                                    <div className="skeleton w-56 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-60 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-48 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-56 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-64 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-56 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-60 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-48 h-5 rounded-sm"></div>
+                                    <div className="skeleton w-56 h-5 rounded-sm"></div>
+                                </div> : ""
+                            }
                             {products?.map((product) => (
                                 <div key={product?._id} className="flex items-center mb-2">
                                     <input

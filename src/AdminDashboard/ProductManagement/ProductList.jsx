@@ -4,13 +4,32 @@ import { useGetProductsQuery } from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
 const ProductList = () => {
 
-	const {data:products} = useGetProductsQuery({limit : 120} , {
+	const { data: products  , isLoading} = useGetProductsQuery({ limit: 120 }, {
 		pollingInterval: 30000,
 		refetchOnMountOrArgChange: true,
 	})
 	console.log(products)
+
+	const elements = Array.from({ length: 7 });
+
+
 	return (
 		<div>
+
+			{isLoading ? elements?.map((_, index) => (
+				<div key={index} className="grid px-10 grid-cols-9 font-medium my-10">
+					<div className="flex relative items-center col-span-4 gap-2">
+						<div className="skeleton w-10 h-10 "></div>
+						<h1 className="skeleton w-52 h-6 rounded-sm col-span-2"></h1>
+						<h1 className="text-red-500 text-xl -top-1 absolute"></h1>
+					</div>
+					<h1 className="col-span-2 skeleton w-20 h-6 rounded-sm"></h1>
+					<div className="col-span-2">
+						<h1 className="skeleton w-5 h-5"></h1>
+					</div>
+					<div className="skeleton w-16 h-10 rounded-md"></div>
+				</div>
+			)) : ""}
 			<div className="px-10">
 				<div className="grid  grid-cols-9 font-medium my-10">
 					<h1 className="col-span-4">Product</h1>
@@ -18,10 +37,9 @@ const ProductList = () => {
 					<h1 className="col-span-2">Quantity</h1>
 					<h1 className="col-span-1 ">Edit</h1>
 				</div>
-				
 
 				{
-					products?.map(item  =><div key={item?._id} className="grid grid-cols-9  font-medium my-10">
+					products?.map(item => <div key={item?._id} className="grid grid-cols-9  font-medium my-10">
 						<div className="flex relative items-center col-span-4  gap-2">
 							<div>
 								<img src={item?.imageUrl} className="w-10  p-0" alt="" />
@@ -39,9 +57,9 @@ const ProductList = () => {
 						<Link to={`/admin/editproducts/${item?._id}`} ><button className="btn  btn-outline text-primary  rounded-sm btn-">
 							Edit{" "}
 						</button></Link>
-					</div> )
+					</div>)
 				}
-				
+
 			</div>
 		</div>
 	);
