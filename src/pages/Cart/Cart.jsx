@@ -1,11 +1,12 @@
-import React from "react";
-import { useDeleteAllCartProductMutation, useGetCartProductQuery, useUpdateCartMutation } from "../../redux/api/baseApi";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDeleteAllCartProductMutation, useGetCartProductQuery, useSetSingleCouponMutation, useUpdateCartMutation } from "../../redux/api/baseApi";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import image from "../../assets/Others/empty-cart-7359557-6024626.webp"
 import { Form, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import {  setCartTotal , setDiscount, setDiscountedCartTotal } from "../../redux/features/Cart/CartSlice";
 
 const Cart = () => {
 
@@ -13,37 +14,24 @@ const Cart = () => {
 
 	const { data: cartData, isLoading, error } = useGetCartProductQuery(email)
 	const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
-
-	const cartTotal = cartData?.reduce((accumulator, product) => {
+	const [checkCoupon ,{data: couponData}] = useSetSingleCouponMutation()
+	
+	let cartTotal = cartData?.reduce((accumulator, product) => {
 		return accumulator + ((product?.discountedPrice || product?.price) * product?.quantity);
 	}, 0);
+	const [newCartTotal , setNewCartTotal] = useState(cartTotal)
+	const dispatch = useDispatch()
 
+
+	
+
+	const discountedCartTotal = 0
 
 
 	console.log(cartTotal)
+	console.log(couponData)
 
-	// const handleUpdateCart = (e, data) => {
-
-	// 	// console.log(data)
-	// 	const { quantity, ...rest } = 
-
-	// 	const obj = {
-	// 		quantity: e.target.value,
-	// 		...rest
-
-	// 	}
-
-	// 	console.log(obj)
-	// 	// setUpdateText("Updating Product...");
-	// 	// console.log({ imageUrl, ...data });
-	// 	// updateProduct({
-	// 	// 	id,
-	// 	// 	data: {
-	// 	// 		imageUrl : imageUrl || product.imageUrl,
-	// 	// 		...data,
-	// 	// 	},
-	// 	// });
-	// };
+	
 
 
 	const handleDeleteAllCartProduct = () => {
@@ -73,23 +61,75 @@ const Cart = () => {
 	}
 
 
-	const handleSubmitCoupon = (e) => {
-		e.preventDefault()
-		const coupon = e.target.coupon.value
-		console.log(coupon)
-		toast.error('Invalid coupon code', {
-			style: {
+	useEffect(() =>{
+		dispatch(
+			setCartTotal({
+				cartTotal : cartTotal || 0,
+
+			})
+		);
+
+	}, [cartTotal])
+
+
+	useEffect(() => {
+		if (couponData) {
+		  if (couponData.success) {
+			const discountedTotal = cartTotal - (cartTotal * (couponData?.discount / 100));
+			setNewCartTotal(discountedTotal)
+			dispatch(
+				setDiscount({
+					discount: couponData?.discount
+				})
+			)
+			dispatch(
+				setDiscountedCartTotal({
+					discountedCartTotal: discountedTotal ||  0
+				})
+			)
+			console.log("Discounted Cart Total:", discountedTotal);
+			toast.success(`Coupon applied! You saved ${couponData.discount}%`, {
+			  style: {
+				padding: '16px',
+				color: '#ffffff',
+				background: '#28a745',
+			  },
+			  iconTheme: {
+				primary: '#ffffff',
+				secondary: '#28a745',
+			  },
+			});
+		  } else {
+			toast.error(couponData.message || 'Invalid coupon code', {
+			  style: {
 				padding: '16px',
 				color: '#ffffff',
 				background: '#DB4444',
-			},
-			iconTheme: {
+			  },
+			  iconTheme: {
 				primary: '#ffffff',
 				secondary: '#DB4444',
-			},
-		});
-	}
+			  },
+			});
+		  }
+		}
+	  }, [couponData, cartTotal]);
+	  
 
+
+	const handleSubmitCoupon = async (e) => {
+		e.preventDefault()
+		const coupon = e.target.coupon.value
+		await checkCoupon({coupon})
+
+		console.log(couponData, "success")
+		if(couponData?.success){
+			console.log(couponData, "failed")
+		}
+
+		console.log(coupon)
+		
+	}
 
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
@@ -191,12 +231,16 @@ const Cart = () => {
 							<span>Shipping:</span>
 							<span>Free</span>
 						</div>
-						<div className="flex justify-between ">
+						<div className="flex border-b-2  pb-4 border-b-black	justify-between ">
+							<span>Discount:</span>
+							<span>{couponData?.discount || 0}%</span>
+						</div>
+						<div className="flex  justify-between ">
 							<span>Total:</span>
-							<span>{cartTotal}</span>
+							<span>{newCartTotal || cartTotal}</span>
 						</div>
 						<div className="flex justify-center items-center">
-							<Link to="/checkout" className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">
+							<Link to="/checkout"  className="btn btn-error text-white bg-primary rounded-sm px-8 mt-8">
 								Proceed to checkout{" "}
 							</Link>
 						</div>{" "}
@@ -208,3 +252,29 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+
+
+// const handleUpdateCart = (e, data) => {
+
+	// 	// console.log(data)
+	// 	const { quantity, ...rest } = 
+
+	// 	const obj = {
+	// 		quantity: e.target.value,
+	// 		...rest
+
+	// 	}
+
+	// 	console.log(obj)
+	// 	// setUpdateText("Updating Product...");
+	// 	// console.log({ imageUrl, ...data });
+	// 	// updateProduct({
+	// 	// 	id,
+	// 	// 	data: {
+	// 	// 		imageUrl : imageUrl || product.imageUrl,
+	// 	// 		...data,
+	// 	// 	},
+	// 	// });
+	// };

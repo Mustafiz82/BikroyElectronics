@@ -9,99 +9,151 @@ import {
 	useUpdateSingleProductMutation,
 } from "../../redux/api/baseApi";
 import { useParams } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import RichTextEditor from "../../Components/RichTextEditor";
+import { data } from "autoprefixer";
 
 const EditProduct = () => {
 	const { id } = useParams();
 
-	const { data: product } = useGetSingleProductsQuery(id);
-	const [updateProduct, { isSuccess }] = useUpdateSingleProductMutation();
+	const { register, handleSubmit, reset } = useForm();
+	const { data: product, isLoading } = useGetSingleProductsQuery(id);
+	const [updateProduct, { isSuccess, data: updateStatus }] = useUpdateSingleProductMutation();
 
-	const { register, handleSubmit } = useForm();
-	const [imageUrl, setImageUrl] = useState("");
-	const [uploading, setUploading] = useState(false);
-	const [updateText, setUpdateText] = useState("Update Product");
+
 	const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
 	const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
 
+
+	const [imageUrl, setImageUrl] = useState('');
+	const [uploading, setUploading] = useState(false);
+	const [updateText, setUpdateText] = useState("Update product");
+	const [description, setDescription] = useState('');
+	const [selectedCategory , setSelectedCategory] = useState('')
+
+
+	useEffect(() => {
+		if (product) {
+			setDescription(product.description);
+			setImageUrl(product.imageUrl);
+			setSelectedCategory(product?.category)
+		}
+	}, [product]);
+
+	
+	useEffect(() => {
+	    if (isSuccess) {
+	      setUpdateText("Product Updateed");
+
+	    }
+	  }, [isSuccess])
+
+
+	const handleCategoryChange = (event) => {
+		setSelectedCategory(event.target.value);
+	  };
+
+
 	const onSubmit = (data) => {
 		setUpdateText("Updating Product...");
-		console.log({ imageUrl, ...data });
+		console.log(selectedCategory)
+		console.log("the data of onsubmi form is ", { imageUrl, description, ...data });
 		updateProduct({
 			id,
 			data: {
-				imageUrl : imageUrl || product.imageUrl,
+				imageUrl: imageUrl || product.imageUrl,
 				...data,
+				description,
+				category : selectedCategory
+
+
 			},
 		});
 	};
 
-	console.log(product?.imageUrl);
+	
 
-	useEffect(() => {
-		if (isSuccess) {
-			setUpdateText("Product Updated");
-		}
-	}, [isSuccess]);
-
-	const handleImageUpload = (event) => {
+	const handleImageUpload = async (event) => {
 		setUploading(true);
-
 		const file = event.target.files[0];
 
-		// removeBG({file : file})
-		console.log(file);
 		if (file) {
 			const formData = new FormData();
 			formData.append("image", file);
 
-			axios
-				.post(imageBBUrl, formData, {
+			try {
+				const res = await axios.post(imageBBUrl, formData, {
 					headers: {
 						"content-type": "multipart/form-data",
 					},
-				})
-				.then((res) => {
-					setImageUrl(res?.data.data.display_url);
-					console.log(res?.data);
-					setUploading(false);
-				})
-				.catch((err) => {
-					console.error("Error uploading image", err);
-					setUploading(false);
 				});
+
+				const imageUrl = res?.data.data.image.url;
+				setImageUrl("");
+				await checkImageAvailability(imageUrl);
+				setImageUrl(imageUrl);
+			} catch (err) {
+				console.error("Error uploading image", err);
+			} finally {
+				setUploading(false);
+			}
 		}
 	};
 
+	const checkImageAvailability = (url, retries = 5, delay = 1000) => {
+		return new Promise((resolve, reject) => {
+			let attempts = 0;
+
+			const tryLoadImage = () => {
+				const img = new Image();
+				img.onload = () => resolve(true);
+				img.onerror = () => {
+					if (attempts < retries) {
+						attempts++;
+						setTimeout(tryLoadImage, delay);
+					} else {
+						reject(new Error("Image not found"));
+					}
+				};
+				img.src = url;
+			};
+
+			tryLoadImage();
+		});
+	}
+
+
+
 	return (
 		<div className="my-10">
+
+
 			<h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
-				{" "}
 				Update Product
 			</h1>
+			<Toaster />
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="flex gap-5 ">
+				<div className="lg:flex gap-5 ">
 					<div className="mt-8 flex-1 ">
 						<input
 							type="text"
+							placeholder="Product Title"
 							defaultValue={product?.title}
+							required
 							{...register("title", { required: true })}
-							className=" input focus:border-none focus:outline-none  rounded-sm w-full mb-8  bg-[#F5F5F5]"
+							className="input focus:border-none focus:outline-none rounded-sm w-full mb-8 bg-[#F5F5F5]"
 						/>
 
-						<textarea
-							defaultValue={product?.description}
-							required
-							{...register("description", { required: true })}
-							className="textarea resize-none focus:border-none focus:outline-none rounded-sm mb-8 outline-none w-full h-64  bg-[#F5F5F5]"
-							id=""
-						></textarea>
+						<RichTextEditor value={description} onChange={setDescription} />
+
 						<input
 							type="text"
+							placeholder=" $ Price "
 							defaultValue={product?.price}
 							required
 							{...register("price", { required: true })}
-							className=" input focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
+							className="input mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>
 					</div>
 					<div className="mt-8">
@@ -111,20 +163,19 @@ const EditProduct = () => {
 								id="file-upload"
 								className="hidden input-file"
 								onChange={handleImageUpload}
-								required
 							/>
 
-							<div className="w-[250px] p-6 justify-center flex items-center h-[250px] bg-base-200">
+							<div className="lg:w-[250px] flex  justify-center items-center w-full h-full lg:h-[250px] bg-base-200">
 								<img
-									src={imageUrl || product?.imageUrl}
+									src={imageUrl || imageUpload}
 									alt=""
-									className=" "
+									className="w-full "
 								/>
 							</div>
 
 							<label
 								htmlFor="file-upload"
-								className="btn w-[250px] mt-10 btn-error bg-primary text-white rounded-sm"
+								className="btn w-full lg:w-[250px] mt-6 btn-error bg-primary text-white rounded-sm"
 							>
 								{uploading ? (
 									<div className="flex gap-2 justify-center items-center">
@@ -137,10 +188,12 @@ const EditProduct = () => {
 							</label>
 						</div>
 						<select
-							required
-							{...register("category", { required: true })}
+							
+							onChange={handleCategoryChange}
+
+							defaultChecked={product?.category}
 							className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered  w-[250px]"
-						>
+						>	
 							<option disabled>Category</option>
 							px
 							{categoryItems?.map((item, inx) => (
@@ -162,9 +215,8 @@ const EditProduct = () => {
 
 				<button
 					type="submit"
-					className="w-full btn mt-6   btn-error bg-primary text-white  rounded-sm  "
+					className="w-full btn mt-6 btn-error bg-primary text-white rounded-sm"
 				>
-					{/* {isUpdating ? "Updating Product ..." :( isSuccess ? "Product Updated" : "Update Product") } */}
 					{updateText}
 				</button>
 			</form>

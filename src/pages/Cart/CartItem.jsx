@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
 
     const [deleteItem, { data, error }] = useDeleteCartProductMutation()
     
-    console.log(error, data);
+    // console.log(error, data);
 
 
     const handleDelete = (id) => {

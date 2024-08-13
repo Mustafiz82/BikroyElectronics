@@ -43,9 +43,6 @@ const CreateFlashSale = () => {
          await setFlashSale(object)
          setButtonText("Flash Sale Created ")
          e.target.reset()
-
-
-
     };
 
     console.log(selectedProducts)

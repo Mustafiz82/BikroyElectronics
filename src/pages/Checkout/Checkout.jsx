@@ -13,7 +13,10 @@ const Checkout = () => {
     const { register, handleSubmit, reset } = useForm();
     const [orderButtonText , setOrderButtonText] = useState("Proceed Order")
     const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
+    const {discount  , discountedCartTotal} = useSelector((state) => state.CartSlice);
 
+
+    console.log(discount  , discountedCartTotal)
 
 
     const cartTotal = cartData?.reduce((accumulator, product) => {
@@ -32,7 +35,9 @@ const Checkout = () => {
                 ...data
             } ,
             OrderDetails : cartData,
-            totalPrice : cartTotal,
+            totalPrice : discountedCartTotal || cartTotal,
+            discount : discount ,   
+        
             paymentMethod : "COD",
             date: new Date(),
             status : "pending"
@@ -154,9 +159,13 @@ const Checkout = () => {
                         <span>Shipping:</span>
                         <span>Free</span>
                     </div>
+                    <div className="flex justify-between border-b-2 pb-4 border-b-black">
+                        <span>Discount:</span>
+                        <span>{discount}%</span>
+                    </div>
                     <div className="flex justify-between ">
                         <span>Total:</span>
-                        <span>{cartTotal}</span>
+                        <span>{discountedCartTotal ? discountedCartTotal : cartTotal}</span>
                     </div>
 
                     <div className='pt-5'>

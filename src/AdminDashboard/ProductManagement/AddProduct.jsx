@@ -111,7 +111,7 @@ const AddProduct = () => {
               placeholder=" $ Price "
               required
               {...register("price", { required: true })}
-              className="input mt-24 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+              className="input mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
             />
           </div>
           <div className="mt-8">
@@ -133,7 +133,7 @@ const AddProduct = () => {
 
               <label
                 htmlFor="file-upload"
-                className="btn w-full lg:w-[250px] mt-10 btn-error bg-primary text-white rounded-sm"
+                className="btn w-full lg:w-[250px] mt-6 btn-error bg-primary text-white rounded-sm"
               >
                 {uploading ? (
                   <div className="flex gap-2 justify-center items-center">

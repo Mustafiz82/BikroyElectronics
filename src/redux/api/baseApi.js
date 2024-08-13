@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app"  }),
-	tagTypes:[ 'user' , 'products' , 'wishlist' , 'cart' , 'orders' , 'flashSale'],
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
+	tagTypes:[ 'user' , 'products', 'singleProduct' , 'wishlist' , 'cart' , 'orders' , 'flashSale' , 'coupon'],
 	endpoints: (builder) => ({
 
 
@@ -67,6 +67,7 @@ export const baseApi = createApi({
 		}),
 		getSingleProducts: builder.query({
 			query: (id) => `/products/${id}`,
+			providesTags : ['singleProduct']
 		}),
 		getProductsCount: builder.query({
 			query: () => `/productCount`,
@@ -77,7 +78,7 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["products"]
+			invalidatesTags : ["products" , "singleProduct"]
 		}),
 		setWishListProduct: builder.mutation({
 			query: (data) => ({
@@ -188,6 +189,34 @@ export const baseApi = createApi({
 		getFlashSale: builder.query({
 			query: () => `/flashSale`,
 		}),
+		setCoupon: builder.mutation({
+			query: (data) => ({
+				url: `/coupon`,
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags : ['coupon']
+		}),
+		getCoupons: builder.query({
+			query: () => `/coupon`,
+			providesTags : ['coupon']
+		}),
+		deleteCoupons: builder.mutation({
+			query(id) {
+				return {
+					url: `coupon/${id}`,
+					method: "DELETE",
+				};
+			},
+			invalidatesTags : ["coupon"]
+		}),
+		setSingleCoupon: builder.mutation({
+			query: (data) => ({
+				url: `/singleCoupon`,
+				method: "POST",
+				body: data,
+			}),
+		}),
 	}),
 });
 
@@ -217,7 +246,11 @@ export const {
 	useGetCancelledOrdersQuery,
 	useUpdateOrderStatusMutation,
 	useSetFlashSaleMutation,
-	useGetFlashSaleQuery
+	useGetFlashSaleQuery,
+	useSetCouponMutation,
+	useGetCouponsQuery,
+	useDeleteCouponsMutation,
+	useSetSingleCouponMutation
 	
 	
 	
