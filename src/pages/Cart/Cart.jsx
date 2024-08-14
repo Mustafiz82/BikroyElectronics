@@ -28,7 +28,7 @@ const Cart = () => {
 	const discountedCartTotal = 0
 
 
-	console.log(cartTotal)
+	console.log(cartData)
 	console.log(couponData)
 
 	

@@ -18,10 +18,12 @@ const MyOrder = () => {
 	};
 
 	const handleCancelOrder = (id) => {
-		console.log(id)
+
 		updateOrder({ id, status: "cancelled" })
 	}
 
+
+	console.log(orders)
 
 
 	return (

@@ -15,7 +15,7 @@ const Wishlist = () => {
 	const { data: Products , isLoading:isProductsLoading} = useGetProductsQuery()
 	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
 	const [moveToCart , {data : moveStatus , isLoading}] = useSetAllCartProductMutation() 
-console.log(data)
+console.log(wishlistProduct)
 
 
 

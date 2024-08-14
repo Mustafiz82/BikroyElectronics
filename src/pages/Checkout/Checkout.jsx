@@ -45,7 +45,7 @@ const Checkout = () => {
             
         }
 
-        console.log(ordersData)
+        console.log(cartData)
 
        const result = await  setOrder(ordersData)
        if(result?.data){
@@ -55,7 +55,7 @@ const Checkout = () => {
        }
         
     }
-
+    console.log(cartData)
 
     return (<div className='max-w-screen-xl px-5 lg:px-0 my-10  mx-auto  '>
         <h1 className='text-2xl font-semibold font-inter  '>Billing Details</h1>

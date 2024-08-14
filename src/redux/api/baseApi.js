@@ -165,6 +165,16 @@ export const baseApi = createApi({
 			providesTags : ['order']
 
 		}),
+		getAllOrders: builder.query({
+			query: () => '/allOrders',
+			providesTags : ['order']
+
+		}),
+		getSingleOrders : builder.query({
+			query: (id) => `/singleOrders/${id}`,
+
+		}),
+		
 		getCancelledOrders: builder.query({
 			query: (email) => `/cancelledOrder?email=${email}`,
 			providesTags : ['order']
@@ -173,6 +183,14 @@ export const baseApi = createApi({
 		updateOrderStatus: builder.mutation({
 			query: ({ id, ...data }) => ({
 				url: `/order/update/${id}`,
+				method: "PUT",
+				body: data,
+			}),
+			invalidatesTags : ["order"]
+		}),
+		completeOrderStatus: builder.mutation({
+			query: ({ id, ...data }) => ({
+				url: `/completeOrder/update/${id}`,
 				method: "PUT",
 				body: data,
 			}),
@@ -245,12 +263,15 @@ export const {
 	useGetOrdersQuery,
 	useGetCancelledOrdersQuery,
 	useUpdateOrderStatusMutation,
+	useCompleteOrderStatusMutation,
 	useSetFlashSaleMutation,
 	useGetFlashSaleQuery,
 	useSetCouponMutation,
 	useGetCouponsQuery,
 	useDeleteCouponsMutation,
-	useSetSingleCouponMutation
+	useSetSingleCouponMutation,
+	useGetAllOrdersQuery,
+	useGetSingleOrdersQuery
 	
 	
 	

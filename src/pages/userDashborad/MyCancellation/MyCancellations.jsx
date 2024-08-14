@@ -77,7 +77,7 @@ const MyCancellations = () => {
             {
                 cancelledOrders?.length == 0 ? <div>
                     <div class="flex justify-center gap-2 h-[500px] items-center flex-col text-center">
-                        git <img src={image} className="w-20 h-20" alt="" />
+                        <img src={image} className="w-20 h-20" alt="" />
 
                         <h2 className=" text-3xl">No Cancellation Yet</h2>
                         <p>If you want to cancel any order go to Order page.</p>

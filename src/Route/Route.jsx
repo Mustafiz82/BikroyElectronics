@@ -29,6 +29,7 @@ import PrivateRoute from "./PrivateRoute";
 import EditProduct from "../AdminDashboard/ProductManagement/EditProduct";
 import Checkout from "../pages/Checkout/Checkout";
 import AccountNav from "../Shared/NavForMobile/AccountNav";
+import SingleOrder from "../AdminDashboard/OrderManagement/SingleOrder";
 
 
 const router = createBrowserRouter([
@@ -148,6 +149,10 @@ const router = createBrowserRouter([
 			{
 				path: "orders",
 				element: <OrderList></OrderList>
+			},
+			{
+				path: "orders/:id",
+				element: <SingleOrder></SingleOrder>
 			},
 		],
 	},
