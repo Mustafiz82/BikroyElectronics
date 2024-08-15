@@ -48,7 +48,7 @@ const CreateFlashSale = () => {
     console.log(selectedProducts)
 
     return (
-        <div className="mx-auto p-4">
+        <div className="mx-auto">
             <h1 className="text-2xl font-bold mb-4">Create Flash Sale</h1>
             <form className='' onSubmit={handleSubmit}>
                 <div className='flex justify-center gap-10   '>

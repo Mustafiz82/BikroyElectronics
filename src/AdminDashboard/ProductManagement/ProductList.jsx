@@ -17,7 +17,7 @@ const ProductList = () => {
 		<div>
 
 			{isLoading ? elements?.map((_, index) => (
-				<div key={index} className="grid px-10 grid-cols-9 font-medium my-10">
+				<div key={index} className="grid  grid-cols-9 font-medium ">
 					<div className="flex relative items-center col-span-4 gap-2">
 						<div className="skeleton w-10 h-10 "></div>
 						<h1 className="skeleton w-52 h-6 rounded-sm col-span-2"></h1>
@@ -30,8 +30,8 @@ const ProductList = () => {
 					<div className="skeleton w-16 h-10 rounded-md"></div>
 				</div>
 			)) : ""}
-			<div className="px-10">
-				<div className="grid  grid-cols-9 font-medium my-10">
+			<div className="">
+				<div className="grid  grid-cols-9 font-medium ">
 					<h1 className="col-span-4">Product</h1>
 					<h1 className="col-span-2">Price</h1>
 					<h1 className="col-span-2">Quantity</h1>

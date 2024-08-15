@@ -9,9 +9,11 @@ const SingleOrder = () => {
     console.log("hello world")
 
     const { data: order, isLoading } = useGetSingleOrdersQuery(id)
-    const [completeOrder , {data:status}] = useCompleteOrderStatusMutation()
+    const [completeOrder , {data:status , isLoading : compleatingOrder}] = useCompleteOrderStatusMutation()
 
-    console.log(order)
+
+    const email = order?.customerDetail?.email
+    console.log(email , "em")
 
 
     const formatDateString = (dateString) => {
@@ -37,7 +39,7 @@ const SingleOrder = () => {
         }))
     
 		// console.log(productIDs)
-        completeOrder({ id, productIDandQuantity : productIDandQuantity })
+        completeOrder({ id, email , productIDandQuantity : productIDandQuantity  })
 
     }
 
@@ -90,7 +92,7 @@ const SingleOrder = () => {
 
                 </div>
 
-                <button disabled={order?.status == "completed"} onClick={handleCompleteOrder} className='btn btn-primary bg-primary rounded-md '>{isLoading ? "Loading..." : order?.status == "completed" ? "Order Completed" : "complete Order" }</button>
+                <button disabled={order?.status == "completed"} onClick={handleCompleteOrder} className='btn rounded-sm border-none outline-none  btn-primary bg-primary rounded-md '>{compleatingOrder ? "completing..." : order?.status == "completed" ? "Order Completed" : "complete Order" }</button>
 
             </div>
         </div>

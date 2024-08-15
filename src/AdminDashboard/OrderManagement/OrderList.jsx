@@ -30,8 +30,8 @@ const OrderList = () => {
 
 
     return (
-        <div className='px-5'>
-             <div className="grid text-primary  grid-cols-7 font-medium my-10">
+        <div className=''>
+             <div className="grid text-primary  grid-cols-7 font-medium ">
                     <h1 className="col-span-1">Date</h1>
                     <h1 className="col-span-2">Ordered by</h1>
                     <h1 className="col-span-1">Price</h1>

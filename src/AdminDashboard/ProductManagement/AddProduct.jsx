@@ -87,7 +87,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="my-10">
+    <div className="">
       <h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
         Add Product
       </h1>

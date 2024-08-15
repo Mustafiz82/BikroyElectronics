@@ -3,14 +3,24 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144"  }),
-	tagTypes:[ 'user' , 'products', 'singleProduct' , 'wishlist' , 'cart' , 'orders' , 'flashSale' , 'coupon'],
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144" }),
+	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 	endpoints: (builder) => ({
 
 
 		getusers: builder.query({
-			query: () => "/users",
-			providesTags : ['user']
+
+			query: (customer) => {
+
+				const params = new URLSearchParams();
+				console.log(customer)
+
+				if (customer) params.append('customer', true);
+
+
+				return `/users?${params.toString()}`
+			},
+			providesTags: ['user']
 		}),
 		setUsers: builder.mutation({
 			query: (data) => ({
@@ -26,8 +36,17 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["user"]
+			invalidatesTags: ["user"]
 		}),
+		updateUserRole: builder.mutation({
+			query: (data) => ({
+				url: `/users/role`,
+				method: "PUT",
+				body: data,
+			}),
+			invalidatesTags: ["user"]
+		}),
+
 		getCategoryList: builder.query({
 			query: () => "/categories",
 		}),
@@ -40,34 +59,34 @@ export const baseApi = createApi({
 		}),
 		getProducts: builder.query({
 			query: ({
-				limit,page, sortBy, sortOrder, category, minPrice, maxPrice, searchText
-			  } = {}) => {  // Provide a default empty object here
+				limit, page, sortBy, sortOrder, category, minPrice, maxPrice, searchText
+			} = {}) => {  // Provide a default empty object here
 				const params = new URLSearchParams();
-		
-			  if (limit) params.append('limit', limit);
-			  if (page) params.append('page', page);
-			  if (sortBy) params.append('sortBy', sortBy);
-			  if (sortOrder) params.append('sortOrder', sortOrder);
-			  if (category) params.append('categories', category);
-			  if (minPrice) params.append('minPrice', minPrice);
-			  if (maxPrice) params.append('maxPrice', maxPrice);
-			  if (searchText) params.append('searchText', searchText);
-	  
-			  return `/products?${params.toString()}`;
+
+				if (limit) params.append('limit', limit);
+				if (page) params.append('page', page);
+				if (sortBy) params.append('sortBy', sortBy);
+				if (sortOrder) params.append('sortOrder', sortOrder);
+				if (category) params.append('categories', category);
+				if (minPrice) params.append('minPrice', minPrice);
+				if (maxPrice) params.append('maxPrice', maxPrice);
+				if (searchText) params.append('searchText', searchText);
+
+				return `/products?${params.toString()}`;
 			},
-			providesTags : ['products']
-		  }),
+			providesTags: ['products']
+		}),
 		setProducts: builder.mutation({
 			query: (data) => ({
 				url: "/products",
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ["products"]
+			invalidatesTags: ["products"]
 		}),
 		getSingleProducts: builder.query({
 			query: (id) => `/products/${id}`,
-			providesTags : ['singleProduct']
+			providesTags: ['singleProduct']
 		}),
 		getProductsCount: builder.query({
 			query: () => `/productCount`,
@@ -78,7 +97,7 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["products" , "singleProduct"]
+			invalidatesTags: ["products", "singleProduct"]
 		}),
 		setWishListProduct: builder.mutation({
 			query: (data) => ({
@@ -86,15 +105,15 @@ export const baseApi = createApi({
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ['wishlist']
+			invalidatesTags: ['wishlist']
 		}),
 		getWishlistProduct: builder.query({
 			query: (email) => `/wishlist?email=${email}`,
-			providesTags : ['wishlist']
+			providesTags: ['wishlist']
 
 		}),
 		getWishlistedStutus: builder.query({
-			query: (email , id) => `/wishlistStatus?email=${email}&id=${id}`,
+			query: (email, id) => `/wishlistStatus?email=${email}&id=${id}`,
 		}),
 		deleteWishlistProduct: builder.mutation({
 			query(id) {
@@ -103,19 +122,19 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
-			invalidatesTags : ["wishlist"]
-		}),	
+			invalidatesTags: ["wishlist"]
+		}),
 		setCartProduct: builder.mutation({
 			query: (data) => ({
 				url: `/cart`,
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ["cart"]
+			invalidatesTags: ["cart"]
 		}),
 		getCartProduct: builder.query({
 			query: (email) => `/cart?email=${email}`,
-			providesTags : ['cart']
+			providesTags: ['cart']
 
 		}),
 		updateCart: builder.mutation({
@@ -124,7 +143,7 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["cart"]
+			invalidatesTags: ["cart"]
 		}),
 		deleteCartProduct: builder.mutation({
 			query(id) {
@@ -133,8 +152,8 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
-			invalidatesTags : ["cart"]
-		}),	
+			invalidatesTags: ["cart"]
+		}),
 		deleteAllCartProduct: builder.mutation({
 			query() {
 				return {
@@ -142,15 +161,15 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
-			invalidatesTags : ["cart"]
-		}),	
+			invalidatesTags: ["cart"]
+		}),
 		setAllCartProduct: builder.mutation({
 			query: (data) => ({
 				url: `/moveToCart`,
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ["cart" , "wishlist"]
+			invalidatesTags: ["cart", "wishlist"]
 		}),
 		setOrders: builder.mutation({
 			query: (data) => ({
@@ -158,26 +177,28 @@ export const baseApi = createApi({
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ['order']
+			invalidatesTags: ['order']
 		}),
 		getOrders: builder.query({
 			query: (email) => `/orders?email=${email}`,
-			providesTags : ['order']
+			providesTags: ['order']
 
 		}),
 		getAllOrders: builder.query({
 			query: () => '/allOrders',
-			providesTags : ['order']
+			providesTags: ['order']
 
 		}),
-		getSingleOrders : builder.query({
+		getSingleOrders: builder.query({
 			query: (id) => `/singleOrders/${id}`,
+			providesTags: ['order']
+
 
 		}),
-		
+
 		getCancelledOrders: builder.query({
 			query: (email) => `/cancelledOrder?email=${email}`,
-			providesTags : ['order']
+			providesTags: ['order']
 
 		}),
 		updateOrderStatus: builder.mutation({
@@ -186,7 +207,7 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["order"]
+			invalidatesTags: ["order"]
 		}),
 		completeOrderStatus: builder.mutation({
 			query: ({ id, ...data }) => ({
@@ -194,7 +215,7 @@ export const baseApi = createApi({
 				method: "PUT",
 				body: data,
 			}),
-			invalidatesTags : ["order"]
+			invalidatesTags: ["order"]
 		}),
 		setFlashSale: builder.mutation({
 			query: (data) => ({
@@ -202,7 +223,7 @@ export const baseApi = createApi({
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ['flashSale']
+			invalidatesTags: ['flashSale']
 		}),
 		getFlashSale: builder.query({
 			query: () => `/flashSale`,
@@ -213,11 +234,11 @@ export const baseApi = createApi({
 				method: "POST",
 				body: data,
 			}),
-			invalidatesTags : ['coupon']
+			invalidatesTags: ['coupon']
 		}),
 		getCoupons: builder.query({
 			query: () => `/coupon`,
-			providesTags : ['coupon']
+			providesTags: ['coupon']
 		}),
 		deleteCoupons: builder.mutation({
 			query(id) {
@@ -226,7 +247,7 @@ export const baseApi = createApi({
 					method: "DELETE",
 				};
 			},
-			invalidatesTags : ["coupon"]
+			invalidatesTags: ["coupon"]
 		}),
 		setSingleCoupon: builder.mutation({
 			query: (data) => ({
@@ -242,6 +263,7 @@ export const {
 	useGetusersQuery,
 	useSetUsersMutation,
 	useUpdateUserMutation,
+	useUpdateUserRoleMutation,
 	useGetCategoryListQuery,
 	useSetCategoryListMutation,
 	useSetProductsMutation,
@@ -272,10 +294,10 @@ export const {
 	useSetSingleCouponMutation,
 	useGetAllOrdersQuery,
 	useGetSingleOrdersQuery
-	
-	
-	
 
 
-	
+
+
+
+
 } = baseApi;

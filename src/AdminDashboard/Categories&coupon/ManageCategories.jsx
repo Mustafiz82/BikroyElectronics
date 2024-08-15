@@ -33,8 +33,8 @@ const ManageCategories = () => {
 			})
 	}
 
-	if (isLoading) {
-		return <div className=" m-10">
+	if (isLoading) {	
+		return <div className="">
 			<div className=" flex flex-wrap gap-5">
 				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>
 				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>
@@ -49,7 +49,7 @@ const ManageCategories = () => {
 	}
 
 	return (
-		<div className="m-10">
+		<div className="">
 			<div className="flex flex-wrap gap-5">
 				{categoryItems?.map((item) => (
 					<div

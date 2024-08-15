@@ -30,6 +30,7 @@ import EditProduct from "../AdminDashboard/ProductManagement/EditProduct";
 import Checkout from "../pages/Checkout/Checkout";
 import AccountNav from "../Shared/NavForMobile/AccountNav";
 import SingleOrder from "../AdminDashboard/OrderManagement/SingleOrder";
+import CustomerList from "../AdminDashboard/UserManagement/CustomerList";
 
 
 const router = createBrowserRouter([
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
 			{
 				path: "userlist",
 				element: <UserList></UserList>
+			},
+			{
+				path: "customerList",
+				element: <CustomerList></CustomerList>
 			},
 			{
 				path: "createflashsale",

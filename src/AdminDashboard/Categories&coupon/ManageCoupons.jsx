@@ -51,7 +51,7 @@ const ManageCoupons = () => {
 
 
 	return (
-		<div className="m-10">
+		<div className="">
 			<div>
 				<h1 className="text-xl  font-medium mb-10">Available coupons </h1>
 
