@@ -7,17 +7,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PieChart = () => {
   // Example data for pending and completed orders this month
   const data = {
-    labels: ['Pending Orders', 'Completed Orders'],
+    labels: ['Pending Orders', 'Completed Orders' ],
     datasets: [
       {
         label: 'Orders',
-        data: [30, 70 , 50 , 78 , 85 , 96 , 85 , 96 , 78], // Example: 30 pending orders, 70 completed orders
+        data: [30, 70], // Example: 30 pending orders, 70 completed orders
         backgroundColor: [
           'rgba(255, 99, 132, 0.8)', // Color for Pending Orders
           'rgba(0, 0, 255, 0.8)', // Color for Completed Orders
-          'rgba(0, 0, 25, 0.8)', // Color for Completed Orders
-          'rgba(0, 50, 255, 0.8)', // Color for Completed Orders
-          'rgba(100, 50, 255, 0.8)', // Color for Completed Orders
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)', // Border color for Pending Orders
@@ -34,18 +31,18 @@ const PieChart = () => {
       legend: {
    
         position: 'bottom',
-        // labels: {
-        //   padding: 20, // Space around legend items
-        // },
+        labels: {
+          paddingTop: 20, // Space around legend items
+        },
       },
       title: {
         display: true,
         position : 'bottom',
         text: 'Order Status for This Month',
-        // padding: {
-        //   top: 20,
-        //   bottom: 30, // Space below the title
-        // },
+        padding: {
+          top: 20,
+          // bottom: 30, // Space below the title
+        },
       },
     },
   };

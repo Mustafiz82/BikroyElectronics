@@ -9,7 +9,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 const AdminDashboardLayout = () => {
 	return (
-		<div className="flex  max-w-screen-2xl px-5 font-poppins mx-auto">
+		<div className="flex  max-w-screen-2xl pl-5 font-poppins mx-auto">
 			
             <div className="hidden lg:block lg:w-1/5  font-medium  border-r pt-10 px-10 pb-0 pl-0  ">
                 <div className="mb-5">

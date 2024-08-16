@@ -17,13 +17,23 @@ const LineCharts = () => {
   const data = {
     labels: Array.from({ length: 30 }, (_, i) => i + 1), // Labels for 30 days
     datasets: [
+      // {
+      //   label: 'Sales Count',
+      //   data: generateSalesData(),
+      //   fill: false,
+      //   backgroundColor: 'blue',
+      //   borderColor: 'rgba(0, 0, 255, 0.4 )',
+      //   tension: 0.4
+      // },
       {
-        label: 'Sales Count',
-        data: generateSalesData(),
+        label: 'Product Sell',
+        data: [1000, 7000, 8000, 12000, 10000, 16000, 25000,20000 , 25000, 20000, 39000, 29000 ,0 , 0, 30000 , 42000 , 45000 , 52000],
+        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+        borderColor: 'rgba(75, 192, 192, 1)',
         fill: false,
-        backgroundColor: 'blue',
-        borderColor: 'rgba(0, 0, 255, 0.4 )',
+        tension : 0.5
       },
+      
     ],
   };
 

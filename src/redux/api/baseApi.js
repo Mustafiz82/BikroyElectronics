@@ -256,6 +256,9 @@ export const baseApi = createApi({
 				body: data,
 			}),
 		}),
+		getStatistics: builder.query({
+			query: () => `/statistics`,
+		}),
 	}),
 });
 
@@ -293,7 +296,8 @@ export const {
 	useDeleteCouponsMutation,
 	useSetSingleCouponMutation,
 	useGetAllOrdersQuery,
-	useGetSingleOrdersQuery
+	useGetSingleOrdersQuery,
+	useGetStatisticsQuery
 
 
 
