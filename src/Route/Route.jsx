@@ -31,6 +31,7 @@ import Checkout from "../pages/Checkout/Checkout";
 import AccountNav from "../Shared/NavForMobile/AccountNav";
 import SingleOrder from "../AdminDashboard/OrderManagement/SingleOrder";
 import CustomerList from "../AdminDashboard/UserManagement/CustomerList";
+import AdminRoute from "./AdminRoute";
 
 
 const router = createBrowserRouter([
@@ -104,60 +105,58 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/admin",
-		element: <AdminDashboardLayout></AdminDashboardLayout>,
+		element: <AdminRoute><AdminDashboardLayout></AdminDashboardLayout></AdminRoute>,
 		errorElement: <ErrorPages></ErrorPages>,
 		children: [
 			{
-				path: "overview",
-				element: <AdminOverview></AdminOverview>
+				path: "overview", 
+				element: <AdminRoute> <AdminOverview></AdminOverview></AdminRoute>
 			},
 			{
 				path: "addproduct",
-				element: <AddProduct></AddProduct>,
+				element: <AdminRoute><AddProduct></AddProduct></AdminRoute>,
+
 			},
 			{
 				path: "editProducts/:id",
-				element: <EditProduct></EditProduct>
+				element: <AdminRoute><EditProduct></EditProduct></AdminRoute>
 			},
 			{
 				path: "productlist",
-				element: <ProductList></ProductList>
+				element: <AdminRoute><ProductList></ProductList></AdminRoute>
 			},
 			{
 				path: "manageCategories",
-				element: <ManageCategories></ManageCategories>
+				element: <AdminRoute><ManageCategories></ManageCategories></AdminRoute>
 			},
 			{
 				path: "managecoupons",
-				element: <ManageCoupons></ManageCoupons>
+				element: <AdminRoute><ManageCoupons></ManageCoupons></AdminRoute>
 			},
 			{
 				path: "bestsellings",
-				element: <BestSellingProducts></BestSellingProducts>
+				element:<AdminRoute> <BestSellingProducts></BestSellingProducts></AdminRoute>
 			},
 			{
 				path: "userlist",
-				element: <UserList></UserList>
+				element: <AdminRoute><UserList></UserList></AdminRoute>
 			},
 			{
 				path: "customerList",
-				element: <CustomerList></CustomerList>
+				element:<AdminRoute> <CustomerList></CustomerList></AdminRoute>
 			},
 			{
 				path: "createflashsale",
-				element: <CreateFlashSale></CreateFlashSale>
+				element: <AdminRoute><CreateFlashSale></CreateFlashSale></AdminRoute>
 			},
-			{
-				path: "createflashsale",
-				element: <CreateFlashSale></CreateFlashSale>
-			},
+			
 			{
 				path: "orders",
-				element: <OrderList></OrderList>
+				element: <AdminRoute><OrderList></OrderList></AdminRoute>
 			},
 			{
 				path: "orders/:id",
-				element: <SingleOrder></SingleOrder>
+				element: <AdminRoute><SingleOrder></SingleOrder></AdminRoute>
 			},
 		],
 	},

@@ -3,13 +3,14 @@ import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import LineCharts from './Charts/LineCharts';
 import PieChart from './Charts/PieChart';
 import BarChart from './Charts/BarChart';
-import { useGetStatisticsQuery } from '../../redux/api/baseApi';
+import { useGetStatisticsQuery, useGetusersQuery } from '../../redux/api/baseApi';
 
 const AdminOverview = () => {
 
     //total products , total sold products , total sold price , total customers , total orders , pending orders  
 
     const {data: statistics} = useGetStatisticsQuery()
+    
     const {totalUsers , totalProducts, totalOrderPrice, totalOrder , pendingOrder , totalCompletedOrder , cancelledOrders    } = statistics?.overviewData || {}
 
 
@@ -38,30 +39,30 @@ const AdminOverview = () => {
             <div className='flex '>
                 <div className=' w-2/3 gap-5 grid grid-cols-3 w-full'>
                     <div className="flex-1 h-28 text-white bg-gradient-to-r from-[#f22929] to-[#fc5050] p-4 rounded-lg shadow-lg">
-                        <span className='text-5xl font-bold'>{totalProducts}</span>
+                        <span className='text-5xl font-bold'>{totalProducts || 0}</span>
                         <p className='text-sm mt-2'>Total Products</p>
                     </div>
                     <div className="flex-1 flex flex-col justify-between h-28 text-white bg-gradient-to-r from-[#1eac44] to-[#5ebc62] p-4 rounded-lg shadow-lg">
                         <div className='flex items-center gap-1 text-4xl font-bold'>
                             <FaBangladeshiTakaSign />
-                            <span>{convertToShortFormat(totalOrderPrice)}</span>
+                            <span>{convertToShortFormat(totalOrderPrice) || 0}</span>
                         </div>
                         <p className='text-sm mt-2'>Total Sales</p>
                     </div>
                     <div className="flex-1 h-28 text-white bg-gradient-to-r from-[#246ee6] to-[#6c9be8] p-4 rounded-lg shadow-lg">
-                        <span className='text-5xl font-bold'>{totalOrder}</span>
+                        <span className='text-5xl font-bold'>{totalOrder || 0}</span>
                         <p className='text-sm mt-2'>Orders</p>
                     </div>
                     <div className="flex-1 h-28 text-white bg-gradient-to-r from-[#ffbf00] to-[#f7c635] p-4 rounded-lg shadow-lg">
-                        <span className='text-5xl font-bold'>{pendingOrder}</span>
+                        <span className='text-5xl font-bold'>{pendingOrder || 0}</span>
                         <p className='text-sm mt-2'>Pending Order</p>
                     </div>
                     <div className="flex-1 h-28 text-white bg-gradient-to-r from-[#fe5c11] to-[#fa6d42] p-4 rounded-lg shadow-lg">
-                        <span className='text-5xl font-bold'>{totalCompletedOrder}</span>
+                        <span className='text-5xl font-bold'>{totalCompletedOrder || 0}</span>
                         <p className='text-sm mt-2'>Completed Order</p>
                     </div>
                     <div className="flex-1 h-28 text-white bg-gradient-to-r from-[#fe5c11] to-[#fa6d42] p-4 rounded-lg shadow-lg">
-                        <span className='text-5xl font-bold'>{totalUsers}</span>
+                        <span className='text-5xl font-bold'>{totalUsers || 0}</span>
                         <p className='text-sm mt-2'>Users</p>
                     </div>
 

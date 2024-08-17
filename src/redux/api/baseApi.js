@@ -16,8 +16,6 @@ export const baseApi = createApi({
 				console.log(customer)
 
 				if (customer) params.append('customer', true);
-
-
 				return `/users?${params.toString()}`
 			},
 			providesTags: ['user']
@@ -133,10 +131,13 @@ export const baseApi = createApi({
 			invalidatesTags: ["cart"]
 		}),
 		getCartProduct: builder.query({
-			query: (email) => `/cart?email=${email}`,
+			query: (email) => ({
+			  url: `/cart?email=${email}`,
+			  method: 'GET',
+			  credentials: 'include', // Include credentials (cookies) in the request
+			}),
 			providesTags: ['cart']
-
-		}),
+		  }),
 		updateCart: builder.mutation({
 			query: ({ id, data }) => ({
 				url: `/cart/${id}`,
@@ -179,11 +180,11 @@ export const baseApi = createApi({
 			}),
 			invalidatesTags: ['order']
 		}),
-		getOrders: builder.query({
-			query: (email) => `/orders?email=${email}`,
-			providesTags: ['order']
+			getOrders: builder.query({
+				query: (email) => `/orders?email=${email}`,
+				providesTags: ['order']
 
-		}),
+			}),
 		getAllOrders: builder.query({
 			query: () => '/allOrders',
 			providesTags: ['order']
@@ -259,6 +260,9 @@ export const baseApi = createApi({
 		getStatistics: builder.query({
 			query: () => `/statistics`,
 		}),
+		getSingleUser: builder.query({
+			query: (email) => `/user/${email}`,
+		}),
 	}),
 });
 
@@ -297,7 +301,8 @@ export const {
 	useSetSingleCouponMutation,
 	useGetAllOrdersQuery,
 	useGetSingleOrdersQuery,
-	useGetStatisticsQuery
+	useGetStatisticsQuery,
+	useGetSingleUserQuery
 
 
 

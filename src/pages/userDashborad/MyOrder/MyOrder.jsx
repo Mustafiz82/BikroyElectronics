@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { useGetOrdersQuery, useUpdateOrderStatusMutation } from "../../../redux/api/baseApi";
 import image from "../../../assets/Others/no-orders.png"
 import { Link } from "react-router-dom";
+import warningImage from "../../../assets/Others/Error_Warning.png"
+
 
 const MyOrder = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
-	const { data: orders, isLoading } = useGetOrdersQuery(email)
+	const { data: orders, isLoading ,error , isError} = useGetOrdersQuery(email)
 	const [updateOrder, { data: updateStatus }] = useUpdateOrderStatusMutation()
 
 	const formatDateString = (dateString) => {
@@ -23,7 +25,15 @@ const MyOrder = () => {
 	}
 
 
-	console.log(orders)
+
+
+	if(isError) {
+		return <div className="w-full h-[500px] flex-col gap-2 flex justify-center items-center">
+			<img src={warningImage} className="w-28 h-28" alt="" srcset="" />
+			<h1>{error?.data?.message}</h1>
+			<p>Please try to logOUt and reLogin</p>
+		</div>
+	} 
 
 
 	return (

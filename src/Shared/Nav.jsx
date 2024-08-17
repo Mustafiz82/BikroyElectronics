@@ -13,22 +13,24 @@ import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
 import { setSearchText } from "../redux/features/filter/filterSlice";
+import { useGetSingleUserQuery } from "../redux/api/baseApi";
 
 const Nav = () => {
 
-	const dispatch  = useDispatch()
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	
-	const { email } = useSelector((state) => state.userSlice);
-	console.log({userEmail : email})
 
-	 
+	const { email } = useSelector((state) => state.userSlice);
+	const {isAdmin} = useGetSingleUserQuery()
+	console.log({ userEmail: email })
+
+
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		const searchText = e.target.search.value;
 		dispatch(setSearchText({
-			searchText : searchText
+			searchText: searchText
 		}))
 		navigate("/allproduct")
 	};
@@ -37,18 +39,18 @@ const Nav = () => {
 
 
 
-	
+
 
 	const handleLogout = () => {
 		signOut(auth).then(() => {
 			dispatch(setUser({
-				name : "",
-				email : "",
-				isLoggedIn : false
+				name: "",
+				email: "",
+				isLoggedIn: false
 			}))
-		  }).catch((error) => {
+		}).catch((error) => {
 			// An error happened.
-		  });
+		});
 	}
 
 
@@ -60,50 +62,179 @@ const Nav = () => {
 					isPending
 						? "pending"
 						: isActive
-						? "text-primary border-b-2 pb-1  border-primary"
-						: ""
+							? "text-primary border-b-2 pb-1  border-primary"
+							: ""
 				}
 			>
 				Home
 			</NavLink>
-			{/* <NavLink
-				to="/about"
+			<NavLink
+				to="/allProduct"
 				className={({ isActive, isPending }) =>
 					isPending
 						? "pending"
 						: isActive
-						? "text-primary border-b-2 pb-1  border-primary"
-						: ""
+							? "text-primary border-b-2 pb-1  border-primary"
+							: ""
 				}
 			>
-				About
-			</NavLink> */}
+				All Products
+			</NavLink>
 			<NavLink
 				to="/contact"
 				className={({ isActive, isPending }) =>
 					isPending
 						? "pending"
 						: isActive
-						? "text-primary border-b-2 pb-1  border-primary"
-						: ""
+							? "text-primary border-b-2 pb-1  border-primary"
+							: ""
 				}
 			>
 				Contact
 			</NavLink>
 			<NavLink
 				to="/login"
-				className={ ({ isActive, isPending }) =>
+				className={({ isActive, isPending }) =>
 					isPending
 						? "pending"
 						: isActive
-						? "text-primary border-b-2 pb-1  border-primary"
-						: email ? "hidden" : "block"
+							? "text-primary border-b-2 pb-1  border-primary"
+							: email ? "hidden" : "block"
 				}
 			>
 				Login
 			</NavLink>
 		</>
 	);
+
+
+	const userUl = <>
+	<ul
+									tabIndex={0}
+									className="menu z-10  space-y-2 text-xl rounded backdrop-blur-[150px] bg-[rgba(0,0,0,0.5)] text-white bg-black menu-sm dropdown-content mt-3  p-3 shadow   w-52"
+								>
+									<li className=" ">
+										<div className="flex gap-2 flex-row">
+											<span>
+												{" "}
+												<VscAccount className="text-xl "></VscAccount>
+											</span>{" "}
+											<Link to="/Dashboard/myaccount">
+												Manage My account
+											</Link>{" "}
+										</div>
+									</li>
+									<li className=" ">
+										<div className="flex gap-2 flex-row">
+											<span>
+												{" "}
+												<FiShoppingBag className="text-xl "></FiShoppingBag>
+											</span>{" "}
+											<Link to="/Dashboard/myorders">
+												My Order
+											</Link>{" "}
+										</div>
+									</li>
+									<li className=" ">
+										<div className="flex gap-2 flex-row">
+											<span>
+												{" "}
+												<TiDeleteOutline className="text-xl "></TiDeleteOutline>
+											</span>{" "}
+											<Link to="/Dashboard/mycancellation">
+												{" "}
+												My Cancellation
+											</Link>{" "}
+										</div>
+									</li>
+
+									<li className=" ">
+										<div onClick={handleLogout} className="flex gap-2 flex-row">
+											<span>
+												{" "}
+												<SlLogout className="text-xl "></SlLogout>
+											</span>{" "}
+											Logout{" "}
+										</div>
+									</li>
+								</ul></>
+
+
+	const adminUl = <>
+
+		<ul
+			tabIndex={0}
+			className="menu z-10  space-y-2 text-xl rounded backdrop-blur-[150px] bg-[rgba(0,0,0,0.5)] text-white bg-black menu-sm dropdown-content mt-3  p-3 shadow   w-52"
+		>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<VscAccount className="text-xl "></VscAccount>
+					</span>{" "}
+					<Link to="/Dashboard/myaccount">
+						Overview
+					</Link>{" "}
+				</div>
+			</li>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<VscAccount className="text-xl "></VscAccount>
+					</span>{" "}
+					<Link to="/Dashboard/myaccount">
+						Manage Orders
+					</Link>{" "}
+				</div>
+			</li>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<VscAccount className="text-xl "></VscAccount>
+					</span>{" "}
+					<Link to="/Dashboard/myaccount">
+						Manage Product
+					</Link>{" "}
+				</div>
+			</li>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<FiShoppingBag className="text-xl "></FiShoppingBag>
+					</span>{" "}
+					<Link to="/Dashboard/myorders">
+						Manage category
+					</Link>{" "}
+				</div>
+			</li>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<TiDeleteOutline className="text-xl "></TiDeleteOutline>
+					</span>{" "}
+					<Link to="/Dashboard/mycancellation">
+						{" "}
+						Manage Coupon
+					</Link>{" "}
+				</div>
+			</li>
+
+			<li className=" ">
+				<div onClick={handleLogout} className="flex gap-2 flex-row">
+					<span>
+						{" "}
+						<SlLogout className="text-xl "></SlLogout>
+					</span>{" "}
+					Logout{" "}
+				</div>
+			</li>
+		</ul>
+
+	</>
 
 
 
@@ -161,85 +292,40 @@ const Nav = () => {
 					</form>
 					{
 						email ? <>
-						<NavLink
-						to="/wishlist"
-						className={({ isActive, isPending }) =>
-							isPending
-								? "pending"
-								: isActive
-								? "text-primary  "
-								: ""
-						}
-					>
-						<GoHeart className="" />
-					</NavLink>
-					<NavLink
-						to="/cart"
-						className={({ isActive, isPending }) =>
-							isPending
-								? "pending"
-								: isActive
-								? "text-primary"
-								: ""
-						}
-					>
-						<IoCartOutline />
-					</NavLink>
+							<NavLink
+								to="/wishlist"
+								className={({ isActive, isPending }) =>
+									isPending
+										? "pending"
+										: isActive
+											? "text-primary  "
+											: ""
+								}
+							>
+								<GoHeart className="" />
+							</NavLink>
+							<NavLink
+								to="/cart"
+								className={({ isActive, isPending }) =>
+									isPending
+										? "pending"
+										: isActive
+											? "text-primary"
+											: ""
+								}
+							>
+								<IoCartOutline />
+							</NavLink>
 
-					<div className="dropdown  dropdown-end">
-						<div tabIndex={0} role="button" className="">
-							<VscAccount></VscAccount>
-						</div>
-						<ul
-							tabIndex={0}
-							className="menu z-10  space-y-2 text-xl rounded backdrop-blur-[150px] bg-[rgba(0,0,0,0.5)] text-white bg-black menu-sm dropdown-content mt-3  p-3 shadow   w-52"
-						>
-							<li className=" ">
-								<div className="flex gap-2 flex-row">
-									<span>
-										{" "}
-										<VscAccount className="text-xl "></VscAccount>
-									</span>{" "}
-									<Link to="/Dashboard/myaccount">
-										Manage My account
-									</Link>{" "}
+							<div className="dropdown  dropdown-end">
+								<div tabIndex={0} role="button" className="">
+									<VscAccount></VscAccount>
 								</div>
-							</li>
-							<li className=" ">
-								<div className="flex gap-2 flex-row">
-									<span>
-										{" "}
-										<FiShoppingBag className="text-xl "></FiShoppingBag>
-									</span>{" "}
-									<Link to="/Dashboard/myorders">
-										My Order
-									</Link>{" "}
-								</div>
-							</li>
-							<li className=" ">
-								<div className="flex gap-2 flex-row">
-									<span>
-										{" "}
-										<TiDeleteOutline className="text-xl "></TiDeleteOutline>
-									</span>{" "}
-									<Link to="/Dashboard/mycancellation">
-										{" "}
-										My Cancellation
-									</Link>{" "}
-								</div>
-							</li>
-
-							<li  className=" ">
-								<div  onClick={handleLogout} className="flex gap-2 flex-row">
-									<span>
-										{" "}
-										<SlLogout className="text-xl "></SlLogout>
-									</span>{" "}
-									Logout{" "}
-								</div>
-							</li>
-						</ul>
-					</div></> : ""
+								{
+									isAdmin?.role == "admin" ? adminUl : userUl
+								}
+								
+							</div></> : ""
 					}
 				</div>
 			</div>

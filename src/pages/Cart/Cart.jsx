@@ -7,12 +7,13 @@ import { Form, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import {  setCartTotal , setDiscount, setDiscountedCartTotal } from "../../redux/features/Cart/CartSlice";
+import warningImage from "../../assets/Others/Error_Warning.png"
 
 const Cart = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
 
-	const { data: cartData, isLoading, error } = useGetCartProductQuery(email)
+	const { data: cartData, isLoading, error ,isError} = useGetCartProductQuery(email)
 	const [deleteProducts, { data: deletedStatus }] = useDeleteAllCartProductMutation()
 	const [checkCoupon ,{data: couponData}] = useSetSingleCouponMutation()
 	
@@ -130,6 +131,14 @@ const Cart = () => {
 		console.log(coupon)
 		
 	}
+
+	if(isError) {
+		return <div className="w-full h-[500px] flex-col gap-2 flex justify-center items-center">
+			<img src={warningImage} className="w-28 h-28" alt="" srcset="" />
+			<h1>{error?.data?.message}</h1>
+			<p>Please try to logOUt and reLogin</p>
+		</div>
+	} 
 
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">

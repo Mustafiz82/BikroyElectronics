@@ -7,15 +7,16 @@ import Swal from "sweetalert2";
 import image from "../../assets/Others/emptywishlist.png"
 import { Link } from "react-router-dom";
 import { isPending } from "@reduxjs/toolkit";
+import warningImage from "../../assets/Others/Error_Warning.png"
 
 const Wishlist = () => {
 
 	const { email } = useSelector((state) => state.userSlice)
-	const { data: wishlistProduct , isLoading : isWishListProductLoading} = useGetWishlistProductQuery(email)
+	const { data: wishlistProduct , isLoading : isWishListProductLoading , isError ,error} = useGetWishlistProductQuery(email)
 	const { data: Products , isLoading:isProductsLoading} = useGetProductsQuery()
 	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
 	const [moveToCart , {data : moveStatus , isLoading}] = useSetAllCartProductMutation() 
-console.log(wishlistProduct)
+console.log(error)
 
 
 
@@ -40,6 +41,14 @@ const handleMoveToCart = () => {
 	}
 	console.log("no wishlist product found")
 }
+
+if(isError) {
+	return <div className="w-full h-[500px] flex-col gap-2 flex justify-center items-center">
+		<img src={warningImage} className="w-28 h-28" alt="" srcset="" />
+		<h1>{error?.data?.message}</h1>
+		<p>Please try to logOUt and reLogin</p>
+	</div>
+} 
 	
 	return (
 		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">

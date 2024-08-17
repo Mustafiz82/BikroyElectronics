@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import auth from "../../../../firebase.config";
 import { useSetUsersMutation } from "../../api/baseApi";
+import axios from "axios";
 
 const initialState = {
   name: "",
@@ -44,6 +45,8 @@ export const createUser = createAsyncThunk(
         throw new Error(errorData.message || 'Failed to create user');
       }
 
+     
+
       return userData;
     } catch (error) {
       console.error("Error creating user:", error.message);
@@ -60,6 +63,11 @@ export const loginUser = createAsyncThunk(
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const userData = { name: user.displayName, email: user.email };
+
+      axios.post("http://localhost:5144/jwt" , user ,  {
+        withCredentials: true, 
+      })
+      .then(res => console.log(res.data))
 
       return userData;
     } catch (error) {
