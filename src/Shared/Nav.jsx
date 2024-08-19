@@ -13,7 +13,7 @@ import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
 import { setSearchText } from "../redux/features/filter/filterSlice";
-import { useGetSingleUserQuery } from "../redux/api/baseApi";
+import { useGetSingleUserQuery, useRemoveTokenMutation } from "../redux/api/baseApi";
 
 const Nav = () => {
 
@@ -22,6 +22,7 @@ const Nav = () => {
 
 	const { email } = useSelector((state) => state.userSlice);
 	const {isAdmin} = useGetSingleUserQuery()
+	const [removeToken ,{data:status}] = useRemoveTokenMutation()
 	console.log({ userEmail: email })
 
 
@@ -48,6 +49,8 @@ const Nav = () => {
 				email: "",
 				isLoggedIn: false
 			}))
+			removeToken({})
+
 		}).catch((error) => {
 			// An error happened.
 		});

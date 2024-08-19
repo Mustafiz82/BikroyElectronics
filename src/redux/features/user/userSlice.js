@@ -45,6 +45,11 @@ export const createUser = createAsyncThunk(
         throw new Error(errorData.message || 'Failed to create user');
       }
 
+      axios.post("https://bikroyelectronics-server.vercel.app/jwt" , user ,  {
+        withCredentials: true, 
+      })
+      .then(res => console.log(res.data))
+
      
 
       return userData;
@@ -64,7 +69,7 @@ export const loginUser = createAsyncThunk(
       const user = userCredential.user;
       const userData = { name: user.displayName, email: user.email };
 
-      axios.post("http://localhost:5144/jwt" , user ,  {
+      axios.post("https://bikroyelectronics-server.vercel.app/jwt" , user ,  {
         withCredentials: true, 
       })
       .then(res => console.log(res.data))
@@ -77,7 +82,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Thunk for Google sign-in
+// Thunk for Google sign-in 
 export const signInWithGoogle = createAsyncThunk(
   "user/signInWithGoogle",
   async (_, thunkAPI) => {
@@ -105,6 +110,11 @@ export const signInWithGoogle = createAsyncThunk(
         console.error("Error during fetch:", fetchError.message);
         // Optionally, you can handle the fetch error here, for example, by logging it or notifying the user.
       }
+
+      axios.post("https://bikroyelectronics-server.vercel.app/jwt" , user ,  {
+        withCredentials: true, 
+      })
+      .then(res => console.log(res.data))
 
       return userData;
     } catch (error) {

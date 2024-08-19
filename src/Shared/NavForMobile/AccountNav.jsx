@@ -7,8 +7,11 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.config';
 import { setUser } from '../../redux/features/user/userSlice';
+import { useRemoveTokenMutation } from '../../redux/api/baseApi';
 
 const AccountNav = () => {
+    const [removeToken ,{data:status}] = useRemoveTokenMutation()
+
 
 
     const handleLogout = () => {
@@ -17,6 +20,7 @@ const AccountNav = () => {
                 name: "",
                 email: ""
             }))
+            removeToken({})
         }).catch((error) => {
             // An error happened.
         });

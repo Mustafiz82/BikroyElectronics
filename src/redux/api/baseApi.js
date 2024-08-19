@@ -3,10 +3,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144" }),
+	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app"  , credentials : "include"}),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
-	endpoints: (builder) => ({
 
+	endpoints: (builder) => ({
 
 		getusers: builder.query({
 
@@ -19,7 +19,7 @@ export const baseApi = createApi({
 				return `/users?${params.toString()}`
 			},
 			providesTags: ['user']
-		}),
+		}),	
 		setUsers: builder.mutation({
 			query: (data) => ({
 				url: "users",
@@ -263,6 +263,13 @@ export const baseApi = createApi({
 		getSingleUser: builder.query({
 			query: (email) => `/user/${email}`,
 		}),
+		removeToken:builder.mutation({
+			query: (data) => ({
+				url: `/clear`,
+				method: "POST",
+				body: data,
+			}),
+		}),
 	}),
 });
 
@@ -302,7 +309,8 @@ export const {
 	useGetAllOrdersQuery,
 	useGetSingleOrdersQuery,
 	useGetStatisticsQuery,
-	useGetSingleUserQuery
+	useGetSingleUserQuery,
+	useRemoveTokenMutation
 
 
 
