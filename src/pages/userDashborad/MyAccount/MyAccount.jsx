@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useUpdateUserMutation } from "../../../redux/api/baseApi";
+import { useGetSingleUserQuery, useUpdateUserMutation } from "../../../redux/api/baseApi";
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
 import toast from "react-hot-toast";
 
@@ -9,6 +9,7 @@ const MyAccount = () => {
 	const { register, handleSubmit } = useForm();
 	const { email, isInitializing } = useSelector((state) => state.userSlice);
 	const [updateUser, { data: updateStatus }] = useUpdateUserMutation();
+	const {data:userDetails} = useGetSingleUserQuery(email)
 	const [loading , setLoading] = useState(false)
 	const [saveData , setSaveData ] = useState("Save")
 
@@ -23,10 +24,10 @@ const MyAccount = () => {
 		setSaveData("Saving...")
 
 		const object = {
-			firstName: data?.firstName,
-			lastName: data?.lastName,
-			email: email,
-			Address: data?.Address
+			firstName: data?.firstName || userDetails?.firstName,
+			lastName: data?.lastName || userDetails?.firstName,
+			email: email, 
+			Address: data?.Address || userDetails?.Address
 		};
 
 		// Update other user details
@@ -104,6 +105,8 @@ const MyAccount = () => {
 
 	}
 
+	console.log(userDetails , "userDetails")
+
 	return (
 		<div className="max-w-screen-xl m-10 mt-5 mx-auto">
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -121,6 +124,7 @@ const MyAccount = () => {
 							{...register("firstName")}
 							type="text"
 							placeholder=""
+							defaultValue={userDetails?.firstName || ""}
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
@@ -130,6 +134,7 @@ const MyAccount = () => {
 							{...register("lastName")}
 							type="text"
 							placeholder=""
+							defaultValue={userDetails?.lastName ||""}
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
@@ -153,6 +158,7 @@ const MyAccount = () => {
 							{...register("Address")}
 							type="text"
 							placeholder=""
+							defaultValue={userDetails?.Address || ""}
 							className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>{" "}
 					</div>
@@ -173,6 +179,7 @@ const MyAccount = () => {
 						type="password" disabled={provider != "password"}
 						placeholder="Current Password"
 						className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+						
 					/>{" "}
 
 					<input disabled={provider != "password"}

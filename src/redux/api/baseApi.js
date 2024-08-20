@@ -3,13 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app"  , credentials : "include"}),
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144", credentials: "include" }),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 
 	endpoints: (builder) => ({
 
 		getusers: builder.query({
-
 			query: (customer) => {
 
 				const params = new URLSearchParams();
@@ -19,7 +18,12 @@ export const baseApi = createApi({
 				return `/users?${params.toString()}`
 			},
 			providesTags: ['user']
-		}),	
+		}),
+		getSingleUser: builder.query({
+			query: (email) => `/user/${email}`,
+			providesTags: ['user']
+		}),
+
 		setUsers: builder.mutation({
 			query: (data) => ({
 				url: "users",
@@ -132,12 +136,12 @@ export const baseApi = createApi({
 		}),
 		getCartProduct: builder.query({
 			query: (email) => ({
-			  url: `/cart?email=${email}`,
-			  method: 'GET',
-			  credentials: 'include', // Include credentials (cookies) in the request
+				url: `/cart?email=${email}`,
+				method: 'GET',
+				credentials: 'include', // Include credentials (cookies) in the request
 			}),
 			providesTags: ['cart']
-		  }),
+		}),
 		updateCart: builder.mutation({
 			query: ({ id, data }) => ({
 				url: `/cart/${id}`,
@@ -180,11 +184,11 @@ export const baseApi = createApi({
 			}),
 			invalidatesTags: ['order']
 		}),
-			getOrders: builder.query({
-				query: (email) => `/orders?email=${email}`,
-				providesTags: ['order']
+		getOrders: builder.query({
+			query: (email) => `/orders?email=${email}`,
+			providesTags: ['order']
 
-			}),
+		}),
 		getAllOrders: builder.query({
 			query: () => '/allOrders',
 			providesTags: ['order']
@@ -260,10 +264,8 @@ export const baseApi = createApi({
 		getStatistics: builder.query({
 			query: () => `/statistics`,
 		}),
-		getSingleUser: builder.query({
-			query: (email) => `/user/${email}`,
-		}),
-		removeToken:builder.mutation({
+		
+		removeToken: builder.mutation({
 			query: (data) => ({
 				url: `/clear`,
 				method: "POST",
@@ -275,6 +277,7 @@ export const baseApi = createApi({
 
 export const {
 	useGetusersQuery,
+	useGetSingleUserQuery,
 	useSetUsersMutation,
 	useUpdateUserMutation,
 	useUpdateUserRoleMutation,
@@ -309,7 +312,7 @@ export const {
 	useGetAllOrdersQuery,
 	useGetSingleOrdersQuery,
 	useGetStatisticsQuery,
-	useGetSingleUserQuery,
+	
 	useRemoveTokenMutation
 
 
