@@ -24,7 +24,7 @@ const Nav = () => {
 	const {isAdmin} = useGetSingleUserQuery()
 	const [removeToken ,{data:status}] = useRemoveTokenMutation()
 	console.log({ userEmail: email })
-
+console.log(status , "cookie status")
 
 
 	const handleSearch = (e) => {
