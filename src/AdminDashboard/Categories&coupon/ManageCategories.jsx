@@ -58,7 +58,7 @@ const ManageCategories = () => {
 					>
 						<div className="flex justify-center items-center p-2 border-2 min-w-44 text-center min-h-44  space-y-2">
 							<div>
-								<div className="flex  mb-4 justify-center items-center">
+								<div className="flex w-24 mx-auto h-24  mb-4 justify-center items-center">
 									{" "}
 									<img src={item?.imageurl} alt="" />
 								</div>{" "}

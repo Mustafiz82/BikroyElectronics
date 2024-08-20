@@ -135,7 +135,18 @@ const AdminDashboardLayout = () => {
 					>customers List </NavLink>{" "}
 					
                     </div>
+
                 </div>
+				<NavLink
+						to="/"
+						className={({ isActive, isPending }) =>
+							isPending
+								? "pending"
+								: isActive
+								? "text-primary font-semibold  "
+								: ""
+						}
+					>Back to Homepage </NavLink>
                
             </div>
 			<div className="w-full p-10 lg:w-4/5">

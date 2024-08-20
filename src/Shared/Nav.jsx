@@ -21,7 +21,7 @@ const Nav = () => {
 	const navigate = useNavigate()
 
 	const { email } = useSelector((state) => state.userSlice);
-	const {isAdmin} = useGetSingleUserQuery()
+	const {data:isAdmin} = useGetSingleUserQuery(email)
 	const [removeToken ,{data:status}] = useRemoveTokenMutation()
 	console.log({ userEmail: email })
 console.log(status , "cookie status")
@@ -35,6 +35,8 @@ console.log(status , "cookie status")
 		}))
 		navigate("/allproduct")
 	};
+
+	console.log("isAdmin" ,isAdmin)
 
 
 
@@ -171,67 +173,58 @@ console.log(status , "cookie status")
 		>
 			<li className=" ">
 				<div className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<VscAccount className="text-xl "></VscAccount>
-					</span>{" "}
-					<Link to="/Dashboard/myaccount">
+					
+					<Link to="/admin/overview">
 						Overview
 					</Link>{" "}
 				</div>
 			</li>
 			<li className=" ">
 				<div className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<VscAccount className="text-xl "></VscAccount>
-					</span>{" "}
-					<Link to="/Dashboard/myaccount">
+					
+					<Link to="/admin/orders">
 						Manage Orders
 					</Link>{" "}
 				</div>
 			</li>
 			<li className=" ">
 				<div className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<VscAccount className="text-xl "></VscAccount>
-					</span>{" "}
-					<Link to="/Dashboard/myaccount">
+					
+					<Link to="/admin/productlist">
 						Manage Product
 					</Link>{" "}
 				</div>
 			</li>
 			<li className=" ">
 				<div className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<FiShoppingBag className="text-xl "></FiShoppingBag>
-					</span>{" "}
-					<Link to="/Dashboard/myorders">
+					
+					<Link to="/admin/manageCategories">
 						Manage category
 					</Link>{" "}
 				</div>
 			</li>
 			<li className=" ">
 				<div className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<TiDeleteOutline className="text-xl "></TiDeleteOutline>
-					</span>{" "}
-					<Link to="/Dashboard/mycancellation">
+					
+					<Link to="/admin/managecoupons">
 						{" "}
 						Manage Coupon
+					</Link>{" "}
+				</div>
+			</li>
+			<li className=" ">
+				<div className="flex gap-2 flex-row">
+					
+					<Link to="admin/userlist">
+						{" "}
+						User Management
 					</Link>{" "}
 				</div>
 			</li>
 
 			<li className=" ">
 				<div onClick={handleLogout} className="flex gap-2 flex-row">
-					<span>
-						{" "}
-						<SlLogout className="text-xl "></SlLogout>
-					</span>{" "}
+					
 					Logout{" "}
 				</div>
 			</li>

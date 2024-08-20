@@ -20,7 +20,7 @@ const CustomerList = () => {
             <div>
 
                 {isLoading ? elements?.map((_, index) => (
-                    <div key={index} className="grid grid-cols-9 font-medium ">
+                    <div key={index} className="grid my-10 grid-cols-9 font-medium ">
                         <div className="flex relative items-center col-span-4 gap-2">
                             <div className="skeleton w-10 h-10 "></div>
                             <h1 className="skeleton w-52 h-6 rounded-sm col-span-2"></h1>
