@@ -30,16 +30,16 @@ const BestSellingProducts = () => {
                 </div>
             )) : ""}
             <div className="">
-                <div className="grid  grid-cols-8 gap-5 lg:grid-cols-9 font-medium">
-                    <h1 className="lg:col-span-4 col-span-6 ">Product</h1>
-                    <h1 className="col-span-2 hidden lg:block">Price</h1>
-                    <h1 className="col-span-2 hidden lg:block">Total Sold</h1>
+                <div className="grid  grid-cols-8 gap-5 md:grid-cols-9 font-medium">
+                    <h1 className="md:col-span-4 col-span-6 ">Product</h1>
+                    <h1 className="col-span-2 hidden md:block">Price</h1>
+                    <h1 className="col-span-2 hidden md:block">Total Sold</h1>
                     <h1 className="col-span-1 ">Edit</h1>
                 </div>
 
                 {
-                    bestSellingProduct?.map(item => <div key={item?._id} className="grid grid-cols-8 lg:grid-cols-9 gap-5 font-medium my-10">
-                        <div className="flex relative items-center col-span-6 lg:backdrop:col-span-4   gap-2">
+                    bestSellingProduct?.map(item => <div key={item?._id} className="grid grid-cols-8 md:grid-cols-9 gap-5 font-medium my-10">
+                        <div className="flex relative items-center col-span-6 md:col-span-4   gap-2">
                             <div className='min-w-12'>
                                 <img src={item?.imageUrl} className="w-10  p-0" alt="" />
                             </div>
@@ -49,8 +49,8 @@ const BestSellingProducts = () => {
                             </h1>
                             <h1 className="text-red-500 text-xl   -top-1 absolute"></h1>
                         </div>
-                        <h1 className="col-span-2 hidden lg:block">BDT {item?.price}</h1>
-                        <div className="col-span-2 hidden lg:block">
+                        <h1 className="col-span-2 hidden md:block">BDT {item?.price}</h1>
+                        <div className="col-span-2 hidden md:block">
                             <h1 className="pl-8">{item?.sellCount || 0}</h1>
                         </div>
                         <Link to={`/admin/editproducts/${item?._id}`} ><button className="btn  btn-outline text-primary  rounded-sm btn-">

@@ -80,8 +80,8 @@ const ManageCoupons = () => {
 					{
 						coupons?.map(item => <div key={item?._id} className="my-5 ">
 							<div className="grid grid-cols-5 lg:grid-cols-6 ">
-								<h1 className="lg:col-span-1 col-span-3">{item?.couponCode}</h1>
-								<h1 className="lg:col-span-1 col-span-1">{item?.discount}%</h1>
+								<h1 className="md:col-span-1  col-span-3">{item?.couponCode}</h1>
+								<h1 className="md:col-span-1 col-span-1">{item?.discount}%</h1>
 								<button  onClick={() => handleDelete(item?._id)} className="text-red-500 text-xl"><RiDeleteBin3Line></RiDeleteBin3Line></button>
 							</div>
 						</div>)
@@ -94,7 +94,7 @@ const ManageCoupons = () => {
 			<div>
 				<h1 className="text-xl font-medium mt-16">Create new coupon</h1>
 
-				<form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-5 lg:gap-10 mt-5">
+				<form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-5 lg:gap-10 mt-5">
 					<input
 						type="text"
 						placeholder="Coupon Code"

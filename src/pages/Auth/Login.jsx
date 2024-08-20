@@ -83,10 +83,10 @@ const Login = () => {
 		<div>
 			<div className="flex flex-col lg:flex-row gap- justify-between max-w-screen-xl mx-auto ">
 				<div className="block lg:w-1/2">
-					<img className="w-full" src={signUpImage} alt="" />
+					<img className="w-full md:h-[500px] lg:h-full object-cover" src={signUpImage} alt="" />
 				</div>
-				<div className="lg:w-1/2 flex justify-center">
-					<div className=" max-w-[500px] font-poppins py-5 lg:py-20 px-10">
+				<div className="lg:w-1/2  flex justify-center">
+					<div className=" max-w-[500px] md:-mt-24 lg:-mt-0 md:shadow-2xl lg:shadow-none bg-white font-poppins py-5 lg:py-20 px-10">
 						<h1 className="font-inter font-medium text-2xl lg:text-3xl">
 							Log in to BikroyElectronics
 						</h1>

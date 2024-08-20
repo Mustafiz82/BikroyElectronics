@@ -45,8 +45,8 @@ const SingleOrder = () => {
 
 
     return (
-        <div className='my-5 flex gap-5'>
-            <div className='border-r-black w-3/5 pr-5 border-r-2'>
+        <div className='my-5 px-4 flex flex-col lg:flex-row gap-5'>
+            <div className='border-r-black lg:gitw-3/5 pr-5 lg:border-r-2'>
                 <h1 className='text-xl mb-5'>Ordered Products</h1>
 
                 <div className="" >
@@ -66,7 +66,7 @@ const SingleOrder = () => {
 
                 </div>
             </div>
-            <div className='w-2/5'>
+            <div className='lg:w-2/5'>
                 <h1 className='text-xl mb-5'>Order Details </h1>
 
                 <div className='space-y-2'>

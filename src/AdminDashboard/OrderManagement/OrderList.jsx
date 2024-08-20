@@ -31,16 +31,16 @@ const OrderList = () => {
 
     return (
         <div className='pl-4 lg:px-0'>
-             <div className="grid text-primary grid-cols-4 lg:grid-cols-7 font-medium ">
+             <div className="grid text-primary md:grid-cols-4 grid-cols-4 lg:grid-cols-7 font-medium ">
                     <h1 className="col-span-1">Date</h1>
-                    <h1 className="col-span-2">Ordered by</h1>
+                    <h1 className="col-span-2 md:col-span-1 lg:col-span-2">Ordered by</h1>
                     <h1 className="col-span-1">Price</h1>
                     <h1 className="col-span-2 hidden lg:block">Order ID</h1>
-                    <h1 className="col-span-1 hidden lg:block">Pament Method</h1>
+                    <h1 className="col-span-1 hidden md:block">Payment Method</h1>
                 </div>
 
             {isLoading ? elements?.map((_, index) => (
-                <div key={index} className="grid  grid-cols-7 font-medium my-10">
+                <div key={index} className="grid   grid-cols-7 font-medium my-10">
 
                     <div className='space-y-1'>
                         <div className="skeleton rounded-md w-28 h-5 "></div>
@@ -68,7 +68,7 @@ const OrderList = () => {
             <div className="">
                
                 {
-                    orders?.map(item => <Link to={`/admin/orders/${item?._id}`} key={item?._id} className="grid grid-cols-3 gap-4 lg:grid-cols-7  font-medium my-10">
+                    orders?.map(item => <Link to={`/admin/orders/${item?._id}`} key={item?._id} className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-7  font-medium my-10">
                         <div className="">
                             <h1>{formatDateString(item?.date)}</h1>
                             <p className='text-sm text-slate-500'>{formateTimeString(item?.date)}</p>
@@ -86,7 +86,7 @@ const OrderList = () => {
                             <p className='text-sm text-slate-500'>view Order</p>
                         </div>
                        
-                        <div > <div className="col-span-2 hidden lg:block">
+                        <div > <div className="col-span-2  hidden md:block">
                             <h1 className=''>{item?.paymentMethod}</h1>
                             <p className='text-sm text-slate-500'>{item?.status}</p>
                         </div></div>

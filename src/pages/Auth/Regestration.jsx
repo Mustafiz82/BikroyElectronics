@@ -79,11 +79,11 @@ const Regestration = () => {
 	return (
 		<div className="flex flex-col lg:flex-row  justify-between max-w-screen-xl mx-auto ">
 			<div className="  lg:block lg:w-1/2">
-				<img className="w-full h-80 object-cover" src={signUpImage} alt="" />
+				<img className="w-full lg:h-full  h-80 md:h-[500px] object-cover" src={signUpImage} alt="" />
 			</div>
 			<div className="lg:w-1/2 flex justify-center">
-				<div className=" max-w-[500px] font-poppins py-5 lg:py-20 px-10">
-					<h1 className="font-inter font-medium text-2xl lg:text-4xl">
+				<div className="bg-white md:-mt-28 md:shadow-2xl lg:shadow-none lg:-mt-0 max-w-[500px] font-poppins py-5 lg:py-20 px-10"> 
+					<h1 className="font-inter md:mt-5 font-medium text-2xl lg:text-4xl">
 						Create an Account 
 					</h1>
 

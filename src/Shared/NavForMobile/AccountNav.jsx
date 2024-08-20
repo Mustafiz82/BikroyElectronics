@@ -116,7 +116,17 @@ const AccountNav = () => {
                 </div>
 
             </div>
+            
             }
+             <div onClick={handleLogout} className='flex bg-[#F2F2F2]'>
+                    <div className='clippath'></div>
+                    <button className=" flex-1 btn  btn-lg border-none shadow-none  "> <div  className="flex gap-2 flex-row">
+                       
+                        Logout{" "}
+                    </div></button>
+                    <div className='clippath-right'></div>
+
+                </div>
            
         </div>
     );

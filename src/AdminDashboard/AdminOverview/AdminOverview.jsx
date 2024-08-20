@@ -70,7 +70,7 @@ const AdminOverview = () => {
                 
             </div>
 
-            <div className='my-10 gap-5  '>
+            <div className='my-10 gap-5 px-4 '>
                 <div className='h-[500px] py-10 lg:h-[500px]'>
                     <BarChart value={statistics?.BarChart}></BarChart>
                 </div>

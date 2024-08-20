@@ -51,7 +51,7 @@ const CreateFlashSale = () => {
         <div className="mx-auto px-4">
             <h1 className="text-2xl font-bold mb-4">Create Flash Sale</h1>
             <form className='' onSubmit={handleSubmit}>
-                <div className='flex flex-col lg:flex-row justify-center gap-10   '>
+                <div className='flex flex-col-reverse lg:flex-row justify-center gap-10   '>
                     <div className='flex-1 space-y-6'>
                         <label htmlFor='startTime' className="block mt-4">
                             <span className="text-gray-700">Start Time</span>

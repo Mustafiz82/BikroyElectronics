@@ -13,7 +13,7 @@ const AdminDashboardLayout = () => {
 				{/* Page content here */}
 				
 
-				<div className="flex  gap-2 sticky lg:hidden z-[998] bg-white top-0 p-4 px-4">
+				<div className="flex items-center justify-between gap-2 sticky lg:hidden z-[998] bg-white top-0 p-4 px-4">
 						<div className="flex-1 ">
 							<h1 className="text-3xl ">BikroyElectronics</h1>
 

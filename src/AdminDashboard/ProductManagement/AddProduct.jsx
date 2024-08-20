@@ -94,7 +94,7 @@ const AddProduct = () => {
       <Toaster />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="lg:flex gap-5 ">
+        <div className="md:flex gap-5 ">
           <div className="mt-8  flex-1 ">
             <input
               type="text"
@@ -111,7 +111,7 @@ const AddProduct = () => {
               placeholder=" $ Price "
               required
               {...register("price", { required: true })}
-              className="input mt-28 lg:mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+              className="input mt-28 md:mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
             />
           </div>
           <div className="mt-8">
@@ -123,7 +123,7 @@ const AddProduct = () => {
                 onChange={handleImageUpload}
               />
 
-              <div className="lg:w-[250px] flex  justify-center items-center w-full h-full lg:h-[250px] bg-base-200">
+              <div className="md:w-[250px] flex  justify-center items-center w-full h-full md:h-[250px] bg-base-200">
                 <img
                   src={imageUrl || imageUpload}
                   alt=""
@@ -133,7 +133,7 @@ const AddProduct = () => {
 
               <label
                 htmlFor="file-upload"
-                className="btn w-full lg:w-[250px] mt-6 btn-error bg-primary text-white rounded-sm"
+                className="btn w-full md:w-[250px] mt-6 btn-error bg-primary text-white rounded-sm"
               >
                 {uploading ? (
                   <div className="flex gap-2 justify-center items-center">
@@ -148,7 +148,7 @@ const AddProduct = () => {
             <select
               required
               {...register("category", { required: true })}
-              className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-full lg:w-[250px]"
+              className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-full md:w-[250px]"
             >
               <option disabled selected>
                 Category
