@@ -12,7 +12,7 @@ import auth from "../../firebase.config";
 import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
-import { setSearchText } from "../redux/features/filter/filterSlice";
+import { setCategories, setSearchText } from "../redux/features/filter/filterSlice";
 import { useGetSingleUserQuery, useRemoveTokenMutation } from "../redux/api/baseApi";
 
 const Nav = () => {
@@ -33,6 +33,10 @@ console.log(status , "cookie status")
 		dispatch(setSearchText({
 			searchText: searchText
 		}))
+		dispatch(setCategories({
+			categories: "",
+		}))
+
 		navigate("/allproduct")
 	};
 

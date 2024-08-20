@@ -62,12 +62,10 @@ const AdminRoute = ({ children }) => {
 		);
 	}
 
-	if (email ) {
+	
+	if (email && (isAdmin?.role == "admin")) {
 		return children;
 	}
-	// if (email && (isAdmin?.role == "admin")) {
-	// 	return children;
-	// }
     
 
 	return <Navigate to="/login" />;

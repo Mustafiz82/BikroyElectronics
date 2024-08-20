@@ -2,7 +2,7 @@ import React from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { setSearchText } from '../../redux/features/filter/filterSlice';
+import { setCategories, setSearchText } from '../../redux/features/filter/filterSlice';
 
 const TopNav = () => {
 
@@ -19,6 +19,9 @@ const TopNav = () => {
 		dispatch(setSearchText({
 			searchText : searchText
 		}))
+		dispatch(setCategories({
+            categories: categories,
+        }))
 		navigate("/allproduct")
 	};
     return (

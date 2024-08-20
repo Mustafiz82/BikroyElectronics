@@ -33,7 +33,7 @@ const AdminDashboardLayout = () => {
 			<div className="drawer-side z-[999] ">
 				<label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
 				<ul className="menu  bg-white text-base-content min-h-full w-80 px-5 lg:px-10">
-					<div className=" font-medium  lg:border-r pt-5 lg:pt-10  pb-0 pl-0  ">
+					<div className=" font-medium text-base  lg:border-r pt-5 lg:pt-10  pb-0 pl-0  ">
 						<div className="mb-5">
 							<NavLink
 								to="/admin/overview"

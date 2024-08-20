@@ -110,7 +110,7 @@ const ProductCard = ({ item, discount }) => {
 						<IoCartOutline className="text-xl mr-2" />
 						<h1 className="texg-">Add to Cart </h1>
 					</button>
-					<Link to={`productdetail/${item?._id}`}
+					<Link to={`/productdetail/${item?._id}`}
 
 						className="bg-white hover:bg-primary hover:text-white duration-200 p-2 top-3 right-3 rounded-full absolute"
 					>

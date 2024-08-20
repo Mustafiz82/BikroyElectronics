@@ -49,7 +49,7 @@ const ManageCategories = () => {
 	}
 
 	return (
-		<div className="mx-4">
+		<div className="mx-4 mb-5">
 			<div className="flex flex-wrap gap-5 justify-center ">
 				{categoryItems?.map((item) => (
 					<div

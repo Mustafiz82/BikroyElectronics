@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import signUpImage from "../../assets/Signup/Sign Up.jpeg";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,25 +10,53 @@ import auth from "../../../firebase.config";
 
 const Regestration = () => {
 	const { register, handleSubmit } = useForm();
+	const [errorText , setErrorText ] = useState("")
     const dispatch = useDispatch()
 	const { isLoading, isInitializing, isLoggedIn, email } = useSelector((state) => state.userSlice);
 	const navigate = useNavigate()
 
 	
     const onSubmit = async (data) => {
+
+		if (data?.password?.length < 8) {
+			return setErrorText("Password must be at least 8 characters long.");
+		}
+		if (!/[A-Z]/.test(data.password)) {
+			return setErrorText("Password must include at least one uppercase letter.");
+		}
+		if (!/[a-z]/.test(data.password)) {
+			return setErrorText("Password must include at least one lowercase letter.");
+		}
+		if (!/[0-9]/.test(data.password)) {
+			return setErrorText("Password must include at least one number.");
+		}
+		if (!/[!@#$%^&*(),.?":{}|<>]/.test(data.password)) {
+			return setErrorText("Password must include at least one special character.");
+		}
+		
+		// If all conditions are met
+		setErrorText("");  // Clear error text if the password is strong
+		
+
+
         try {
             await dispatch(createUser({name : data.userName, email: data.email, password: data.password }));
 
             console.log(data.userName);
-            // Handle success if needed
+
         } catch (error) {
-            console.error('Registration error:', error);
+            console.log('Registration error:', error);
+			console.log("error")
             // Handle error (if createUser thunk rejects)
         }
     };
     const handleGoogleSignin = async (data) => {
         try {
             await dispatch(signInWithGoogle({name : data.userName, email: data.email, password: data.password }));
+
+			if(!data?.userName){
+				setErrorText("Error Creating user try with different Email")
+			}
 
             console.log(data.userName);
             // Handle success if needed
@@ -82,7 +110,7 @@ const Regestration = () => {
 				<img className="w-full lg:h-full  h-80 md:h-[500px] object-cover" src={signUpImage} alt="" />
 			</div>
 			<div className="lg:w-1/2 flex justify-center">
-				<div className="bg-white md:-mt-28 md:shadow-2xl lg:shadow-none lg:-mt-0 max-w-[500px] font-poppins py-5 lg:py-20 px-10"> 
+				<div className="bg-white md:-mt-28 md:shadow-2xl lg:shadow-none lg:-mt-0 max-w-[500px] font-poppins py-5 lg:py-10 px-10"> 
 					<h1 className="font-inter md:mt-5 font-medium text-2xl lg:text-4xl">
 						Create an Account 
 					</h1>
@@ -109,7 +137,9 @@ const Regestration = () => {
 								placeholder="password"
 							/>
 
-							<button className="btn mt-8 btn-primary border-none bg-primary text-white w-full rounded-md">
+							<p className="text-red-500 mt-4">{errorText}</p>
+
+							<button className="btn mt-4 btn-primary border-none bg-primary text-white w-full rounded-md">
 							{isLoading ? (
 										<div className="flex gap-2 justify-center items-center">
 											<span className="loading loading-spinner loading-sm"></span>
