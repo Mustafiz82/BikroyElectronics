@@ -7,7 +7,7 @@ const RichTextEditor = ({ value, onChange }) => {
     <ReactQuill
       value={value}
       onChange={onChange}
-      className='h-[200px] '
+      className=' h-[400px] lg:h-[200px] '
       modules={{
         toolbar: [
           [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],

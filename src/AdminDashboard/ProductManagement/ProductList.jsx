@@ -14,7 +14,7 @@ const ProductList = () => {
 
 
 	return (
-		<div>
+		<div className="px-4 ">
 
 			{isLoading ? elements?.map((_, index) => (
 				<div key={index} className="grid my-10  grid-cols-9 font-medium ">
@@ -31,17 +31,17 @@ const ProductList = () => {
 				</div>
 			)) : ""}
 			<div className="">
-				<div className="grid  grid-cols-9 font-medium ">
-					<h1 className="col-span-4">Product</h1>
-					<h1 className="col-span-2">Price</h1>
-					<h1 className="col-span-2">Quantity</h1>
+				<div className="grid  grid-cols-8 lg:grid-cols-9 font-medium ">
+					<h1 className="col-span-6 lg:col-span-4">Product</h1>
+					<h1 className="col-span-2 hidden lg:block">Price</h1>
+					<h1 className="col-span-2 hidden lg:block">Quantity</h1>
 					<h1 className="col-span-1 ">Edit</h1>
 				</div>
 
 				{
-					products?.map(item => <div key={item?._id} className="grid grid-cols-9  font-medium my-10">
-						<div className="flex relative items-center col-span-4  gap-2">
-							<div>
+					products?.map(item => <div key={item?._id} className="grid grid-cols-8 lg:grid-cols-9 gap-4  font-medium my-10">
+						<div className="flex relative items-center lg:col-span-4 col-span-6  gap-2">
+							<div className="min-w-12 ">
 								<img src={item?.imageUrl} className="w-10  p-0" alt="" />
 							</div>
 							<h1 className="max-w-72 col-span-2">
@@ -50,8 +50,8 @@ const ProductList = () => {
 							</h1>
 							<h1 className="text-red-500 text-xl   -top-1 absolute"></h1>
 						</div>
-						<h1 className="col-span-2">BDT {item?.price}</h1>
-						<div className="col-span-2">
+						<h1 className="col-span-2 hidden lg:block ">BDT {item?.price}</h1>
+						<div className="col-span-2 hidden lg:block">
 							<h1 className="">5</h1>
 						</div>
 						<Link to={`/admin/editproducts/${item?._id}`} ><button className="btn  btn-outline text-primary  rounded-sm btn-">

@@ -87,7 +87,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="">
+    <div className="px-4">
       <h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
         Add Product
       </h1>
@@ -95,7 +95,7 @@ const AddProduct = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="lg:flex gap-5 ">
-          <div className="mt-8 flex-1 ">
+          <div className="mt-8  flex-1 ">
             <input
               type="text"
               placeholder="Product Title"
@@ -111,7 +111,7 @@ const AddProduct = () => {
               placeholder=" $ Price "
               required
               {...register("price", { required: true })}
-              className="input mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+              className="input mt-28 lg:mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
             />
           </div>
           <div className="mt-8">
@@ -148,7 +148,7 @@ const AddProduct = () => {
             <select
               required
               {...register("category", { required: true })}
-              className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-[250px]"
+              className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-full lg:w-[250px]"
             >
               <option disabled selected>
                 Category

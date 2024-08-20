@@ -125,7 +125,7 @@ const EditProduct = () => {
 
 
 	return (
-		<div className="my-10">
+		<div className="mb-5 lg:my-10 px-4">
 
 
 			<h1 className="border-l-[16px] border-l-primary pl-5 text-xl font-medium">
@@ -153,7 +153,7 @@ const EditProduct = () => {
 							defaultValue={product?.price}
 							required
 							{...register("price", { required: true })}
-							className="input mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
+							className="input mt-28 lg:mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
 						/>
 					</div>
 					<div className="mt-8">
@@ -192,7 +192,7 @@ const EditProduct = () => {
 							onChange={handleCategoryChange}
 
 							defaultChecked={product?.category}
-							className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered  w-[250px]"
+							className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered w-full lg:w-[250px]"
 						>	
 							<option disabled>Category</option>
 							px

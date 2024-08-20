@@ -30,13 +30,13 @@ const OrderList = () => {
 
 
     return (
-        <div className=''>
-             <div className="grid text-primary  grid-cols-7 font-medium ">
+        <div className='pl-4 lg:px-0'>
+             <div className="grid text-primary grid-cols-4 lg:grid-cols-7 font-medium ">
                     <h1 className="col-span-1">Date</h1>
                     <h1 className="col-span-2">Ordered by</h1>
                     <h1 className="col-span-1">Price</h1>
-                    <h1 className="col-span-2 ">Order ID</h1>
-                    <h1 className="col-span-1 ">Pament Method</h1>
+                    <h1 className="col-span-2 hidden lg:block">Order ID</h1>
+                    <h1 className="col-span-1 hidden lg:block">Pament Method</h1>
                 </div>
 
             {isLoading ? elements?.map((_, index) => (
@@ -68,12 +68,12 @@ const OrderList = () => {
             <div className="">
                
                 {
-                    orders?.map(item => <Link to={`/admin/orders/${item?._id}`} key={item?._id} className="grid grid-cols-7  font-medium my-10">
+                    orders?.map(item => <Link to={`/admin/orders/${item?._id}`} key={item?._id} className="grid grid-cols-3 gap-4 lg:grid-cols-7  font-medium my-10">
                         <div className="">
                             <h1>{formatDateString(item?.date)}</h1>
                             <p className='text-sm text-slate-500'>{formateTimeString(item?.date)}</p>
                         </div>
-                        <div className="col-span-2">
+                        <div className="lg:col-span-2">
                             <h1>{item?.customerDetail?.name}</h1>
                             <p className='whitespace-normal max-w-44 text-sm text-slate-500'>{item?.customerDetail?.address}</p>
                         </div>
@@ -81,12 +81,12 @@ const OrderList = () => {
                             <h1 className='flex items-center gap-1'><span><FaBangladeshiTakaSign></FaBangladeshiTakaSign></span>{item?.totalPrice}</h1>
                             <p className='text-sm text-slate-500'>{item?.OrderDetails?.length} item</p>
                         </div>
-                        <div className="col-span-2">
+                        <div className="col-span-2 hidden  lg:block">
                             <h1 className='f'>{item?._id}</h1>
                             <p className='text-sm text-slate-500'>view Order</p>
                         </div>
                        
-                        <div > <div className="col-span-2">
+                        <div > <div className="col-span-2 hidden lg:block">
                             <h1 className=''>{item?.paymentMethod}</h1>
                             <p className='text-sm text-slate-500'>{item?.status}</p>
                         </div></div>

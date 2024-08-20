@@ -7,7 +7,7 @@ const CreateFlashSale = () => {
     const [errorText, setErrorText] = useState('');
     const [buttonText, setButtonText] = useState('Create Flash Sale');
 
-    const { data: products , isLoading } = useGetProductsQuery()
+    const { data: products, isLoading } = useGetProductsQuery()
     const [setFlashSale, { data: status }] = useSetFlashSaleMutation()
 
     console.log(status)
@@ -40,18 +40,18 @@ const CreateFlashSale = () => {
         }
 
         console.log(object)
-         await setFlashSale(object)
-         setButtonText("Flash Sale Created ")
-         e.target.reset()
+        await setFlashSale(object)
+        setButtonText("Flash Sale Created ")
+        e.target.reset()
     };
 
     console.log(selectedProducts)
 
     return (
-        <div className="mx-auto">
+        <div className="mx-auto px-4">
             <h1 className="text-2xl font-bold mb-4">Create Flash Sale</h1>
             <form className='' onSubmit={handleSubmit}>
-                <div className='flex justify-center gap-10   '>
+                <div className='flex flex-col lg:flex-row justify-center gap-10   '>
                     <div className='flex-1 space-y-6'>
                         <label htmlFor='startTime' className="block mt-4">
                             <span className="text-gray-700">Start Time</span>
