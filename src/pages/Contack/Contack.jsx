@@ -3,6 +3,17 @@ import { IoCallOutline } from "react-icons/io5";
 import { IoMailOutline } from "react-icons/io5";
 
 const Contack = () => {
+
+	const handleContackUs = (e) => {
+		e.preventDefault()
+		const name = e.targer.name.value
+		const phone = e.targer.phone.value
+		const email = e.targer.email.value
+		const message = e.targer.message.value
+
+		
+		
+	}
 	return (
 		<div className="max-w-screen-xl flex flex-col lg:flex-row px-5 lg:px-0 gap-2 lg:gap-20  mx-auto my-5 lg:my-20">
 			<div className="">

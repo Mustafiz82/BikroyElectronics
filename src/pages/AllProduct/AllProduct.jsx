@@ -162,7 +162,7 @@ const AllProduct = () => {
 			className="flex max-w-screen-xl mx-auto"
 		>
 			{/* Category section for filtering in large screen  */}
-			<div className="lg:pt-5  top-16 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
+			<div className="lg:pt-5 h-[800px] sticky   top-28 hidden border-r lg:block w-1/4 bg-transparent lg:p-0">
 				<h1 className="text-2xl mt-5 md:mt-0 font-medium">
 					Select Price range
 				</h1>

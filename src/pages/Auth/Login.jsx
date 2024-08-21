@@ -110,10 +110,9 @@ const Login = () => {
 							<div className="flex mt-8 py-2 w-full border-b-2 border-gray-400 items-center">
 							<input
 								{...register("password", { required: true })}
-								type="text"
 								className="outline-none w-full"
 								placeholder="password"
-								type={passView ? "text" : "password"}
+																type={passView ? "text" : "password"}
 
 							/>
 							<span onClick={() => setPassView(!passView)} className="pr-2 text-xl"> { passView ? <IoEyeOutline />  : <RiEyeCloseLine /> }
