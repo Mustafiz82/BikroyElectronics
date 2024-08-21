@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useDeleteAllCartProductMutation, useGetCartProductQuery, useSetOrdersMutation } from '../../redux/api/baseApi';
+import { useDeleteAllCartProductMutation, useGetCartProductQuery, useGetSingleUserQuery, useSetOrdersMutation } from '../../redux/api/baseApi';
 import toast from 'react-hot-toast';
 
 const Checkout = () => {
 
     const { email } = useSelector((state) => state.userSlice)
-    const { data: cartData, error } = useGetCartProductQuery(email)
+    const { data: cartData, isLoading:cartDataLoading } = useGetCartProductQuery(email)
+    const {data:userData , } = useGetSingleUserQuery(email)
     const [setOrder , {data:orderStatus , isLoading , isSuccess}] = useSetOrdersMutation()
     const { register, handleSubmit, reset } = useForm();
     const [orderButtonText , setOrderButtonText] = useState("Proceed Order")
@@ -55,7 +56,7 @@ const Checkout = () => {
        }
         
     }
-    console.log(cartData)
+    console.log(userData)
 
     return (<div className='max-w-screen-xl px-5 lg:px-0 my-10  mx-auto  '>
         <h1 className='text-2xl font-semibold font-inter  '>Billing Details</h1>
@@ -72,6 +73,7 @@ const Checkout = () => {
                             type="text"
                             required
                             className=" input mt-2 focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
+                            defaultValue={userData?.name || ""}
                         />
                     </div>
                     <div  >
@@ -102,6 +104,7 @@ const Checkout = () => {
                             type="text"
                             {...register("apartMentFloor")}
                             className=" input mt-2 focus:border-none focus:outline-none  rounded-sm w-full  bg-[#F5F5F5]"
+
                         />
                     </div>
                     <div  >
@@ -132,6 +135,15 @@ const Checkout = () => {
                 </div>
             </div>
             <div className='flex-1 space-y-5 mt-10'>
+
+
+                {
+                    cartDataLoading ? <div>
+                        <div className="skeleton w-full my-8 rounded-md h-9"></div>
+                        <div className="skeleton w-full my-8 rounded-md  h-9"></div>
+                        <div className="skeleton w-full my-8 rounded-md  h-9"></div>
+                    </div> : ""
+                }
 
                 {
                     cartData?.map(item =>  <div className='grid grid-cols-2  lg:flex justify-between mb-10 items-center '>

@@ -53,7 +53,7 @@ export const createUser = createAsyncThunk(
      
 
       return userData;
-    } catch (error) {
+    } catch (error) { 
       console.error("Error creating user:", error.message);
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -26,8 +26,8 @@ const AllProduct = () => {
 	const dispatch = useDispatch();
 	const { handleSubmit, register } = useForm();
 
-	const { data: categoryItems , isLoading : categoryLoading} = useGetCategoryListQuery();
-	const { data: products ,isLoading } = useGetProductsQuery(filter, {
+	const { data: categoryItems, isLoading: categoryLoading } = useGetCategoryListQuery();
+	const { data: products, isLoading } = useGetProductsQuery(filter, {
 		pollingInterval: 30000,
 		refetchOnMountOrArgChange: true,
 
@@ -91,7 +91,7 @@ const AllProduct = () => {
 		const maxPrice = e.target.maxPrice.value
 		const minPrice = e.target.minPrice.value
 
-		console.log(maxPrice , minPrice)
+		console.log(maxPrice, minPrice)
 
 		setFilter({
 			...filter,
@@ -145,7 +145,7 @@ const AllProduct = () => {
 		});
 	};
 
-	
+
 
 	if (products?.length < 1) {
 		return <div className="w-full h-[500px] flex flex-col gap-4 justify-center items-center">
@@ -162,55 +162,55 @@ const AllProduct = () => {
 			className="flex max-w-screen-xl mx-auto"
 		>
 			{/* Category section for filtering in large screen  */}
-			<div className="lg:pt-5 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
+			<div className="lg:pt-5  top-16 hidden border-r lg:block w-1/4 h-auto bg-transparent lg:p-0">
 				<h1 className="text-2xl mt-5 md:mt-0 font-medium">
-					Select Price range 
-				</h1>   
+					Select Price range
+				</h1>
 
 				<form
-									onSubmit={handleFilterPriceForLargeDevice}
-									className="flex mt-5 pr-4 items-center gap-4"
-								>
-									<div className="flex gap-2 items-center">
-										<div className="relative w-full">
-											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-												<FaBangladeshiTakaSign />
-											</span>
-											<input
-												type="number"
-												className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA] pl-8"
-												name="minPrice"
-												placeholder="Min"
-												min={0}
-												
-											/>
-										</div>
-										<span className="font-bold">-</span>
+					onSubmit={handleFilterPriceForLargeDevice}
+					className="flex mt-5 pr-4 items-center gap-4"
+				>
+					<div className="flex gap-2 items-center">
+						<div className="relative w-full">
+							<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+								<FaBangladeshiTakaSign />
+							</span>
+							<input
+								type="number"
+								className="input focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA] pl-8"
+								name="minPrice"
+								placeholder="Min"
+								min={0}
 
-										<div className="relative w-full">
-											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-												<FaBangladeshiTakaSign />
-											</span>
-											<input
-												type="number"
-												className="input pl-8 focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA]"
-												name="maxPrice"
-												placeholder="Max"
-											/>
-										</div>
-									</div>
-									<button
-										type="submit"
-										className="btn btn-error bg-primary rounded-sm text-white"
-									>
-										<MdOutlineArrowForwardIos />
-									</button>
-								</form>
+							/>
+						</div>
+						<span className="font-bold">-</span>
+
+						<div className="relative w-full">
+							<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+								<FaBangladeshiTakaSign />
+							</span>
+							<input
+								type="number"
+								className="input pl-8 focus:border-none focus:outline-none rounded-sm w-full bg-[#FAFAFA]"
+								name="maxPrice"
+								placeholder="Max"
+							/>
+						</div>
+					</div>
+					<button
+						type="submit"
+						className="btn btn-error bg-primary rounded-sm text-white"
+					>
+						<MdOutlineArrowForwardIos />
+					</button>
+				</form>
 
 				<h1 className="text-2xl mt-8 font-medium">Select Category</h1>
 
 				<div className="text-base mt-5 font-normal text-black">
-				{
+					{
 						categoryLoading ? <div className="space-y-5" >
 							<div className="skeleton h-7 rounded-md  w-44"></div>
 							<div className="skeleton h-7 rounded-md  w-44"></div>
@@ -222,7 +222,7 @@ const AllProduct = () => {
 							<div className="skeleton h-7 rounded-md  w-44"></div>
 							<div className="skeleton h-7 rounded-md  w-44"></div>
 							<div className="skeleton h-7 rounded-md  w-44"></div>
-						</div> :""
+						</div> : ""
 					}
 					{categoryItems?.map((item, index) => (
 						<label
@@ -285,47 +285,47 @@ const AllProduct = () => {
 					{
 						isLoading ? <>
 							<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
-						<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+							</div>
+							<div >
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
-						<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+							</div>
+							<div >
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
-						<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+							</div>
+							<div >
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
-						<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+							</div>
+							<div >
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
-						<div >
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-							<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-							<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+							</div>
+							<div >
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+								<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+								<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 
-						</div>
+							</div>
 						</> : null
 					}
 				</div>
@@ -334,17 +334,17 @@ const AllProduct = () => {
 				</div>
 
 				<div>
-				
+
 					<label htmlFor="my-drawer" className="btn btn-primary bg-primary lg:hidden border-none rounded-sm fixed bottom-24 right-10 ">Filter</label>
 
 
 				</div>
-						
-						{/* category section for small devices */}
+
+				{/* category section for small devices */}
 				<div className="drawer">
 					<input id="my-drawer" type="checkbox" className="drawer-toggle" />
 					<div className="drawer-content">
-						
+
 					</div>
 					<div className="drawer-side mt-16">
 						<label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>

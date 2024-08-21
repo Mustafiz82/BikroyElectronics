@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import signUpImage from "../../assets/Signup/Sign Up.jpeg";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,9 +12,13 @@ import {
 } from "../../redux/features/user/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "../../../firebase.config";
+import { IoEyeOutline } from "react-icons/io5";
+import { RiEyeCloseLine } from "react-icons/ri";
 
 const Login = () => {
 	const { register, handleSubmit } = useForm();
+	const [passView , setPassView] = useState(false)
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
 	const { isLoading, isInitializing, isLoggedIn, email } = useSelector((state) => state.userSlice);
@@ -80,7 +84,7 @@ const Login = () => {
 	}, [handleGoogleSignin]);
 
 	return (
-		<div>
+		<div className="h-screen flex justify-center items-center">
 			<div className="flex flex-col lg:flex-row gap- justify-between max-w-screen-xl mx-auto ">
 				<div className="block lg:w-1/2">
 					<img className="w-full md:h-[500px] lg:h-full object-cover" src={signUpImage} alt="" />
@@ -102,12 +106,20 @@ const Login = () => {
 								className="outline-none mt-8 py-2 w-full border-b-2 border-gray-400"
 								placeholder="Email"
 							/>
+							
+							<div className="flex mt-8 py-2 w-full border-b-2 border-gray-400 items-center">
 							<input
 								{...register("password", { required: true })}
 								type="text"
-								className="outline-none mt-8 py-2 w-full border-b-2 border-gray-400"
+								className="outline-none w-full"
 								placeholder="password"
+								type={passView ? "text" : "password"}
+
 							/>
+							<span onClick={() => setPassView(!passView)} className="pr-2 text-xl"> { passView ? <IoEyeOutline />  : <RiEyeCloseLine /> }
+
+							</span>
+							</div>
 
 							<button className="btn mt-8 btn-primary border-none bg-primary text-white w-full rounded-md">
 								{isLoading ? (

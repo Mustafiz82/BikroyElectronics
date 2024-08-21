@@ -71,6 +71,7 @@ const MyAccount = () => {
 			await reauthenticateWithCredential(user, credential);
 			await updatePassword(user, newPassword);
 			setLoading(false)
+			e.target.reset()
 			toast.success('Password Changed Successfully', {
 				style: {
 					padding: '16px',
