@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
 import { setCategories, setSearchText } from "../redux/features/filter/filterSlice";
 import { useGetSingleUserQuery, useRemoveTokenMutation } from "../redux/api/baseApi";
+import logo from "../assets/Logo/Logo-white.png"
 
 const Nav = () => {
 
@@ -270,7 +271,7 @@ console.log(status , "cookie status")
 							{ul}
 						</ul>
 					</div>
-					<a className=" text-2xl font-semibold">BikroyElectronics</a>
+					<Link to="/" className="flex gap-2 items-center text-2xl font-semibold"> <img src={logo} alt="" srcset="" className="h-10 w-10 " /> <span>BikroyElectronics</span></Link>
 				</div>
 				<div className="navbar-center  hidden lg:flex">
 					<ul className="flex gap-8 -ml-28 font-medium px-1">{ul}</ul>

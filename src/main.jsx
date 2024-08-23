@@ -1,19 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, useLocation } from "react-router-dom";
 import router from "./Route/Route.jsx";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "./redux/Store.js";
+import Preloader from "./Components/Preloader.jsx";
 
+
+function Main() {
+  const [isLoading, setIsLoading] = useState(true);
+  const path = window.location.pathname
+ 
+  console.log(path)
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2600); // Adjust the time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    isLoading && path == "/" ? <Preloader /> : <RouterProvider router={router} />
+	// <Preloader />
+  );
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<RouterProvider router={router}>
-				{/* <App /> */}
-			</RouterProvider>
-		</Provider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  </React.StrictMode>
 );

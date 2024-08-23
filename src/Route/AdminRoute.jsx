@@ -68,7 +68,7 @@ const AdminRoute = ({ children }) => {
 	}
     
 
-	return <Navigate to="/login" />;
+	return <Navigate to="/lomiangin" />;
 };
 
 export default AdminRoute;
