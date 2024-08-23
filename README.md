@@ -26,7 +26,7 @@ bikroyElectronics is a comprehensive e-commerce platform for selling and purchas
 1. **Admin Dashboard:** View site statistics, including sales data and user activity.
 2. **Category Management:** View and create new product categories.
 3. **Coupon Management:** View and create discount coupons.
-4. **Product Management:** View all products, identify bestsellers, and edit product details.
+4. **Product Management:** View all products, identify bestselliings Products, and edit product details.
 5. **Flash Sale Management:** Create flash sales with specific discounts for a limited time.
 6. **User Management:** View the list of users and customers, and assign admin roles.
 
@@ -48,13 +48,13 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
     ```
-    git clone https://github.com/Mustafiz82/Product-listing-page
+    git clone https://github.com/Mustafiz82/BikroyElectronics
     ```
 
 2. Navigate to the project directory:
 
     ```
-    cd product-listing-page
+    cd BikroyElectronics
     ```
 
 3. Install dependencies:
@@ -101,4 +101,8 @@ Make sure you have the following installed on your system:
 
 ## Contact
 
-For any questions or issues, feel free to reach out at [mustafiz8260@gmail.com](mailto:mustafiz8260@gmail.com).
+For any questions or issues, feel free to reach out at:
+
+- **Email:** [mustafiz8260@gmail.com](mailto:mustafiz8260@gmail.com)
+- **LinkedIn:** [Visit LinkedIn ](https://www.linkedin.com/in/mdmustafiz8260/)
+
