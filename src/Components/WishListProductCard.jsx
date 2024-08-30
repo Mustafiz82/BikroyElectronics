@@ -1,7 +1,6 @@
 import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png"
 import { useDeleteWishlistProductMutation } from "../redux/api/baseApi";
 import Swal from "sweetalert2";
 

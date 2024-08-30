@@ -1,8 +1,7 @@
 import React from 'react';
 import "./Preloader.css"
-import logo from "../assets/Logo/Logo-white.png"
+import logo from "../assets/Logo/Logo-white.svg"
 import drone from "../assets/Logo/Drone.svg"
-import cart from "../assets/Logo/cart.png"
 // import drone from ""
 
 

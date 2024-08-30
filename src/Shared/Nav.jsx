@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/features/user/userSlice";
 import { setCategories, setSearchText } from "../redux/features/filter/filterSlice";
 import { useGetSingleUserQuery, useRemoveTokenMutation } from "../redux/api/baseApi";
-import logo from "../assets/Logo/Logo-white.png"
+import logo from "../assets/Logo/logo-full.svg"
 
 const Nav = () => {
 

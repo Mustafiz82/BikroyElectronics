@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../../assets/Signup/imou-ranger-2-200x200-removebg-preview.png";
 import { useGetProductsQuery } from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
 const ProductList = () => {

@@ -4,10 +4,10 @@ import ProductCard from "../../Components/ProductCard";
 import { useDeleteWishlistProductMutation, useGetProductsQuery, useGetWishlistProductQuery, useSetAllCartProductMutation } from "../../redux/api/baseApi";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import image from "../../assets/Others/emptywishlist.png"
+import image from "../../assets/Others/emptywishlist.svg"
 import { Link } from "react-router-dom";
 import { isPending } from "@reduxjs/toolkit";
-import warningImage from "../../assets/Others/Error_Warning.png"
+import warningImage from "../../assets/Others/Error_Warning.svg"
 
 const Wishlist = () => {
 

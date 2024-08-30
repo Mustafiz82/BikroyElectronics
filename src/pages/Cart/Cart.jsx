@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDeleteAllCartProductMutation, useGetCartProductQuery, useSetSingleCouponMutation, useUpdateCartMutation } from "../../redux/api/baseApi";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
-import image from "../../assets/Others/empty-cart-7359557-6024626.webp"
+import image from "../../assets/Others/cart.svg"
 import { Form, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import {  setCartTotal , setDiscount, setDiscountedCartTotal } from "../../redux/features/Cart/CartSlice";
-import warningImage from "../../assets/Others/Error_Warning.png"
+import warningImage from "../../assets/Others/Error_Warning.svg"
 
 const Cart = () => {
 

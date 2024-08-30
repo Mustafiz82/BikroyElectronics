@@ -89,7 +89,7 @@ const Login = () => {
 				<div className="block lg:w-1/2">
 					<img className="w-full md:h-[500px] lg:h-full object-cover" src={signUpImage} alt="" />
 				</div>
-				<div className="lg:w-1/2  h-screen flex items-center">
+				<div className="lg:w-1/2  lg:h-screen flex lg:items-center">
 					<div className=" max-w-[500px] h md:-mt-24 lg:-mt-0 md:shadow-2xl lg:shadow-none bg-white font-poppins py-5 lg:py-20 px-10">
 						<h1 className="font-inter font-medium text-2xl lg:text-3xl">
 							Log in to BikroyElectronics

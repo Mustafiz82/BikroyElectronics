@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import imageUpload from "../../assets/Others/image-removebg-preview (14).png";
+import imageUpload from "../../assets/Others/image-removebg-preview (14).svg";
 import { categoryItems } from "../../../public/categoryObject";
 import {
 	useGetSingleProductsQuery,

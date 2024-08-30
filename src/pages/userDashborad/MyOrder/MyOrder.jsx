@@ -2,9 +2,9 @@ import React from "react";
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { useGetOrdersQuery, useUpdateOrderStatusMutation } from "../../../redux/api/baseApi";
-import image from "../../../assets/Others/no-orders.png"
+import image from "../../../assets/Others/no-orders.svg"
 import { Link } from "react-router-dom";
-import warningImage from "../../../assets/Others/Error_Warning.png"
+import warningImage from "../../../assets/Others/Error_Warning.svg"
 
 
 const MyOrder = () => {
@@ -38,6 +38,7 @@ const MyOrder = () => {
 
 	return (
 		<div className=" mt-5 lg:mt-10">
+			
 
 			{
 				isLoading ? <div className="mb-16 border-2">

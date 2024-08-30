@@ -7,11 +7,11 @@ import "swiper/css/navigation";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import Banner2 from "../assets/banner/banner1.png";
-import Banner3 from "../assets/banner/banner2-Photoroom.png";
-import Banner1 from "../assets/banner/banner3.jpg";
-import Banner4 from "../assets/banner/banner4.jpg";
-import Banner5 from "../assets/banner/banner5.jpg";
+import Banner2 from "../assets/banner/banner1.webp";
+import Banner3 from "../assets/banner/banner2-Photoroom.webp";
+import Banner1 from "../assets/banner/banner3.webp";
+import Banner4 from "../assets/banner/banner4.webp";
+import Banner5 from "../assets/banner/banner5.webp";
 
 export default function Slider() {
 	return (

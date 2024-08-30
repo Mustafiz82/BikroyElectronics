@@ -2,7 +2,7 @@ import React from "react";
 import { TiDelete } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { useGetCancelledOrdersQuery, useGetOrdersQuery, useUpdateOrderStatusMutation } from "../../../redux/api/baseApi";
-import image from "../../../assets/Others/no-orders.png"
+import image from "../../../assets/Others/no-orders.svg"
 import { Link } from "react-router-dom";
 
 

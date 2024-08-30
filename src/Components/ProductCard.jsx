@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
-import image from "../assets/Signup/imou-ranger-2-200x200-removebg-preview.png";
 import { GoHeart } from "react-icons/go";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 
@@ -103,7 +102,7 @@ const ProductCard = ({ item, discount }) => {
 			<div className="lg:w-[250px] mt-5 overflow-hidden">
 
 				<div className="rounded-md relative  bg-[#F5F5F5]">
-					<div className="p-6 h-[250px] flex items-center">
+					<div className="p-6 max-h-[250px] flex items-center">
 						<img src={item?.imageUrl} className="mx-auto " alt="" />
 					</div>
 					<button onClick={addToCart} className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
