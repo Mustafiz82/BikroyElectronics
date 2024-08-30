@@ -24,8 +24,10 @@ function Main() {
     return () => clearTimeout(timer);
   }, []);
 
+  const isLoadings  = true
+
   return (
-    isLoading && path == "/" ? <Preloader /> : <RouterProvider router={router} />
+    isLoadings && path == "/" ? <Preloader /> : <RouterProvider router={router} />
 	// <Preloader />
   );
 }
