@@ -39,7 +39,7 @@ const MainLayout = () => {
     }, []);
 
     return (
-        <div className='max-w-screen-2xl mx-auto px-10'>
+        <div className='max-w-screen-2xl mx-auto lg:px-10'>
             <div className='hidden lg:block sticky top-0 z-[999]'> <Nav></Nav></div>
             <div className={`${pathname2[1] == "Dashboard" ? "hidden" : "sticky lg:hidden z-[999] bg-white top-0 p-2"}`} > <TopNav></TopNav></div>
             <Outlet></Outlet>

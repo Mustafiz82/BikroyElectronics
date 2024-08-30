@@ -1,16 +1,25 @@
 import React from 'react';
 import "./Preloader.css"
 import logo from "../assets/Logo/Logo-white.png"
+import drone from "../assets/Logo/Drone.svg"
+import cart from "../assets/Logo/cart.png"
+// import drone from ""
 
 
 const Preloader = () => {
     return (
         <div className="">
+
             <div className="preloader ">
                 <div className="circle1 relative"></div>
                 <div className="logo-container">
                 </div>
+                <div className="">
                 <img src={logo} alt="Logo" className="logo absolute top-1/2 -translate-x-1/2 -translate-y-1/2  left-1/2  " />
+
+
+                </div>
+                <img src={drone} className='drone' alt="" />
                 <div className="text font-Enter">
                     <span>B</span>
                     <span>I</span>
@@ -35,6 +44,7 @@ const Preloader = () => {
                     <span>S</span>
                 </div>
             </div>
+
         </div>
     );
 };

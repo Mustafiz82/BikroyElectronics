@@ -43,7 +43,7 @@ const Home = () => {
 
 
 	return (
-		<div className=" overflow-hidden mx-auto ">
+		<div className="lg:max-w-screen-xl xl:max-w-screen-2xl  overflow-hidden mx-auto ">
 			<div className="flex ">
 				<ul className="border-r-2 font-poppins hidden lg:block w-1/5 space-y-5 pt-5">
 					{

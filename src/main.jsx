@@ -19,7 +19,7 @@ function Main() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2600); // Adjust the time as needed
+    }, 3000); // Adjust the time as needed
 
     return () => clearTimeout(timer);
   }, []);
@@ -27,7 +27,7 @@ function Main() {
   const isLoadings  = true
 
   return (
-    isLoadings && path == "/" ? <Preloader /> : <RouterProvider router={router} />
+    isLoading && path == "/" ? <Preloader /> : <RouterProvider router={router} />
 	// <Preloader />
   );
 }
