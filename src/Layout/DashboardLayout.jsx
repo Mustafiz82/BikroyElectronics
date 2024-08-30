@@ -12,7 +12,7 @@ import TopNav from "../Shared/NavForMobile/TopNav";
 const DashboardLayout = () => {
 	return (
 		
-		<div className="drawer max-w-screen-xl font-poppins mx-auto lg:drawer-open">
+		<div className="drawer  font-poppins mx-auto lg:drawer-open">
 			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 			<div className="drawer-content ">
 				<div className="">

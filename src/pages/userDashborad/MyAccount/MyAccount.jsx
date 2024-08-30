@@ -109,10 +109,10 @@ const MyAccount = () => {
 	console.log(userDetails , "userDetails")
 
 	return (
-		<div className="max-w-screen-xl m-10 mt-5 mx-auto">
+		<div className=" m-10 mt-5 mx-auto">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="flex items-center justify-between">
-					<h1 className="text font-medium-xl font-medium text-primary">Edit your Profile</h1>
+					<h1 className="font-medium-xl font-medium text-primary">Edit your Profile</h1>
 					<button  className="btn btn-primary border-none bg-primary rounded-sm" type="submit">
 						{saveData}
 					</button>

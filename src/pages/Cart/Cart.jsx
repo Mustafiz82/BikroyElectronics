@@ -141,7 +141,7 @@ const Cart = () => {
 	} 
 
 	return (
-		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
+		<div className=" px-5 lg:px-0  mx-auto">
 			<div className="w-full overflow-x-auto">
 
 				

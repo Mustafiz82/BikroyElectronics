@@ -159,7 +159,7 @@ const AllProduct = () => {
 	return (
 		<div
 			id="start_of_all_product_page"
-			className="flex max-w-screen-xl mx-auto"
+			className="flex  mx-auto"
 		>
 			{/* Category section for filtering in large screen  */}
 			<div className="lg:pt-5 h-[800px] sticky   top-28 hidden border-r lg:block w-1/4 bg-transparent lg:p-0">

@@ -49,7 +49,7 @@ const Contack = () => {
 
 	}
 	return (
-		<div className="max-w-screen-xl flex flex-col lg:flex-row px-5 lg:px-0 gap-2 lg:gap-20  mx-auto my-5 lg:my-20">
+		<div className=" flex flex-col lg:flex-row px-5 lg:px-0 gap-2 lg:gap-20  mx-auto my-5 lg:my-20">
 			<div className="">
 				<div className="space-y-2 font-medium font-poppins">
 					<div className="font-medium mb-5  flex  items-center gap-4">

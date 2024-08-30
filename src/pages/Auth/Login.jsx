@@ -84,13 +84,13 @@ const Login = () => {
 	}, [handleGoogleSignin]);
 
 	return (
-		<div className="h-screen flex justify-center items-center">
-			<div className="flex flex-col lg:flex-row gap- justify-between max-w-screen-xl mx-auto ">
+		<div className="h-screen flex justify-center  items-center">
+			<div className="flex flex-col lg:flex-row gap-0 lg:gap-10 xl:gap-20 justify-center  mx-auto ">
 				<div className="block lg:w-1/2">
 					<img className="w-full md:h-[500px] lg:h-full object-cover" src={signUpImage} alt="" />
 				</div>
-				<div className="lg:w-1/2  flex justify-center">
-					<div className=" max-w-[500px] md:-mt-24 lg:-mt-0 md:shadow-2xl lg:shadow-none bg-white font-poppins py-5 lg:py-20 px-10">
+				<div className="lg:w-1/2  h-screen flex items-center">
+					<div className=" max-w-[500px] h md:-mt-24 lg:-mt-0 md:shadow-2xl lg:shadow-none bg-white font-poppins py-5 lg:py-20 px-10">
 						<h1 className="font-inter font-medium text-2xl lg:text-3xl">
 							Log in to BikroyElectronics
 						</h1>

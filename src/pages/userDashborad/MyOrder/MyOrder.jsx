@@ -109,7 +109,7 @@ const MyOrder = () => {
 
 									Order ID :{" "}
 									<span className="text-primary text-sm">
-										{item?._id}
+										{item?.TransID  || item?._id}
 									</span>
 								</h1>
 								<p> Placed on {formatDateString(item?.date)}</p>

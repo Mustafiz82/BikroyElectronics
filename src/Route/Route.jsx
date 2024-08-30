@@ -32,6 +32,8 @@ import AccountNav from "../Shared/NavForMobile/AccountNav";
 import SingleOrder from "../AdminDashboard/OrderManagement/SingleOrder";
 import CustomerList from "../AdminDashboard/UserManagement/CustomerList";
 import AdminRoute from "./AdminRoute";
+import PaymentSuccess from "../pages/SSLCommerszStatus/PaymentSuccess";
+import PayemntFailed from "../pages/SSLCommerszStatus/PayemntFailed";
 
 
 const router = createBrowserRouter([
@@ -167,6 +169,14 @@ const router = createBrowserRouter([
 	{
 		path: "/signUp",
 		element: <Regestration></Regestration>,
+	},
+	{
+		path: "/payment/success",
+		element: <PaymentSuccess></PaymentSuccess>
+	},
+	{
+		path: "/payment/failed",
+		element: <PayemntFailed></PayemntFailed>
 	},
 ]);
 

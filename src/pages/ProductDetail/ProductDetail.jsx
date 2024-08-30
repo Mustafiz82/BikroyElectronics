@@ -124,7 +124,7 @@ const ProductDetail = () => {
   </div>
 
   return (
-    <div className="mx-5 lg:mx-auto max-w-screen-xl flex flex-col lg:flex-row gap-12 my-5 lg:my-10">
+    <div className="mx-5 lg:mx-auto  flex flex-col lg:flex-row gap-12 my-5 lg:my-10">
       <div className=" ">
         <img src={product?.imageUrl} className="w-[500px] bg-[#F5F5F5]" alt="" />
       </div>

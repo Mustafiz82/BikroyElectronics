@@ -47,7 +47,7 @@ const AdminRoute = ({ children }) => {
 
 	if (isInitializing || isLoading) {
 		return (
-			<div className="h-[500px] w-full flex justify-center items-center">
+			<div className="h-screen min-h-[500px] w-full flex justify-center items-center">
 				<div className="loader">
 					<div className="loader-square"></div>
 					<div className="loader-square"></div>

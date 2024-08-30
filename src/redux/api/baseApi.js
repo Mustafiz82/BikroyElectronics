@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
+	// baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144", credentials: "include" }),
 	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app", credentials: "include" }),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 
@@ -184,6 +185,14 @@ export const baseApi = createApi({
 			}),
 			invalidatesTags: ['order']
 		}),
+		setSSLOrders: builder.mutation({
+			query: (data) => ({
+				url: `/SSL/orders`,
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags: ['order ,cart']
+		}),
 		getOrders: builder.query({
 			query: (email) => `/orders?email=${email}`,
 			providesTags: ['order']
@@ -299,6 +308,7 @@ export const {
 	useDeleteAllCartProductMutation,
 	useSetAllCartProductMutation,
 	useSetOrdersMutation,
+	useSetSSLOrdersMutation,
 	useGetOrdersQuery,
 	useGetCancelledOrdersQuery,
 	useUpdateOrderStatusMutation,

@@ -53,7 +53,7 @@ const UserList = () => {
                                         <th>{index + 1}</th>
                                         <td>{item?.name}</td>
                                         <td>{item?.email}</td>
-                                        <td onClick={() => handleMakeAdmin(item?.email)} title='click to make admin'> <button className='btn btn-primary px-2 w-full btn-md border-none outline-none rounded-md bg-primary ' >{updateLoading ? "Making Admin ..." : item?.role || "Make Admin"}</button></td>
+                                        <td onClick={() => handleMakeAdmin(item?.email)} title='click to make admin'> <button className='btn btn-primary max-w-48 px-2 w-full btn-md border-none outline-none rounded-md bg-primary  ' >{updateLoading ? "Making Admin ..." : item?.role || "Make Admin"}</button></td>
                                     </tr>)
                                 }
                                

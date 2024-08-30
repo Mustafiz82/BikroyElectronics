@@ -240,7 +240,7 @@ console.log(status , "cookie status")
 
 
 	return (
-		<div className="max-w-screen-xl  sticky top-0 bg-white z-[999] border-b-2 mx-auto py-4 ">
+		<div className="  sticky top-0 bg-white z-[999] border-b-2 mx-auto py-4 ">
 			<div className="navbar px-0 gap-28 bg-base-100">
 				<div className="navbar-start ">
 					<div className="dropdown">

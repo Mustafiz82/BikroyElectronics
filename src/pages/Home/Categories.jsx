@@ -104,6 +104,7 @@ const Categories = ({ categories  , isLoading}) => {
 												<img
 													src={item?.imageurl}
 													alt=""
+													className="w-14 h-14 "
 												/>
 											</div>{" "}
 											<h1>{item?.title}</h1>

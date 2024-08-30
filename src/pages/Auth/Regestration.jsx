@@ -112,7 +112,7 @@ const Regestration = () => {
 
 	return (
 		<div className="h-screen flex justify-center items-center">
-			<div className="flex flex-col lg:flex-row  justify-between max-w-screen-xl mx-auto ">
+			<div className="flex flex-col lg:flex-row  justify-between  mx-auto ">
 				<div className="  lg:block lg:w-1/2">
 					<img className="w-full lg:h-full  h-80 md:h-[500px] object-cover" src={signUpImage} alt="" />
 				</div>

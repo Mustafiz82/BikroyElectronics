@@ -3,7 +3,7 @@ import { IoMdSend } from "react-icons/io";
 
 const Footer = () => {
 	return (
-		<footer className="bg-black mt-10 font-poppins md:px-28 pb-8 pt-20  text-white ">
+		<footer className="bg-black  mt-10 font-poppins md:px-28 pb-8 pt-20  text-white ">
 			<div className="container text-sm mx-auto  grid grid-cols-2 lg:grid-cols-4 gap-16 px-4">
 				<div className="space-y-4">
 					<h4 className="font-bold text-base">Exclusive</h4>

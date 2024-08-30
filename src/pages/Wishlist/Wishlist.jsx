@@ -51,7 +51,7 @@ if(isError) {
 } 
 	
 	return (
-		<div className="max-w-screen-xl px-5 lg:px-0  mx-auto">
+		<div className=" px-5 lg:px-0  mx-auto">
 			<div className="">
 				<div className="flex my-5 lg:my-14 justify-between items-center">
 					<h1 className="text-xl">Wishlist ({wishlistProduct?.length})</h1>
