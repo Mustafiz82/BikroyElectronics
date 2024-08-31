@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import signUpImage from "../../assets/Signup/Sign Up.jpeg";
+import signUpImage from "../../assets/Signup/Sign Up.webp";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
