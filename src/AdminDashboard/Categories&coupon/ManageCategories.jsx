@@ -35,7 +35,8 @@ const ManageCategories = () => {
 
 	if (isLoading) {	
 		return <div className="px-4">
-			<div className=" flex flex-wrap gap-5">
+			<div className=" flex flex-wrap justify-center gap-5">
+				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>
 				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>
 				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>
 				<div className="skeleton w-44 h-44 p-2 rounded-sm"></div>

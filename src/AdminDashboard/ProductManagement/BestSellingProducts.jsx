@@ -15,6 +15,13 @@ const BestSellingProducts = () => {
     return (
         <div className='px-4'>
 
+<div className="grid  grid-cols-8 gap-5 md:grid-cols-9 font-medium">
+                    <h1 className="md:col-span-4 col-span-6 ">Product</h1>
+                    <h1 className="col-span-2 hidden md:block">Price</h1>
+                    <h1 className="col-span-2 hidden md:block">Total Sold</h1>
+                    <h1 className="col-span-1 ">Edit</h1>
+                </div>
+
             {isLoading ? elements?.map((_, index) => (
                 <div key={index} className="grid my-10 grid-cols-9 font-medium">
                     <div className="flex relative items-center col-span-4 gap-2">
@@ -30,12 +37,7 @@ const BestSellingProducts = () => {
                 </div>
             )) : ""}
             <div className="">
-                <div className="grid  grid-cols-8 gap-5 md:grid-cols-9 font-medium">
-                    <h1 className="md:col-span-4 col-span-6 ">Product</h1>
-                    <h1 className="col-span-2 hidden md:block">Price</h1>
-                    <h1 className="col-span-2 hidden md:block">Total Sold</h1>
-                    <h1 className="col-span-1 ">Edit</h1>
-                </div>
+                
 
                 {
                     bestSellingProduct?.map(item => <div key={item?._id} className="grid grid-cols-8 md:grid-cols-9 gap-5 font-medium my-10">

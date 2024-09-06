@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useCompleteOrderStatusMutation, useGetSingleOrdersQuery,  } from '../../redux/api/baseApi';
+import { useCompleteOrderStatusMutation, useGetSingleOrdersQuery, } from '../../redux/api/baseApi';
 import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 
 const SingleOrder = () => {
@@ -9,11 +9,11 @@ const SingleOrder = () => {
     console.log("hello world")
 
     const { data: order, isLoading } = useGetSingleOrdersQuery(id)
-    const [completeOrder , {data:status , isLoading : compleatingOrder}] = useCompleteOrderStatusMutation()
+    const [completeOrder, { data: status, isLoading: compleatingOrder }] = useCompleteOrderStatusMutation()
 
 
     const email = order?.customerDetail?.email
-    console.log(email , "em")
+    console.log(email, "em")
 
 
     const formatDateString = (dateString) => {
@@ -29,27 +29,42 @@ const SingleOrder = () => {
         });
     };
 
+
+
     const handleCompleteOrder = () => {
 
-        
-		const productIDandQuantity = order?.OrderDetails?.map(item => ({
-            ProductID : item?.productId ,
-            quantity : item?.quantity
+
+        const productIDandQuantity = order?.OrderDetails?.map(item => ({
+            ProductID: item?.productId,
+            quantity: item?.quantity
 
         }))
-    
-		// console.log(productIDs)
-        completeOrder({ id, email , productIDandQuantity : productIDandQuantity  })
+
+        // console.log(productIDs)
+        completeOrder({ id, email, productIDandQuantity: productIDandQuantity })
+
 
     }
+    const elements = Array.from({ length: 3 });
+
 
 
     return (
         <div className='my-5 px-4 flex flex-col lg:flex-row gap-5'>
-            <div className='border-r-black lg:gitw-3/5 pr-5 lg:border-r-2'>
+            <div className='border-r-black flex-1 lg:gitw-3/5 pr-5 lg:border-r-2'>
                 <h1 className='text-xl mb-5'>Ordered Products</h1>
 
                 <div className="" >
+
+                    {
+                        isLoading ? elements?.map(item =>  <div className='flex mt-2 justify-between items-center'>
+                            <div className="flex gap-5 items-center">
+                                <div className="skeleton w-10 h-10 "></div>
+                                <div className="skeleton w-52 h-8 "></div>
+                            </div>
+                            <div className="skeleton h-6 w-16"></div>
+                        </div> ): ""
+                    }
 
                     {
                         order?.OrderDetails?.map(item => <div className='flex justify-between'>
@@ -92,7 +107,7 @@ const SingleOrder = () => {
 
                 </div>
 
-                <button disabled={order?.status == "completed"} onClick={handleCompleteOrder} className='btn rounded-sm border-none outline-none  btn-primary bg-primary rounded-md '>{compleatingOrder ? "completing..." : order?.status == "completed" ? "Order Completed" : "complete Order" }</button>
+                <button disabled={order?.status == "completed"} onClick={handleCompleteOrder} className='btn rounded-sm border-none outline-none  btn-primary bg-primary rounded-md '>{compleatingOrder ? "completing..." : order?.status == "completed" ? "Order Completed" : "complete Order"}</button>
 
             </div>
         </div>

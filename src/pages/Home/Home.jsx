@@ -9,7 +9,7 @@ import drone from "../../assets/banner/bannerAdd.png";
 import BannerAdd from "./BannerAdd";
 import ExploreProduct from "./ExploreProduct";
 import { TbTruckDelivery } from "react-icons/tb";
-import { RiCustomerService2Fill } from "react-icons/ri";
+import { RiCoupon2Fill, RiCustomerService2Fill, RiSecurePaymentFill } from "react-icons/ri";
 import { LuShieldCheck } from "react-icons/lu";
 import {
 	useGetCategoryListQuery,
@@ -22,14 +22,15 @@ import { onAuthStateChanged } from "firebase/auth";
 import auth from "../../../firebase.config";
 import { setUser } from "../../redux/features/user/userSlice";
 import { Toaster } from "react-hot-toast";
+import { FaMoneyBillWave } from "react-icons/fa6";
 
 const Home = () => {
-	
+
 
 	const { data: categoryItems, isLoading, error } = useGetCategoryListQuery();
 	const { data: products } = useGetProductsQuery();
 	const dispatch = useDispatch();
-// const isLoading = true
+	// const isLoading = true
 
 
 	const handleSelectCategory = (category) => {
@@ -58,7 +59,7 @@ const Home = () => {
 							<div className="skeleton h-7 rounded-md  w-44"></div>
 							<div className="skeleton h-7 rounded-md  w-44"></div>
 							<div className="skeleton h-7 rounded-md  w-44"></div>
-						</div> :""
+						</div> : ""
 					}
 					{categoryItems?.map((item) => (
 						<li onClick={() => handleSelectCategory(item?.title)} key={item.id}>
@@ -76,59 +77,57 @@ const Home = () => {
 			<FlashSale></FlashSale>
 			<Categories isLoading={isLoading} categories={categoryItems}></Categories>
 			<BestSelling ></BestSelling>
-				<BannerAdd></BannerAdd>
-				<ExploreProduct explore="explore" products={products}></ExploreProduct>
-
-			<div className="flex flex-col flex-wrap md:flex-row md:justify-around gap-14 lg:gap-0 my-10 md:my-20 lg:my-40">
-				<div className="space-y-4 text-center ">
-					<div className="p-2	inline-block bg-slate-400 rounded-full">
-						<div className="flex ">
-							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-								<TbTruckDelivery className="text-5xl text-white " />
+			<BannerAdd></BannerAdd>
+			<ExploreProduct explore="explore" products={products}></ExploreProduct>
+			<div className="grid grid-cols-1 md:grid-cols-3  gap-14 lg:gap-0 my-10 md:my-20 lg:my-40">
+				<div className="space-y-4 text-center">
+					<div className="p-2 inline-block bg-blue-400 rounded-full">
+						<div className="flex">
+							<div className="text-2xl inline-block bg-black p-2 rounded-full">
+								<TbTruckDelivery className="text-5xl text-white" />
 							</div>
 						</div>
 					</div>
-
-					<h1 className="font-bold text-2xl ">
-						FREE AND FAST DELIVERY
+					<h1 className="font-bold text-2xl">
+						FREE DELIVERY
 					</h1>
 					<p className="text-base">
-						Free delivery for all orders over $140
+						Enjoy free delivery on all orders over $140. No extra charges!
 					</p>
 				</div>
-				<div className="space-y-4 text-center ">
-					<div className="p-2	inline-block bg-slate-400 rounded-full">
-						<div className="flex ">
-							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-								<TbTruckDelivery className="text-5xl text-white " />
+				<div className="space-y-4 text-center">
+					<div className="p-2 inline-block bg-green-400 rounded-full">
+						<div className="flex">
+							<div className="text-2xl inline-block bg-black p-2 rounded-full">
+								<RiCoupon2Fill className="text-5xl text-white" />
 							</div>
 						</div>
 					</div>
-
-					<h1 className="font-bold text-2xl ">
-						FREE AND FAST DELIVERY
+					<h1 className="font-bold text-2xl">
+						COUPON DISCOUNTS
 					</h1>
 					<p className="text-base">
-						Free delivery for all orders over $140
+						Apply coupon codes at checkout to enjoy special discounts and offers.
 					</p>
 				</div>
-				<div className="space-y-4 text-center ">
-					<div className="p-2	inline-block bg-slate-400 rounded-full">
-						<div className="flex ">
-							<div className="text-2xl inline-block  bg-black p-2 rounded-full ">
-								<TbTruckDelivery className="text-5xl text-white " />
+
+				<div className="space-y-4 text-center">
+					<div className="p-2 inline-block bg-purple-400 rounded-full">
+						<div className="flex">
+							<div className="text-2xl inline-block bg-black p-2 rounded-full">
+								<RiSecurePaymentFill className="text-5xl text-white" />
 							</div>
 						</div>
 					</div>
-
-					<h1 className="font-bold text-2xl ">
-						FREE AND FAST DELIVERY
+					<h1 className="font-bold text-2xl">
+						SECURE PAYMENTS
 					</h1>
 					<p className="text-base">
-						Free delivery for all orders over $140
+						Shop confidently with SSLCommerz, ensuring your payment details are secure.
 					</p>
 				</div>
 			</div>
+
 
 
 		</div>
