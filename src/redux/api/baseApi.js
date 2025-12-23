@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	// baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144", credentials: "include" }),
-	baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app", credentials: "include" }),
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144", credentials: "include" }),
+	// baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app", credentials: "include" }),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 
 	endpoints: (builder) => ({
@@ -92,8 +92,21 @@ export const baseApi = createApi({
 			providesTags: ['singleProduct']
 		}),
 		getProductsCount: builder.query({
-			query: () => `/productCount`,
+			query: ({ category, minPrice, maxPrice, searchText } = {}) => {
+				const params = new URLSearchParams();
+
+				// Map 'category' to 'categories' to match the getProducts logic
+				if (category) params.append('categories', category);
+				if (minPrice) params.append('minPrice', minPrice);
+				if (maxPrice) params.append('maxPrice', maxPrice);
+				if (searchText) params.append('searchText', searchText);
+
+				return `/productCount?${params.toString()}`;
+			},
+			// Adding this ensures the count updates when you add/delete a product
+			providesTags: ['products']
 		}),
+
 		updateSingleProduct: builder.mutation({
 			query: ({ id, ...data }) => ({
 				url: `/products/update/${id}`,
@@ -273,7 +286,7 @@ export const baseApi = createApi({
 		getStatistics: builder.query({
 			query: () => `/statistics`,
 		}),
-		
+
 		removeToken: builder.mutation({
 			query: (data) => ({
 				url: `/clear`,
@@ -322,7 +335,7 @@ export const {
 	useGetAllOrdersQuery,
 	useGetSingleOrdersQuery,
 	useGetStatisticsQuery,
-	
+
 	useRemoveTokenMutation
 
 

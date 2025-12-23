@@ -4,17 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../redux/features/filter/filterSlice';
 import { useGetProductsCountQuery, useGetProductsQuery } from '../redux/api/baseApi';
 
-export default function Pagination() {
+export default function Pagination({filter}) {
 
     const [pageNumber, setPageNumber] = useState(0);
-    const {data:productCount} = useGetProductsCountQuery()
-    const {products} = useGetProductsQuery()
-    const {limit} = useSelector((state) => state.filterSearch)
+    const { data: productCount, isLoading } = useGetProductsCountQuery(filter, {
+        pollingInterval: 30000,
+        refetchOnMountOrArgChange: true,
+
+    });
+    const { products } = useGetProductsQuery()
+    const { limit } = useSelector((state) => state.filterSearch)
     const dispatch = useDispatch()
     const page = Math.ceil(productCount?.count / limit) || 0 // Adjust the page numbers the way you want
 
     // console.log(productCount);
-    
+
     const updatePageNumber = (num) => {
         if (num > page - 1 || 0 > num) {
             return setPageNumber(0);
@@ -27,9 +31,9 @@ export default function Pagination() {
             page: pageNumber
         }));
 
-       
-    } , [pageNumber , products ])
-    
+
+    }, [pageNumber, products])
+
     return (
         <div className="mx-auto flex w-fit select-none items-center justify-center divide-x divide-primary overflow-hidden rounded-sm border border-primary bg-white ">
             {/* previous button */}

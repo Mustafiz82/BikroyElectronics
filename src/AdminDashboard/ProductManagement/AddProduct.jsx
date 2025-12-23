@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import imageUpload from "../../assets/Others/image-removebg-preview (14).svg";
-import { categoryItems } from "../../../public/categoryObject";
-import { useSetProductsMutation } from "../../redux/api/baseApi";
+import { useGetCategoryListQuery, useSetProductsMutation } from "../../redux/api/baseApi";
 import toast, { Toaster } from 'react-hot-toast';
 import RichTextEditor from "../../Components/RichTextEditor";
 
@@ -17,6 +16,8 @@ const AddProduct = () => {
   const [buttonText, setButtonText] = useState("Add product");
 
   const [setProduct, { data, isSuccess }] = useSetProductsMutation();
+  const { data: categoryItems, isLoading, error } = useGetCategoryListQuery();
+
   const [description, setDescription] = useState('');
 
   console.log(description);

@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import imageUpload from "../../assets/Others/image-removebg-preview (14).svg";
-import { categoryItems } from "../../../public/categoryObject";
 import {
+	useGetCategoryListQuery,
 	useGetSingleProductsQuery,
 	useSetProductsMutation,
 	useUpdateSingleProductMutation,
@@ -29,7 +29,9 @@ const EditProduct = () => {
 	const [uploading, setUploading] = useState(false);
 	const [updateText, setUpdateText] = useState("Update product");
 	const [description, setDescription] = useState('');
-	const [selectedCategory , setSelectedCategory] = useState('')
+	const [selectedCategory, setSelectedCategory] = useState('')
+	const { data: categoryItems, isLoading:catLoading, error } = useGetCategoryListQuery();
+
 
 
 	useEffect(() => {
@@ -40,18 +42,18 @@ const EditProduct = () => {
 		}
 	}, [product]);
 
-	
-	useEffect(() => {
-	    if (isSuccess) {
-	      setUpdateText("Product Updateed");
 
-	    }
-	  }, [isSuccess])
+	useEffect(() => {
+		if (isSuccess) {
+			setUpdateText("Product Updateed");
+
+		}
+	}, [isSuccess])
 
 
 	const handleCategoryChange = (event) => {
 		setSelectedCategory(event.target.value);
-	  };
+	};
 
 
 	const onSubmit = (data) => {
@@ -64,14 +66,14 @@ const EditProduct = () => {
 				imageUrl: imageUrl || product.imageUrl,
 				...data,
 				description,
-				category : selectedCategory
+				category: selectedCategory
 
 
 			},
 		});
 	};
 
-	
+
 
 	const handleImageUpload = async (event) => {
 		setUploading(true);
@@ -188,12 +190,12 @@ const EditProduct = () => {
 							</label>
 						</div>
 						<select
-							
+
 							onChange={handleCategoryChange}
 
 							defaultChecked={product?.category}
 							className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered w-full lg:w-[250px]"
-						>	
+						>
 							<option disabled>Category</option>
 							px
 							{categoryItems?.map((item, inx) => (
