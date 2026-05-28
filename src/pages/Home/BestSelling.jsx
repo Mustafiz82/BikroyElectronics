@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 const BestSelling = ({ categories }) => {
 	const [currentSlider, setCurrentSlider] = useState(0);
-	const { data: bestSellingProduct, isLoading } = useGetProductsQuery({ limit: 4, sortBy: "sellCount", sortOrder: "desc" })
+	const { data: bestSellingProduct , isLoading} = useGetProductsQuery({ limit: 4, sortBy: "sellCount", sortOrder: "desc" })
 
 	// console.log(bestSellingProduct);
 	// const isLoading = true
 
-	const elements = Array.from({ length: 7 });
+	const elements = Array.from({ length: 4 });
 
 
 	return (
@@ -40,24 +40,24 @@ const BestSelling = ({ categories }) => {
 						isLoading ? <div className="flex w-full justify-between">
 							{
 								elements?.map(item => <div >
-									<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[250px]	"></div>
-									<div className="skeleton  lg:min-w-[250px]  rounded-sm h-[50px] bg-black	"></div>
-									<div className="skeleton  lg:min-w-[250px] mt-5  rounded-sm h-[15px]	"></div>
-									<div className="skeleton  lg:min-w-[250px] mt-8  rounded-sm h-[20px]	"></div>
+									<div className="skeleton  lg:w-[250px] mt-5  rounded-sm h-[250px]	"></div>
+									<div className="skeleton  lg:w-[250px]  rounded-sm h-[50px] bg-black	"></div>
+									<div className="skeleton  lg:w-[250px] mt-5  rounded-sm h-[15px]	"></div>
+									<div className="skeleton  lg:w-[250px] mt-8  rounded-sm h-[20px]	"></div>
 	
 								</div> )
 							}
 							
-						</div> : ""
-					}
-					{bestSellingProduct?.map((item, inx) => (
+						</div> : bestSellingProduct?.map((item, inx) => (
 						<div
 							key={inx}
 							className={`flex justify-between  rounded-lg z-50`}
 						>
 							<ProductCard item={item}></ProductCard>
 						</div>
-					))}
+					))
+					}
+					
 				</div>
 
 

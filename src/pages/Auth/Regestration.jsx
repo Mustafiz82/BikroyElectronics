@@ -162,11 +162,11 @@ const Regestration = () => {
 									"Create Account"
 								)}{" "}
 							</button>
-							<button onClick={handleGoogleSignin} className="btn mt-2 btn-outline  w-full rounded-md">
-								<FcGoogle className="mr-2 text-xl" />
-								Sign in with google
-							</button>
 						</form>
+								<button onClick={handleGoogleSignin} className="btn mt-2 btn-outline  w-full rounded-md">
+									<FcGoogle className="mr-2 text-xl" />
+									Sign in with google
+								</button>
 
 						<p className="text-center mt-8">
 							Already have an account{" "}

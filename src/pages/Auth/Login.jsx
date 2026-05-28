@@ -24,6 +24,9 @@ const Login = () => {
 	const { isLoading, isInitializing, isLoggedIn, email } = useSelector((state) => state.userSlice);
 
 
+	console.log(import.meta.env.VITE_BASE_URL)
+
+
 
 	const onSubmit = async (data) => {
 		try {
@@ -58,12 +61,6 @@ const Login = () => {
 					isInitializing: true,
 					
 				}))
-
-				// if(isInitializing){
-				// 	navigate('/')
-
-				// }
-
 				if (isLoggedIn) {
 					navigate('/')
 					dispatch(setIsLoggedIn({
@@ -130,6 +127,7 @@ const Login = () => {
 									"Log In"
 								)}{" "}
 							</button>
+						</form>
 							<button
 								onClick={handleGoogleSignin}
 								className="btn mt-2 btn-outline  w-full rounded-md"
@@ -138,13 +136,12 @@ const Login = () => {
 								<FcGoogle className="mr-2 text-xl" />
 								Sign in with google
 							</button>
-						</form>
 
 						<p className="text-center mt-8">
 							Didn't have an account{" "}
 							<Link
 								to="/signUp"
-								className="ml-4 border-b-2 border-gray-500 pb-1"
+								className="ml-2 text-primary border-b-2 border-primary pb-1"
 							>
 								sign up
 							</Link>

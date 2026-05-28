@@ -7,7 +7,7 @@ export const baseApi = createApi({
 	// baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app", credentials: "include" }),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 
-	endpoints: (builder) => ({
+	endpoints: (builder) => ({	
 
 		getusers: builder.query({
 			query: (customer) => {
