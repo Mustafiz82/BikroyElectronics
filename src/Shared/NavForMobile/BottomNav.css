@@ -27,7 +27,7 @@
 .navigation ul {
     display: flex;
     /* margin-bottom:  -55px; */
-    width: 390px; 
+    width: 360px; 
 
 }
 
@@ -102,7 +102,7 @@ transform: translateY(20px);
     transition: .5s;
     
     transition-delay: .5s;
-    transform: translateY(-37px) scale(1);
+    transform: translateY(-38px) scale(1);
 }
 
 
@@ -184,23 +184,23 @@ transform: translateY(20px);
 }
 
 .navigation ul li:nth-child(1).active~.indicator {
-    transform: translateX(calc(83px * 0));
+    transform: translateX(calc(-2px * 1));
 }
 
 .navigation ul li:nth-child(2).active~.indicator {
-    transform: translateX(calc(78px * 1));
+    transform: translateX(calc(70px * 1));
 }
 
 .navigation ul li:nth-child(3).active~.indicator {
-    transform: translateX(calc(78px * 2));
+    transform: translateX(calc(71px * 2));
 }
 
 .navigation ul li:nth-child(4).active~.indicator {
-    transform: translateX(calc(78px * 3));
+    transform: translateX(calc(71px * 3));
 }
 
 .navigation ul li:nth-child(5).active~.indicator {
-    transform: translateX(calc(78px * 4));
+    transform: translateX(calc(71.5px * 4));
 }
 
 

@@ -106,7 +106,7 @@ const ProductCard = ({ item, discount }) => {
 						<img src={item?.imageUrl} className="mx-auto " alt="" />
 					</div>
 					<button onClick={addToCart} className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
-						<IoCartOutline className="text-xl mr-2" />
+						<IoCartOutline className="text-base md:text-xl mr-2" />
 						<h1 className="texg-">Add to Cart </h1>
 					</button>
 					<Link to={`/productdetail/${item?._id}`}
@@ -126,12 +126,12 @@ const ProductCard = ({ item, discount }) => {
 				</div>
 
 				<h1 className="mb-2 lg:mb-auto my-4 text-sm lg:min-h-12 font-medium">{item?.title}</h1>
-				<h1 className="lg:text-xl   font-medium text-primary ">
-					BDT {item?.discountedPrice ? item?.discountedPrice : item?.price} <span >{item?.discountedPrice ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>
+				<h1 className="text-sm lg:text-xl   font-medium text-primary ">
+					BDT {item?.discountedPrice ? item?.discountedPrice : item?.price} <span >{item?.discountedPrice ? <span className=" text-[#00000090] line-through	">{item?.price}</span> : <span className="text-black font-base font-normal text-base">({item?.sellCount || 0} sold)</span>}</span>	
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
 			</div></div>
-
+		
 		{/* ({item?.sellCount || 0} sold) */}
 
 

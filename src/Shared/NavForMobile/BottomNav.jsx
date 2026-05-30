@@ -22,7 +22,7 @@ const BottomNav3 = () => {
                             <span className="icon">
                                 <FaHome className="text-xl text-white" />
                             </span>
-                            <span className="text">Home</span>
+                            <span className="text ">Home</span>
                             <span className="circle"></span>
                         </Link>
                     </li>

@@ -23,7 +23,7 @@ const BestSelling = ({ categories }) => {
 							This Month
 						</h1>
 					</div>
-					<h1 className="text-2xl lg:text-4xl mt-4 lg:mt-10 font-medium font-inter">
+					<h1 className="text-xl md:text-2xl lg:text-4xl mt-4 lg:mt-10 font-medium font-inter">
 						Best Selling Products
 					</h1>
 

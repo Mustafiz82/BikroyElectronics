@@ -39,25 +39,25 @@ const Categories = ({ categories  , isLoading}) => {
 					Categories
 				</h1>
 			</div>
-			<h1 className="text-2xl lg:text-4xl mt-10 font-medium font-inter">
+			<h1 className="text-xl md:text-2xl lg:text-4xl mt-10 font-medium font-inter">
 				Browse By Category
 			</h1>
 
 
 			<div className="  flex flex-col xl:flex-row items-center justify-center gap-5 lg:gap-10 relative">
 				{/* arrow */}
-				<div className="absolute   -top-12 right-0 text-2xl  flex gap-2 lg:gap-8 z-50 pl-5">
+				<div className="absolute  -top-8 -right-2   sm:-top-12 sm:right-0 text-2xl  flex gap-2 lg:gap-8 z-50 pl-5">
 					{/* arrow left */}
 					<button
 						onClick={prevSlider}
-						className="bg-base-200 p-4 rounded-full"
+						className="bg-base-200 text-base !p-2 rounded-full"
 					>
 						<FaArrowLeftLong />
 					</button>
 					{/* arrow right */}
 					<button
 						onClick={nextSlider}
-						className="bg-base-200 p-4 rounded-full"
+						className="bg-base-200 text-base !p-2 rounded-full"
 					>
 						{" "}
 						<FaArrowRightLong />
@@ -107,7 +107,7 @@ const Categories = ({ categories  , isLoading}) => {
 													className="w-14 h-14 "
 												/>
 											</div>{" "}
-											<h1>{item?.title}</h1>
+											<h1 className="text-xs md:text-base">{item?.title}</h1>
 										</div>
 									</div>
 								</div>

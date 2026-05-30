@@ -7,22 +7,22 @@ const BannerAdd = () => {
 
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
 		return (
-			<div className="flex items-center font-medium gap-5">
-				<div className='bg-white text-black p-2 rounded-full w-20 h-20 text-center'>
-					<h1 className="text-xl lg:text-3xl font-bold">{days}</h1>
-					<h1 className="text-base">Days</h1>
+			<div className="flex items-center font-medium gap-3 lg:gap-5">
+				<div className='bg-white text-black p-2 rounded-full w-16 lg:w-20 h-16 lg:h-20 text-center'>
+					<h1 className="text-base sm:text-xl lg:text-3xl font-bold">{days}</h1>
+					<h1 className="text-sm md:text-base">Days</h1>
 				</div>
-				<div className='bg-white text-black p-2 rounded-full w-20 h-20 text-center'>
-					<h1 className="text-xl lg:text-3xl font-bold">{hours}</h1>
-					<h1 className="text-base">Hours</h1>
+				<div className='bg-white text-black p-2 rounded-full w-16 lg:w-20 h-16 lg:h-20 text-center'>
+					<h1 className="text-base sm:text-xl lg:text-3xl font-bold">{hours}</h1>
+					<h1 className="text-sm md:text-base">Hours</h1>
 				</div>
-				<div className='bg-white text-black p-2 rounded-full w-20 h-20 text-center'>
-					<h1 className="text-xl lg:text-3xl font-bold">{minutes}</h1>
-					<h1 className="text-base">Munite</h1>
+				<div className='bg-white text-black p-2 rounded-full w-16 lg:w-20 h-16 lg:h-20 text-center'>
+					<h1 className="text-base sm:text-xl lg:text-3xl font-bold">{minutes}</h1>
+					<h1 className="text-sm md:text-base">Munite</h1>
 				</div>
-				<div className='bg-white text-black p-2 rounded-full w-20 h-20 text-center'>
-					<h1 className="text-xl lg:text-3xl font-bold">{seconds}</h1>
-					<h1 className="text-base">Second</h1>
+				<div className='bg-white text-black p-2 rounded-full w-16 lg:w-20 h-16 lg:h-20 text-center'>
+					<h1 className="text-base sm:text-xl lg:text-3xl font-bold">{seconds}</h1>
+					<h1 className="text-sm md:text-base">Second</h1>
 				</div>
 			</div>
 		);
@@ -32,11 +32,11 @@ const BannerAdd = () => {
         <div className='md:my-20 last: '>
              <div className="flex md:flex-row flex-col-reverse text-white md:px-5 lg:px-0 lg:justify-around items-center w-full md:h-[500px]  bg-black ">
                 <div className='space-y-10 pb-10  lg:p-0'>
-                    <h1 className='text-xl   leading-9 font-poppins md:text-2xl lg:text-4xl font-medium '>
+                    <h1 className='text-xl   leading-9 font-poppins md:text-xl md:text-2xl lg:text-4xl font-medium '>
                         Enhance your <br /> <div className='pt-4'>videography Experience</div> 
                     </h1>
                     <Countdown
-							className="tet-xl "
+							className="text-base md:tet-xl "
 							date={Date.now() + 458895000}
 							renderer={renderer}
 						/>
