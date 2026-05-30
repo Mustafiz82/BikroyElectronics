@@ -105,7 +105,7 @@ const ProductCard = ({ item, discount }) => {
 					<div className="p-6 h-[250px] flex items-center">
 						<img src={item?.imageUrl} className="mx-auto " alt="" />
 					</div>
-					<button onClick={addToCart} className="flex hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
+					<button onClick={addToCart} className="flex hover:bg-gray-300 hover:text-black rounded-b-md rounded-none w-full text-white  bg-black btn ">
 						<IoCartOutline className="text-base md:text-xl mr-2" />
 						<h1 className="texg-">Add to Cart </h1>
 					</button>
@@ -131,7 +131,7 @@ const ProductCard = ({ item, discount }) => {
 				</h1>
 				{/* <Rating className="mt-4" style={{ maxWidth: 120 }} itemStyles={myStyles} value={4} readOnly  /> */}
 			</div></div>
-		
+
 		{/* ({item?.sellCount || 0} sold) */}
 
 
