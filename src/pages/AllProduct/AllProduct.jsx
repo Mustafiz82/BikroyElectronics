@@ -48,7 +48,7 @@ const AllProduct = () => {
 
   useEffect(() => {
     if (typeof categories === "string") {
-      setSelectedCategories(categories?.split("|"));
+      setSelectedCategories(categories?.split(","));
     }
   }, [categories]);
 
@@ -70,7 +70,7 @@ const AllProduct = () => {
   useEffect(() => {
     if (categories?.length < 1 && categoryItems?.length > 0) {
       const categoryTitle = categoryItems.map((item) => item?.title);
-      const categoryString = categoryTitle.join("|");
+      const categoryString = categoryTitle.join(",");
 
       dispatch(setCategories({ categories: categoryString }));
     }
@@ -112,7 +112,7 @@ const AllProduct = () => {
     }
 
     // setSelectedCategories(updatedCategories);
-    const categories = updatedCategories.join("|");
+    const categories = updatedCategories.join(",");
     // setFilter({
     // 	...filter,
     // 	category: categories,

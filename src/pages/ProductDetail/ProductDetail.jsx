@@ -153,9 +153,9 @@ const ProductDetail = () => {
           </div>
 
           <div>
-            <button className="btn btn-error bg-primary rounded-none w-full text-white btn">
+            {/* <button className="btn btn-error bg-primary rounded-none w-full text-white btn">
               <h1>Buy Now</h1>
-            </button>
+            </button> */}
           </div>
         </div>
 

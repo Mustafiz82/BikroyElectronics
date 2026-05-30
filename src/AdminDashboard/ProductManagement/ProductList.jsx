@@ -15,6 +15,8 @@ const ProductList = () => {
 	return (
 		<div className="px-4 ">
 
+				
+
 			
 			<div className="">
 				<div className="grid  grid-cols-8 md:grid-cols-9 font-medium ">
