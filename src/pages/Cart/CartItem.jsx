@@ -56,13 +56,13 @@ const CartItem = ({ item }) => {
         <div className="grid grid-cols-9  font-medium mb-8 mt-16">
             <div className="flex mr-5 relative items-center col-span-4  gap-2">
                 <div className='w-1/4'>
-                    <img src={item?.imageUrl} className="w-10  p-0" alt="" />
+                    <img src={item?.imageUrl?.[0]} className="w-10  p-0" alt="" />
                 </div>
                 <h1 className="lg:max-w-72 w-3/4 col-span-2">
                     {" "}
                     {item?.title}
                 </h1>
-                <button onClick={() => { handleDelete(item?._id) }} className="text-red-500 text-xl   -top-1 absolute"><TiDelete />
+                <button onClick={() => { handleDelete(item?._id) }} className="text-red-500 text-xl bg-white rounded-full p-0   -top-1 -left-2 absolute"><TiDelete />
                 </button>
 
             </div>

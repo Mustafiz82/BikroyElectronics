@@ -5,47 +5,44 @@ import imageUpload from "../../assets/Others/image-removebg-preview (14).svg";
 import {
   useGetCategoryListQuery,
   useGetSingleProductsQuery,
-  useSetProductsMutation,
   useUpdateSingleProductMutation,
 } from "../../redux/api/baseApi";
 import { useParams } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import RichTextEditor from "../../Components/RichTextEditor";
-import { data } from "autoprefixer";
+import { IoMdClose } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const EditProduct = () => {
   const { id } = useParams();
 
   const { register, handleSubmit, reset } = useForm();
   const { data: product, isLoading } = useGetSingleProductsQuery(id);
-  const [updateProduct, { isSuccess, data: updateStatus }] =
-    useUpdateSingleProductMutation();
+  const [updateProduct, { isSuccess }] = useUpdateSingleProductMutation();
 
-  const imageBBApiKey = "c696443c798ad9c58798852ae8d4166a";
-  const imageBBUrl = `https://api.imgbb.com/1/upload?key=${imageBBApiKey}`;
-
-  const [imageUrl, setImageUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const [files, setFiles] = useState([]);
   const [updateText, setUpdateText] = useState("Update product");
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const {
-    data: categoryItems,
-    isLoading: catLoading,
-    error,
-  } = useGetCategoryListQuery();
+  const { data: categoryItems } = useGetCategoryListQuery();
 
+  // Reset form values dynamically when product data is successfully loaded
   useEffect(() => {
     if (product) {
-      setDescription(product.description);
-      setImageUrl(product.imageUrl);
-      setSelectedCategory(product?.category);
+      setDescription(product.description || "");
+      setSelectedCategory(product?.category || "");
+      setFiles(product?.imageUrl || []);
+
+      reset({
+        title: product.title,
+        price: product.price,
+      });
     }
-  }, [product]);
+  }, [product, reset]);
 
   useEffect(() => {
     if (isSuccess) {
-      setUpdateText("Product Updateed");
+      setUpdateText("Product Updated");
     }
   }, [isSuccess]);
 
@@ -53,15 +50,39 @@ const EditProduct = () => {
     setSelectedCategory(event.target.value);
   };
 
-
   const onSubmit = async (data) => {
     try {
+      setUpdateText("Uploading Images...");
+
+      const oldImages = files.filter((item) => typeof item === "string");
+      const newImages = files.filter((item) => typeof item !== "string");
+
+      let imageUrls = [];
+
+      for (let image of newImages) {
+        const formdata = new FormData();
+        formdata.append("file", image);
+        formdata.append("upload_preset", "furniro");
+
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dcpjqjkht/image/upload",
+          formdata,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        imageUrls.push(res.data.url);
+      }
+
       setUpdateText("Updating Product...");
 
       const response = await updateProduct({
         id,
         data: {
-          imageUrl: imageUrl || product.imageUrl,
+          imageUrl: [...oldImages, ...imageUrls],
           ...data,
           description,
           category: selectedCategory,
@@ -91,11 +112,8 @@ const EditProduct = () => {
           text: "Product could not be updated.",
         });
       }
-
-      console.log(response);
     } catch (error) {
       console.error(error);
-
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -108,54 +126,23 @@ const EditProduct = () => {
     }
   };
 
-  const handleImageUpload = async (event) => {
-    setUploading(true);
-    const file = event.target.files[0];
-
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const res = await axios.post(imageBBUrl, formData, {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        });
-
-        const imageUrl = res?.data.data.image.url;
-        setImageUrl("");
-        await checkImageAvailability(imageUrl);
-        setImageUrl(imageUrl);
-      } catch (err) {
-        console.error("Error uploading image", err);
-      } finally {
-        setUploading(false);
-      }
+  const handleChangeFile = (e) => {
+    if (e.target.files) {
+      setFiles((prev) => [...prev, ...Array.from(e.target.files)]);
     }
   };
 
-  const checkImageAvailability = (url, retries = 5, delay = 1000) => {
-    return new Promise((resolve, reject) => {
-      let attempts = 0;
-
-      const tryLoadImage = () => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => {
-          if (attempts < retries) {
-            attempts++;
-            setTimeout(tryLoadImage, delay);
-          } else {
-            reject(new Error("Image not found"));
-          }
-        };
-        img.src = url;
-      };
-
-      tryLoadImage();
-    });
+  const handleRemoveImg = (idx) => {
+    setFiles((prev) => prev.filter((item, index) => idx !== index));
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-5 lg:my-10 px-4">
@@ -165,12 +152,11 @@ const EditProduct = () => {
       <Toaster />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="lg:flex gap-5 ">
-          <div className="mt-8 flex-1 ">
+        <div className="grid grid-cols-4 gap-5 ">
+          <div className="mt-8 col-span-3 flex-1 ">
             <input
               type="text"
               placeholder="Product Title"
-              defaultValue={product?.title}
               required
               {...register("title", { required: true })}
               className="input focus:border-none focus:outline-none rounded-sm w-full mb-8 bg-[#F5F5F5]"
@@ -181,54 +167,60 @@ const EditProduct = () => {
             <input
               type="text"
               placeholder=" $ Price "
-              defaultValue={product?.price}
               required
               {...register("price", { required: true })}
               className="input mt-28 lg:mt-20 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
             />
-
-		
           </div>
-          <div className="mt-8">
+          <div className="mt-8 col-span-1">
             <div>
+              <label
+                htmlFor="upload-img"
+                className="bg-base-200 w-full h-[300px] cursor-pointer"
+              >
+                <img className="bg-base-200" src={imageUpload} alt="" />
+              </label>
+
               <input
+                multiple
+                className="hidden"
+                onChange={handleChangeFile}
+                id="upload-img"
                 type="file"
-                id="file-upload"
-                className="hidden input-file"
-                onChange={handleImageUpload}
+                accept="image/png, image/webp, image/jpeg"
               />
 
-              <div className="lg:w-[250px] flex  justify-center items-center w-full h-full lg:h-[250px] bg-base-200">
-                <img src={imageUrl || imageUpload} alt="" className="w-full " />
-              </div>
-
-              <label
-                htmlFor="file-upload"
-                className="btn w-full lg:w-[250px] mt-6 btn-error bg-primary text-white rounded-sm"
-              >
-                {uploading ? (
-                  <div className="flex gap-2 justify-center items-center">
-                    <span className="loading loading-spinner loading-sm"></span>
-                    <span>Uploading ...</span>
+              <div className="flex mt-5 gap-2 flex-wrap">
+                {files.map((item, idx) => (
+                  <div key={idx} className="relative">
+                    <img
+                      className="w-16 h-16 object-cover"
+                      src={
+                        typeof item === "string"
+                          ? item
+                          : URL.createObjectURL(item)
+                      }
+                      alt=""
+                    />
+                    <span
+                      onClick={() => handleRemoveImg(idx)}
+                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-[2px] cursor-pointer"
+                    >
+                      <IoMdClose />
+                    </span>
                   </div>
-                ) : (
-                  "Upload Image"
-                )}
-              </label>
+                ))}
+              </div>
             </div>
+
             <select
+              value={selectedCategory}
               onChange={handleCategoryChange}
-              defaultChecked={product?.category}
-              className="select block rounded-sm focus:border-none focus:outline-none  mt-10 select-bordered w-full lg:w-[250px]"
+              className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-full lg:w-[250px]"
             >
-              <option disabled>Category</option>
-              px
+              <option value="" disabled>Category</option>
               {categoryItems?.map((item, inx) => (
-                <option
-                  selected={item?.title == product?.category ? "true" : "false"}
-                  key={inx}
-                >
-                  {" "}
+                <option key={inx} value={item?.title}>
                   {item?.title}
                 </option>
               ))}
