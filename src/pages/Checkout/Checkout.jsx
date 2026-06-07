@@ -98,15 +98,23 @@ const Checkout = () => {
           discount: discount,
           paymentMethod: paymentMethod, // Dynamic payment method passed here
           date: new Date(),
-          status: "pending",
         };
 
-        try {
+        try { 
           const response = await setOrder(ordersData);
           if (response?.data) {
-            setOrderButtonText("Order proceed");
-            deleteProducts();
-            navigate("/Dashboard/myorders");
+
+            console.log(response.data)
+
+            if(response?.data?.url){
+              window.location.replace(response?.data?.url)
+              setOrderButtonText("Order proceed");
+            }
+            else{
+              
+              navigate("/Dashboard/myorders");
+              setOrderButtonText("Order proceed");
+            }
           }
         } catch (error) {
           console.error("Order processing failed", error);
