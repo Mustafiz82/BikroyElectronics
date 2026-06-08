@@ -34,6 +34,7 @@ import CustomerList from "../AdminDashboard/UserManagement/CustomerList";
 import AdminRoute from "./AdminRoute";
 import PaymentSuccess from "../pages/SSLCommerszStatus/PaymentSuccess";
 import PayemntFailed from "../pages/SSLCommerszStatus/PayemntFailed";
+import PaymentCancel from "../pages/SSLCommerszStatus/PaymentCancelled";
 
 
 const router = createBrowserRouter([
@@ -177,6 +178,10 @@ const router = createBrowserRouter([
 	{
 		path: "/payment/failed",
 		element: <PayemntFailed></PayemntFailed>
+	},
+	{
+		path: "/payment/cancel",
+		element: <PaymentCancel/>
 	},
 ]);
 

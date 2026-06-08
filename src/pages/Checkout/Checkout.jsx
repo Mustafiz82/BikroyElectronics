@@ -112,7 +112,7 @@ const Checkout = () => {
             }
             else{
               
-              navigate("/Dashboard/myorders");
+            window.location.replace("/payment/success");
               setOrderButtonText("Order proceed");
             }
           }
@@ -185,7 +185,7 @@ const Checkout = () => {
               </label>
               <input
                 {...register("PhoneNumber", { required: true })}
-                type="tel"
+                type="number" 
                 id="PhoneNumber"
                 className="input mt-2 focus:border-none focus:outline-none rounded-sm w-full bg-[#F5F5F5]"
               />

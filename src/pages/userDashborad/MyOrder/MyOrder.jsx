@@ -13,11 +13,19 @@ const MyOrder = () => {
 	const { data: orders, isLoading ,error , isError} = useGetOrdersQuery(email)
 	const [updateOrder, { data: updateStatus }] = useUpdateOrderStatusMutation()
 
-	const formatDateString = (dateString) => {
-		const date = new Date(dateString);
-		const options = { day: '2-digit', month: 'short', year: 'numeric' };
-		return date.toLocaleDateString('en-GB', options);
+	
+	const formatDateTimeString = (dateString) => {
+	const date = new Date(dateString);
+	const options = { 
+		day: '2-digit', 
+		month: 'short', 
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: true 
 	};
+	return date.toLocaleString('en-GB', options);
+};
 
 	const handleCancelOrder = (id) => {
 
@@ -113,11 +121,11 @@ const MyOrder = () => {
 										{item?.TransID  || item?._id}
 									</span>
 								</h1>
-								<p> Placed on {formatDateString(item?.date)}</p>
+								<p> Placed on {formatDateTimeString(item?.date)}</p>
 							</div>
 							<div className="">
 								<h1> Total : {item?.totalPrice}</h1>{" "}
-								<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.status}</p>
+								<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.orderStatus}</p>
 							</div>
 						</div>
 
@@ -125,11 +133,11 @@ const MyOrder = () => {
 
 					<div className="p-10 pt-0">
 						{
-							item?.OrderDetails.map(OrderedItem => <div className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+							item?.products.map(OrderedItem => <div className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
 								<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
 
 									<div className='w-1/4 lg:w-10'>
-										<img src={OrderedItem?.imageUrl} className="min-w-full   p-0" alt="" />
+										<img src={OrderedItem?.imageUrl?.[0]} className="min-w-full   p-0" alt="" />
 									</div>
 
 									<h1 className="w-3/4 lg:max-w-72 text-sm col-span-2">

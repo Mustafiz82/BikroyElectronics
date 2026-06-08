@@ -79,7 +79,7 @@ const OrderList = () => {
                         </div>
                         <div className="">
                             <h1 className='flex items-center gap-1'><span><FaBangladeshiTakaSign></FaBangladeshiTakaSign></span>{item?.totalPrice}</h1>
-                            <p className='text-sm text-slate-500'>{item?.OrderDetails?.length} item</p>
+                            <p className='text-sm text-slate-500'>{item?.products?.length} item</p>
                         </div>
                         <div className="col-span-2 hidden  lg:block">
                             <h1 className='f'>{item?._id}</h1>

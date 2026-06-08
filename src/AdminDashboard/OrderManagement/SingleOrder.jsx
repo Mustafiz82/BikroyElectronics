@@ -50,7 +50,7 @@ const SingleOrder = () => {
 
 
     return (
-        <div className='my-5 px-4 flex flex-col lg:flex-row gap-5'>
+        <div className='mb-5 px-4 flex flex-col lg:flex-row gap-5'>
             <div className='border-r-black flex-1 lg:gitw-3/5 pr-5 lg:border-r-2'>
                 <h1 className='text-xl mb-5'>Ordered Products</h1>
 
@@ -67,15 +67,15 @@ const SingleOrder = () => {
                     }
 
                     {
-                        order?.OrderDetails?.map(item => <div className='flex justify-between'>
+                        order?.products?.map(item => <div className='flex mt-5 justify-between'>
                             <div className='flex gap-2  items-center' >
-                                <img src={item?.imageUrl} className='w-14 h-14' alt="" />
+                                <img src={item?.imageUrl?.[0]} className='w-14 bg-gray-200' alt="" />
                                 <div>
                                     <h1>{item?.title}</h1>
                                     <p className='text-md text-sm text-slate-500'>{item?.category}</p>
                                 </div>
                             </div>
-                            <h1 className='flex gap-1 items-center'>{item?.price}<FaBangladeshiTakaSign></FaBangladeshiTakaSign></h1>
+                            <h1 className='flex gap-1  items-center'>{item?.price}<FaBangladeshiTakaSign></FaBangladeshiTakaSign></h1>
                         </div>)
                     }
 
@@ -89,6 +89,9 @@ const SingleOrder = () => {
                     <h1 className='flex '><div className='font-bold w-[150px]  '>Discount       </div>  : {order?.discount || 0} %</h1>
                     <h1 className='flex '><div className='font-bold w-[150px]  '>Pament Method </div> :   {order?.paymentMethod}</h1>
                     <h1 className='flex '><div className='font-bold w-[150px]  '>Ordered Date  </div> : {formatDateString(order?.date)} {formateTimeString(order?.date)} </h1>
+                    <h1 className='flex '><div className='font-bold w-[150px]  '>Ordered Date  </div> : {formatDateString(order?.date)} {formateTimeString(order?.date)} </h1>
+                    <h1 className='flex '><div className='font-bold w-[150px]  '>payment status </div> : {order?.paymentStatus} </h1>
+                    <h1 className='flex '><div className='font-bold w-[150px]  '>order status </div> : {order?.orderStatus} </h1>
 
                 </div>
 
