@@ -83,7 +83,7 @@ const MyCancellations = () => {
                         <p>If you want to cancel any order go to Order page.</p>
                         <Link to="/Dashboard/myorders" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Manage Orders</Link>
                     </div>
-                </div> : cancelledOrders?.map(item => <div className="mb-16 border-2  ">
+                </div> : cancelledOrders?.map(item => <div key={item?._id} className="mb-16 border-2  ">
 					<div className="border-b-2 ">
 						<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
 							<div className="">
@@ -106,11 +106,11 @@ const MyCancellations = () => {
 
 					<div className="p-10 pt-0">
 						{
-							item?.OrderDetails.map(OrderedItem => <div className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+							item?.products?.map(OrderedItem => <div key={OrderedItem?._id} className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
 								<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
 
 									<div className='w-1/4 lg:w-10'>
-										<img src={OrderedItem?.imageUrl} className="min-w-full   p-0" alt="" />
+										<img src={OrderedItem?.imageUrl?.[0]} className="min-w-full   p-0" alt="" />
 									</div>
 
 									<h1 className="w-3/4 lg:max-w-72 text-sm col-span-2">
@@ -124,7 +124,7 @@ const MyCancellations = () => {
 							</div>)
 						}
 					</div>
-					<button onClick={() => handleCancelOrder(item?._id)} className="btn w-full rounded-sm">	cancel Order</button>
+					{/* <button onClick={() => handleCancelOrder(item?._id)} className="btn w-full rounded-sm">	cancel Order</button> */}
 
                 </div>)
             }

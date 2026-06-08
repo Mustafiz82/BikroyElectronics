@@ -57,7 +57,7 @@ const SingleOrder = () => {
                 <div className="" >
 
                     {
-                        isLoading ? elements?.map(item =>  <div className='flex mt-2 justify-between items-center'>
+                        isLoading ? elements?.map(item =>  <div key={item?._id} className='flex mt-2 justify-between items-center'>
                             <div className="flex gap-5 items-center">
                                 <div className="skeleton w-10 h-10 "></div>
                                 <div className="skeleton w-52 h-8 "></div>
@@ -67,7 +67,7 @@ const SingleOrder = () => {
                     }
 
                     {
-                        order?.products?.map(item => <div className='flex mt-5 justify-between'>
+                        order?.products?.map(item => <div key={item?._id} className='flex mt-5 justify-between'>
                             <div className='flex gap-2  items-center' >
                                 <img src={item?.imageUrl?.[0]} className='w-14 bg-gray-200' alt="" />
                                 <div>
@@ -110,7 +110,7 @@ const SingleOrder = () => {
 
                 </div>
 
-                <button disabled={order?.status == "completed"} onClick={handleCompleteOrder} className='btn rounded-sm border-none outline-none  btn-primary bg-primary rounded-md '>{compleatingOrder ? "completing..." : order?.status == "completed" ? "Order Completed" : "complete Order"}</button>
+                <button disabled={order?.orderStatus == "completed"} onClick={handleCompleteOrder} className='btn rounded-sm border-none outline-none  btn-primary bg-primary rounded-md '>{compleatingOrder ? "completing..." : order?.orderStatus == "completed" ? "Order Completed" : "complete Order"}</button>
 
             </div>
         </div>

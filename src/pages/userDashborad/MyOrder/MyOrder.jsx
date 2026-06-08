@@ -110,7 +110,7 @@ const MyOrder = () => {
 						<p>It looks like you haven't placed any orders yet.</p>
 						<Link to="/allproduct" className="btn btn-primary bg-primary rounded-sm border-none mt-4">Start Shopping</Link>
 					</div>
-				</div> : orders?.map(item => <div className="mb-16 border-2  ">
+				</div> : orders?.map(item => <div key={item?._id} className="mb-16 border-2  ">
 					<div className="border-b-2 ">
 						<div className="flex gap-0 p-5 lg:p-10  items-center justify-between">
 							<div className="">
@@ -125,7 +125,7 @@ const MyOrder = () => {
 							</div>
 							<div className="">
 								<h1> Total : {item?.totalPrice}</h1>{" "}
-								<p className="bg-base-200 p-1 text-center mt-1 rounded-full">{item?.orderStatus}</p>
+								<p className={` bg-base-200 p-1 text-center mt-1 rounded-full px-2 ${item?.orderStatus === "completed" && "bg-green-500 text-white "}`}>{item?.orderStatus}</p>
 							</div>
 						</div>
 
@@ -133,7 +133,7 @@ const MyOrder = () => {
 
 					<div className="p-10 pt-0">
 						{
-							item?.products.map(OrderedItem => <div className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+							item?.products.map(OrderedItem => <div key={item?._id} className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
 								<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
 
 									<div className='w-1/4 lg:w-10'>
@@ -151,9 +151,10 @@ const MyOrder = () => {
 							</div>)
 						}
 					</div>
-					<button onClick={() => handleCancelOrder(item?._id)} className="btn w-full rounded-sm">	cancel Order</button>
+					<button disabled={item?.orderStatus === "completed"} onClick={() => handleCancelOrder(item?._id)} className="btn disabled:cursor-not-allowed w-full rounded-sm">	cancel Order</button>
 
 				</div>)
+
 			}
 
 
