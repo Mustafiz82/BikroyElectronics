@@ -44,8 +44,8 @@ const Nav = () => {
   const cartCount = cartData.reduce((total, item) => total + item.quantity, 0);
 const wishlistCount = wishlistData?.length || 0;
 
-  console.log({ userEmail: email });
-  console.log(status, "cookie status");
+  // console.log({ userEmail: email });
+  // console.log(status, "cookie status");
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ const wishlistCount = wishlistData?.length || 0;
     navigate("/allproduct");
   };
 
-  console.log("isAdmin", isAdmin);
+  // console.log("isAdmin", isAdmin);
 
   const handleLogout = () => {
     signOut(auth)

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
 	reducerPath: "api",
-	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5144", credentials: "include" }),
+	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000", credentials: "include" }),
 	// baseQuery: fetchBaseQuery({ baseUrl: "https://bikroyelectronics-server.vercel.app", credentials: "include" }),
 	tagTypes: ['user', 'products', 'singleProduct', 'wishlist', 'cart', 'orders', 'flashSale', 'coupon'],
 
@@ -21,7 +21,7 @@ export const baseApi = createApi({
 			providesTags: ['user']
 		}),
 		getSingleUser: builder.query({
-			query: (email) => `/user/${email}`,
+			query: (email) => `/users/${email}`,
 			providesTags: ['user']
 		}),
 
@@ -132,9 +132,9 @@ export const baseApi = createApi({
 			query: (email, id) => `/wishlistStatus?email=${email}&id=${id}`,
 		}),
 		deleteWishlistProduct: builder.mutation({
-			query(id) {
+			query({id , email}) {
 				return {
-					url: `wishlist/${id}`,
+					url: `wishlist/${id}?email=${email}`,
 					method: "DELETE",
 				};
 			},

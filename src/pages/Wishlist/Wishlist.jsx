@@ -16,32 +16,18 @@ const Wishlist = () => {
 	const { data: Products , isLoading:isProductsLoading} = useGetProductsQuery()
 	const [deleteProduct , {data}] = useDeleteWishlistProductMutation()
 	const [moveToCart , {data : moveStatus , isLoading}] = useSetAllCartProductMutation() 
-console.log(error)
+console.log(wishlistProduct)
 
 
 
 const handleMoveToCart = () => {
-	if(wishlistProduct){
-
-
-		
-
-		// const object = 
-		const updateProduct = wishlistProduct?.map(item => { 
-
-			const {_id , productId , email , quantity , imageUrl , title , price , category } = item
-
-			const newObject = {
-				productId , email  , imageUrl , title , price , category , quantity : 1
-			}
-
-			return newObject
-		})
-		return moveToCart(updateProduct)
+	if (email) {
+		// Simply pass the email inside an object to match the backend expectation
+		moveToCart({ email });
+	} else {
+		console.log("No email found to move items to cart");
 	}
-	console.log("no wishlist product found")
-}
-
+};
 if(isError) {
 	return <div className="w-full h-[500px] flex-col gap-2 flex justify-center items-center">
 		<img src={warningImage} className="w-28 h-28" alt="" srcset="" />

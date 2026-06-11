@@ -38,7 +38,7 @@ const ManageCategories = () => {
 
         setCategory({
           title: data?.CategoryName,
-          imageurl: res?.data.data.display_url,
+          imageUrl: res?.data.data.display_url,
         }).then(() => {
           Swal.fire({
             icon: "success",
@@ -113,7 +113,7 @@ const ManageCategories = () => {
               <div>
                 <div className="flex w-24 mx-auto h-24  mb-4 justify-center items-center">
                   {" "}
-                  <img src={item?.imageurl} alt="" />
+                  <img src={item?.imageUrl} alt="" />
                 </div>{" "}
                 <h1>{item?.title}</h1>
               </div>

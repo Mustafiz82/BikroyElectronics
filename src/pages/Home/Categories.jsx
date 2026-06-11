@@ -102,7 +102,7 @@ const Categories = ({ categories  , isLoading}) => {
 											<div className="flex mb-2 lg:mb-4 justify-center items-center">
 												{" "}
 												<img
-													src={item?.imageurl}
+													src={item?.imageUrl}
 													alt=""
 													className="w-14 h-14 "
 												/>

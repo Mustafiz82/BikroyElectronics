@@ -81,7 +81,8 @@ const ProductDetail = () => {
     };
 
     try {
-      await setWishListProduct(wishListObject).unwrap();
+      const response = await setWishListProduct(wishListObject).unwrap();
+      console.log(response)
       toast.success("Product Added to WishList", toastStyle);
     } catch (err) {
       console.error("Error adding to wishlist:", err);
