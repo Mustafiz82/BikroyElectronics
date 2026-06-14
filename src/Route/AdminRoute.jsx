@@ -1,5 +1,4 @@
-// Assuming you have actions like `logoutUser` in your Redux slice
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { setInitializing, setUser } from "../redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -9,66 +8,65 @@ import { useGetSingleUserQuery } from "../redux/api/baseApi";
 
 const AdminRoute = ({ children }) => {
     const { email, isInitializing } = useSelector((state) => state.userSlice);
-    const {data:isAdmin , isLoading} = useGetSingleUserQuery(email)
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-
-    console.log(isAdmin?.role , "isAdmin")
-
-
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				dispatch(
-					setUser({
-						name: user?.displayName,
-						email: user?.email,
-						
-					})
-				);
-				dispatch(setInitializing({ isInitializing: false }));
-			} else {
-				navigate("/login");
-				dispatch(
-					setUser({
-						name: null,
-						email: null,
-					})
-				);
-				dispatch(setInitializing({ isInitializing: false }));
-			}
-		});
-
-		return unsubscribe; // Cleanup on unmount
-	}, [dispatch]);
-
-	
-
-	if (isInitializing || isLoading) {
-		return (
-			<div className="h-screen min-h-[500px] w-full flex justify-center items-center">
-				<div className="loader">
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-					<div className="loader-square"></div>
-				</div>
-               
-			</div>
-		);
-	}
-
-	
-	if (email && (isAdmin?.role == "admin")) {
-		return children;
-	}
     
+    // Skip the query entirely if the email is not yet available
+    const { 
+        data: isAdmin, 
+        isLoading: isRoleLoading, 
+        isFetching: isRoleFetching 
+    } = useGetSingleUserQuery(email, { skip: !email });
+    
+    const dispatch = useDispatch();
 
-	return <Navigate to="/login" />;
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                dispatch(
+                    setUser({
+                        name: user?.displayName,
+                        email: user?.email,
+                    })
+                );
+                dispatch(setInitializing({ isInitializing: false }));
+            } else {
+                // Let the JSX handle the redirect to /login naturally
+                dispatch(
+                    setUser({
+                        name: null,
+                        email: null,
+                    })
+                );
+                dispatch(setInitializing({ isInitializing: false }));
+            }
+        });
+
+        return unsubscribe; // Cleanup on unmount
+    }, [dispatch]);
+
+    // Show loading spinner if auth is initializing OR if we have an email and are actively fetching/loading the role
+    if (isInitializing || (email && (isRoleLoading || isRoleFetching))) {
+        return (
+            <div className="h-screen min-h-[500px] w-full flex justify-center items-center">
+                <div className="loader">
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                    <div className="loader-square"></div>
+                </div>
+            </div>
+        );
+    }
+
+    // Grant access if the user is logged in and verified as an admin
+    if (email && isAdmin?.role === "admin") {
+        return children;
+    }
+
+    // Default redirect to login if loading finishes and they aren't authorized
+    return <Navigate to="/login" replace />;
 };
 
 export default AdminRoute;

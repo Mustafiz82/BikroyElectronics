@@ -133,7 +133,7 @@ const MyOrder = () => {
 
 					<div className="p-10 pt-0">
 						{
-							item?.products.map(OrderedItem => <div key={item?._id} className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
+							item?.cartData.map(OrderedItem => <div key={item?._id} className="grid gap-5 lg:gap-10 items-center grid-cols-8  font-medium mt-8 lg:mt-16">
 								<div className="flex  items-center  col-span-5 lg:col-span-4 gap-2">
 
 									<div className='w-1/4 lg:w-10'>

@@ -16,21 +16,23 @@ const ProductDetail = () => {
 
   // Redux & API Hooks
   const { email } = useSelector((state) => state.userSlice);
-  const { data: product, isLoading: productLoading } = useGetSingleProductsQuery(id);
-  const [setWishListProduct, { isLoading: isWishlistLoading }] = useSetWishListProductMutation();
+  const { data: product, isLoading: productLoading } =
+    useGetSingleProductsQuery(id);
+  const [setWishListProduct, { isLoading: isWishlistLoading }] =
+    useSetWishListProductMutation();
   const [setCart] = useSetCartProductMutation();
 
   // Local Component States
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isImgLoading, setIsImgLoading] = useState(true); 
-  const [wishListStatus, setWishListStatus] = useState(null); 
+  const [isImgLoading, setIsImgLoading] = useState(true);
+  const [wishListStatus, setWishListStatus] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [hoverPos, setHoverPos] = useState({ x: 0, y: 0 });
   const [zoomStyle, setZoomStyle] = useState({
     transformOrigin: "center center",
     transform: "scale(1)",
   });
-  
+
   // Persistent first-time hover state
   const [showHint, setShowHint] = useState(() => {
     return !localStorage.getItem("hasUsedZoom");
@@ -82,7 +84,7 @@ const ProductDetail = () => {
 
     try {
       const response = await setWishListProduct(wishListObject).unwrap();
-      console.log(response)
+      console.log(response);
       toast.success("Product Added to WishList", toastStyle);
     } catch (err) {
       console.error("Error adding to wishlist:", err);
@@ -114,7 +116,8 @@ const ProductDetail = () => {
   const handleMouseMove = (e) => {
     if (isImgLoading) return;
 
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
 
@@ -159,7 +162,7 @@ const ProductDetail = () => {
         <div className="w-full lg:w-1/2 space-y-5">
           {/* Title */}
           <div className="skeleton h-7 w-3/4 rounded-sm" />
-          
+
           {/* Stock Status */}
           <div className="flex gap-4 items-center mt-4">
             <div className="skeleton h-5 w-20 rounded-sm" />
@@ -191,26 +194,34 @@ const ProductDetail = () => {
   return (
     <div className="mx-5 lg:mx-auto lg:px-28 flex flex-col lg:flex-row gap-12 my-5 lg:my-10">
       {/* Image Gallery & Zoom Section */}
-      <div className="flex gap-4">
-        <div className="space-y-4">
-          {product?.imageUrl?.map((item, index) => (
+      <div className="flex  custom-scrollbar  px-2 gap-4">
+        <div
+          className="space-y-4  max-h-[500px] "
+          style={{
+            scrollbarWidth: "none",
+          }}
+        >
+          {" "}
+          {product?.imageUrl?.slice(0, 5)?.map((item, index) => (
             <img
               key={index}
               onClick={() => {
-                if (selectedImage !== item) {
+                if (selectedImage !== item) { 
                   setIsImgLoading(true); // Set loading state synchronously
                   setSelectedImage(item);
                 }
               }}
               src={item}
-              className={`w-20 bg-base-200 p-2 h-20 rounded-lg cursor-pointer transition-all duration-200 ${
-                selectedImage === item ? "border-2 border-primary scale-105" : "border border-transparent hover:scale-105"
+              className={`w-20 bg-base-200 h-20 rounded-lg cursor-pointer transition-all duration-200 ${
+                selectedImage === item
+                  ? "border-2 border-primary scale-105"
+                  : "border border-transparent hover:scale-105"
               }`}
               alt={`Thumbnail ${index + 1}`}
             />
           ))}
         </div>
-        
+
         <div
           className="relative overflow-hidden w-[500px] h-[500px] bg-[#F5F5F5] flex items-center justify-center cursor-zoom-in rounded-sm border border-gray-100"
           onMouseMove={handleMouseMove}
@@ -225,15 +236,17 @@ const ProductDetail = () => {
           <div
             key={selectedImage} // React key forces a re-mount to re-trigger transition classes
             className={`w-full h-full flex items-center justify-center transition-all duration-300 ease-out transform ${
-              isImgLoading ? "opacity-0 scale-95 blur-sm" : "opacity-100 scale-100 blur-0"
+              isImgLoading
+                ? "opacity-0 scale-95 blur-sm"
+                : "opacity-100 scale-100 blur-0"
             }`}
           >
             <img
               src={selectedImage}
               onLoad={() => setIsImgLoading(false)}
-              onError={() => setIsImgLoading(false)} 
+              onError={() => setIsImgLoading(false)}
               style={zoomStyle}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               alt={product?.title || "Product"}
             />
           </div>
@@ -279,7 +292,8 @@ const ProductDetail = () => {
         </div>
 
         <h1 className="text-3xl font-medium">
-          BDT {product?.discountedPrice ? product?.discountedPrice : product?.price}
+          BDT{" "}
+          {product?.discountedPrice ? product?.discountedPrice : product?.price}
           {product?.discountedPrice && (
             <span className="text-[#00000090] line-through ml-4 text-2xl">
               {product?.price}

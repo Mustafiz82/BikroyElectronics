@@ -11,8 +11,8 @@ import { useSetUsersMutation } from "../../api/baseApi";
 import axios from "axios";
 
 const initialState = {
-  name: "",
-  email: "",
+  name: null,
+  email: null,
   isLoading: false,
   isInitializing: true,
   isError: false,

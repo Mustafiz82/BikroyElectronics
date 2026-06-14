@@ -25,6 +25,7 @@ const EditProduct = () => {
   const [description, setDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const { data: categoryItems } = useGetCategoryListQuery();
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   // Reset form values dynamically when product data is successfully loaded
   useEffect(() => {
@@ -50,6 +51,27 @@ const EditProduct = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleDrop = (index) => {
+    if (draggedIndex === null) return;
+
+    const updatedFiles = [...files];
+    const draggedItem = updatedFiles[draggedIndex];
+
+    updatedFiles.splice(draggedIndex, 1);
+    updatedFiles.splice(index, 0, draggedItem);
+
+    setFiles(updatedFiles);
+    setDraggedIndex(null);
+  };
+
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   const onSubmit = async (data) => {
     try {
       setUpdateText("Uploading Images...");
@@ -71,7 +93,7 @@ const EditProduct = () => {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-          }
+          },
         );
 
         imageUrls.push(res.data.url);
@@ -192,9 +214,16 @@ const EditProduct = () => {
 
               <div className="flex mt-5 gap-2 flex-wrap">
                 {files.map((item, idx) => (
-                  <div key={idx} className="relative">
+                  <div
+                    key={idx}
+                    draggable
+                    onDragStart={() => handleDragStart(idx)}
+                    onDragOver={handleDragOver}
+                    onDrop={() => handleDrop(idx)}
+                    className="relative cursor-move"
+                  >
                     <img
-                      className="w-16 h-16 object-cover"
+                      className="w-16 h-16 object-cover border"
                       src={
                         typeof item === "string"
                           ? item
@@ -202,6 +231,7 @@ const EditProduct = () => {
                       }
                       alt=""
                     />
+
                     <span
                       onClick={() => handleRemoveImg(idx)}
                       className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-[2px] cursor-pointer"
@@ -218,7 +248,9 @@ const EditProduct = () => {
               onChange={handleCategoryChange}
               className="select block rounded-sm focus:border-none focus:outline-none mt-10 select-bordered w-full lg:w-[250px]"
             >
-              <option value="" disabled>Category</option>
+              <option value="" disabled>
+                Category
+              </option>
               {categoryItems?.map((item, inx) => (
                 <option key={inx} value={item?.title}>
                   {item?.title}

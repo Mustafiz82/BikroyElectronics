@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetProductsQuery } from "../../redux/api/baseApi";
+import {
+  useGetProductsQuery,
+  useDeleteProductMutation,
+} from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
-import { setPage } from "../../redux/features/filter/filterSlice"; 
+import { setPage } from "../../redux/features/filter/filterSlice";
 import Pagination from "../../Components/Pagination";
+  import Swal from "sweetalert2";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -13,7 +17,7 @@ const ProductList = () => {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
+  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
   // 3. Debounce search text and reset Redux page state to 0 on new search query
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -43,7 +47,7 @@ const ProductList = () => {
     {
       pollingInterval: 30000,
       refetchOnMountOrArgChange: true,
-    }
+    },
   );
 
   // Handle sort changes
@@ -61,6 +65,41 @@ const ProductList = () => {
   };
 
   const elements = Array.from({ length: 7 });
+
+
+const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Delete Product?",
+    text: "This action cannot be undone.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+    cancelButtonText: "Cancel",
+    confirmButtonColor: "#d33",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await deleteProduct(id).unwrap();
+
+    Swal.fire({
+      title: "Deleted!",
+      text: "Product deleted successfully.",
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  } catch (error) {
+    console.error(error);
+
+    Swal.fire({
+      title: "Error!",
+      text: "Failed to delete product.",
+      icon: "error",
+    });
+  }
+};
 
   return (
     <div className="px-4">
@@ -97,11 +136,11 @@ const ProductList = () => {
 
       <div>
         {/* Table Headers */}
-        <div className="grid grid-cols-8 md:grid-cols-9 font-medium border-b pb-2 mb-4">
-          <h1 className="col-span-6 md:col-span-4">Product</h1>
-          <h1 className="col-span-2 hidden md:block">Price</h1>
-          <h1 className="col-span-2 hidden md:block">Quantity</h1>
-          <h1 className="col-span-1">Edit</h1>
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] font-medium border-b pb-2 mb-4">
+          <h1 className=" ">Product</h1>
+          <h1 className=" hidden md:block">Price</h1>
+          <h1 className=" hidden md:block">Quantity</h1>
+          <h1 className="">Action</h1>
         </div>
 
         {/* Loading Skeletons */}
@@ -133,9 +172,9 @@ const ProductList = () => {
           products?.map((item) => (
             <div
               key={item?._id}
-              className="grid grid-cols-8 md:grid-cols-9 gap-4 font-medium my-10 items-center"
+              className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-4 font-medium my-10 items-center"
             >
-              <div className="flex relative items-center md:col-span-4 col-span-6 gap-2">
+              <div className="flex relative items-center gap-2">
                 <div className="min-w-12">
                   <img
                     src={item?.imageUrl?.[0] || "https://placehold.co/40"}
@@ -143,17 +182,27 @@ const ProductList = () => {
                     alt={item?.title || "Product Image"}
                   />
                 </div>
-                <h1 className="max-w-72 col-span-2">{item?.title}</h1>
+                <h1 className="max-w-72 ">{item?.title}</h1>
               </div>
-              <h1 className="col-span-2 hidden md:block">BDT {item?.price}</h1>
-              <div className="col-span-2 hidden md:block">
+              <h1 className=" hidden md:block">BDT {item?.price}</h1>
+              <div className=" hidden md:block">
                 <h1>5</h1>
               </div>
-              <Link to={`/admin/editproducts/${item?._id}`}>
-                <button className="btn btn-outline text-primary rounded-sm">
-                  Edit
+              <div className="flex gap-2">
+                <Link to={`/admin/editproducts/${item?._id}`}>
+                  <button className="btn btn-outline text-primary rounded-sm">
+                    Edit
+                  </button>
+                </Link>
+
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  disabled={isDeleting}
+                  className="btn btn-outline btn-error rounded-sm"
+                >
+                  Delete
                 </button>
-              </Link>
+              </div>
             </div>
           ))}
       </div>

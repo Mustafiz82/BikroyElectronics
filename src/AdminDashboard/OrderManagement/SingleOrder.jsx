@@ -67,7 +67,7 @@ const SingleOrder = () => {
                     }
 
                     {
-                        order?.products?.map(item => <div key={item?._id} className='flex mt-5 justify-between'>
+                        order?.cartData?.map(item => <div key={item?._id} className='flex mt-5 justify-between'>
                             <div className='flex gap-2  items-center' >
                                 <img src={item?.imageUrl?.[0]} className='w-14 bg-gray-200' alt="" />
                                 <div>
